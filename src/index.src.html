@@ -1,0 +1,1067 @@
+<title>TravelTank on WhatsApp</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
+<style>
+/* Layout concept: a review deck for three audiences. Each touchpoint pairs the real TravelTank screen (left, scaled)
+   with a WhatsApp phone (right), driven by one stepper, with design / business / build notes beneath. */
+:root{
+  --bg:#F2F6F6; --surface:#FFFFFF; --surface-2:#E9F3F3; --ink:#0F2A2E; --muted:#4D666A; --line:#D5E2E3;
+  --accent:#01747F; --accent-ink:#FFFFFF; --coral:#FE5C61; --wa:#168F4D; --wa-soft:#E2F5E9; --wa-line:#9BD9B3;
+  --display:'Manrope','Roboto',system-ui,sans-serif; --body:'Roboto',system-ui,-apple-system,'Segoe UI',sans-serif; --mono:'Roboto Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0A1315; --surface:#111E21; --surface-2:#172A2E; --ink:#E5F0F1; --muted:#98B1B4; --line:#233a3f;
+  --accent:#4DC4D0; --accent-ink:#06282C; --coral:#FF7A7E; --wa:#3FD17F; --wa-soft:#123325; --wa-line:#21603F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A1315; --surface:#111E21; --surface-2:#172A2E; --ink:#E5F0F1; --muted:#98B1B4; --line:#233a3f;
+  --accent:#4DC4D0; --accent-ink:#06282C; --coral:#FF7A7E; --wa:#3FD17F; --wa-soft:#123325; --wa-line:#21603F; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 56px}
+.wrap{max-width:1240px;margin:0 auto}
+h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.logo{height:26px;width:auto}.logo-w{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .logo-g{display:none}:root:not([data-theme="light"]) .logo-w{display:block}}
+:root[data-theme="dark"] .logo-g{display:none}:root[data-theme="dark"] .logo-w{display:block}
+
+/* top bar + tabs */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px 10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px}
+.brand .x{width:1px;height:22px;background:var(--line)}
+.brand .wa-name{display:flex;align-items:center;gap:7px;font-family:var(--display);font-weight:700;font-size:16px}
+.brand .wa-name svg{width:20px;height:20px;color:var(--wa)}
+.status{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:var(--surface)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:6px 0 14px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;scrollbar-width:thin}
+.tab{flex:0 0 auto;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 12px;font-size:13px;font-weight:500;color:var(--muted)}
+.tab b{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--surface-2);color:var(--ink);font:700 11px var(--display)}
+.tab[aria-current="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.tab[aria-current="true"] b{background:rgba(255,255,255,.22);color:var(--accent-ink)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tab[aria-current="true"] b{background:rgba(0,0,0,.18)}}
+:root[data-theme="dark"] .tab[aria-current="true"] b{background:rgba(0,0,0,.18)}
+
+/* overview */
+.hero{padding:18px 0 8px;max-width:820px}
+.hero h1{font-size:clamp(28px,4.2vw,44px);line-height:1.08;font-weight:800}
+.hero p{margin-top:14px;font-size:17px;color:var(--muted);max-width:66ch}
+.sec{margin-top:40px}
+.sec>h2{font-size:22px;font-weight:800}
+.sec>.sub{color:var(--muted);margin-top:4px;max-width:70ch}
+.obs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+.ob{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.ob q{font-family:var(--mono);font-size:12px;color:var(--muted);quotes:none;background:var(--surface-2);padding:6px 8px;border-radius:6px}
+.ob strong{font-weight:700;font-size:15px}
+.ob button{align-self:flex-start;margin-top:auto;background:none;border:0;padding:0;color:var(--accent);font-weight:600;font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.jm{margin-top:16px;overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 8px 20px}
+.jm-grid{display:grid;grid-template-columns:repeat(7,minmax(128px,1fr));min-width:920px}
+.jm-st{padding:0 10px;text-align:center}
+.jm-st h4{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;height:32px;display:flex;align-items:flex-start;justify-content:center}
+.jm-line{position:relative;height:30px;margin:2px 0 12px}
+.jm-line::before{content:"";position:absolute;left:0;right:0;top:14px;border-top:2px dashed var(--line)}
+.jm-line i{position:absolute;left:50%;top:7px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:var(--surface);border:3px solid var(--accent)}
+.jm-tp{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.jm-tp button{display:flex;gap:8px;align-items:flex-start;text-align:left;border:1px solid var(--wa-line);background:var(--wa-soft);border-radius:10px;padding:8px 9px;font-size:12.5px;line-height:1.3}
+.jm-tp button b{flex:0 0 auto;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--wa);color:#fff;font:700 12px var(--display)}
+.jm-tp .later{border:1px dashed var(--line);background:transparent;border-radius:10px;padding:8px 9px;font-size:12.5px;line-height:1.3;color:var(--muted);text-align:left}
+.jm-tp .later em{display:block;font-style:normal;font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;margin-bottom:2px}
+.tbl{margin-top:16px;overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:13.5px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;background:var(--surface-2)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600}
+.lv{display:inline-block;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:600;border:1px solid var(--line)}
+.lv.l{background:var(--wa-soft);border-color:var(--wa-line)}.lv.m{background:var(--surface-2)}.lv.h{border-color:var(--coral)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h3{font-size:16px;font-weight:800;margin-bottom:8px}
+.card ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;color:var(--ink)}
+.card li::marker{color:var(--accent)}
+.fine{margin-top:34px;font-size:12.5px;color:var(--muted);max-width:90ch}
+
+/* scenario */
+.scn-head{padding:14px 0 18px;max-width:860px}
+.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.09em;font-weight:700;color:var(--accent)}
+.scn-head h2{font-size:clamp(24px,3.4vw,34px);line-height:1.1;font-weight:800;margin-top:6px}
+.scn-head .lede{margin-top:10px;font-size:16.5px;color:var(--muted)}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 352px;gap:28px;align-items:start}
+.frame-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.pill{font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 10px;border:1px solid var(--line);background:var(--surface);color:var(--muted)}
+.pill.ex{border-color:var(--wa-line);background:var(--wa-soft);color:var(--wa)}
+.pill.nw{border-color:var(--coral);color:var(--coral)}
+.browser{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 10px 30px rgba(8,40,44,.10)}
+.b-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#E9EEEF;border-bottom:1px solid #D5DDDE}
+.b-bar i{width:10px;height:10px;border-radius:50%;background:#C3CDCF}
+.b-bar .url{flex:1;margin-left:10px;background:#fff;border-radius:6px;padding:3px 10px;font:12px var(--mono);color:#51666A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.viewport{position:relative;overflow:hidden;background:#F1F1F1}
+.phone-col{position:sticky;top:64px}
+.phone{width:340px;max-width:100%;margin:0 auto;border-radius:44px;background:#14191B;padding:11px;box-shadow:0 18px 40px rgba(8,40,44,.28)}
+.scr{position:relative;border-radius:34px;overflow:hidden;background:#EFEAE2;height:640px;display:flex;flex-direction:column;font-family:var(--body);color:#111B21}
+.st{display:flex;justify-content:space-between;padding:10px 24px 4px;font:600 12px var(--body);background:#008069;color:#fff}
+.wh{display:flex;align-items:center;gap:9px;padding:6px 12px 9px;background:#008069;color:#fff}
+.wh .back{font-size:20px;line-height:1}
+.av{width:36px;height:36px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:0 0 auto;font:800 13px var(--display);color:#01747F}
+.av.g{background:#D0DDDF;color:#34484C}
+.wh .nm{font-weight:600;font-size:15.5px;line-height:1.15;display:flex;align-items:center;gap:5px}
+.wh .nm svg{width:14px;height:14px}
+.wh .sb{font-size:11.5px;opacity:.85;line-height:1.2}
+.wh .ic{margin-left:auto;display:flex;gap:16px;opacity:.9;font-size:15px}
+.wbody{flex:1;overflow-y:auto;padding:10px 10px 14px;display:flex;flex-direction:column;gap:5px;scroll-behavior:smooth;
+  background-color:#EFEAE2;background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1.2px);background-size:14px 14px}
+.wbody::-webkit-scrollbar{width:0}
+.chip{align-self:center;background:#FFFFFFD9;color:#54656F;font-size:11.5px;padding:4px 10px;border-radius:8px;margin:5px 0;box-shadow:0 1px 1px rgba(0,0,0,.06);text-align:center}
+.sysmsg{align-self:center;background:#FFF3C4;color:#54656F;font-size:11.5px;padding:5px 10px;border-radius:8px;margin:4px 0;text-align:center;max-width:90%}
+.mg{display:flex;flex-direction:column;max-width:86%;gap:3px}
+.mg.in{align-self:flex-start}.mg.out{align-self:flex-end;align-items:flex-end}
+.bub{position:relative;background:#fff;border-radius:8px;padding:6px 8px 5px;font-size:13.8px;line-height:1.34;box-shadow:0 1px 1px rgba(0,0,0,.1);min-width:60px}
+.mg.in .bub{border-top-left-radius:2px}
+.mg.out .bub{background:#D9FDD3;border-top-right-radius:2px}
+.bub .snd{font-weight:600;font-size:12.5px;margin-bottom:1px}
+.bub .tm{float:right;margin:6px 0 -2px 10px;font-size:10.5px;color:#667781;display:flex;gap:3px;align-items:center}
+.bub .tm .tk{color:#53BDEB;font-size:12px;letter-spacing:-3px}
+.bub b{font-weight:700}
+.bub .mono{font-family:var(--mono);font-size:13.5px;letter-spacing:.02em;background:#F0F2F5;border-radius:4px;padding:0 4px}
+.wbtn{display:flex;align-items:center;justify-content:center;gap:6px;background:#fff;color:#027EB5;border-radius:8px;padding:9px 10px;font-size:13.5px;font-weight:500;box-shadow:0 1px 1px rgba(0,0,0,.1);text-align:center;min-width:100%}
+.mg .btns{display:flex;flex-direction:column;gap:3px;width:100%}
+.tag{display:none;font:500 10.5px var(--mono);color:#3b5b61;background:#D7EEF1;border-radius:5px;padding:2px 6px;align-self:flex-start;max-width:100%}
+.mg.out .tag{align-self:flex-end}
+.show-tags .tag{display:block}
+.prev{margin:-2px -4px 5px;border-radius:6px;overflow:hidden;background:#F5F6F6;border-bottom:1px solid #E5E7E8}
+.prev img{display:block;width:100%;height:112px;object-fit:cover}
+.prev div{padding:7px 9px}
+.prev b{display:block;font-size:13px;line-height:1.25}
+.prev span{display:block;font-size:12px;color:#54656F;line-height:1.3;margin-top:2px}
+.prev small{display:block;font-size:11px;color:#667781;margin-top:3px}
+.doc{display:flex;gap:9px;align-items:center;background:#F5F6F6;border-radius:6px;padding:9px;margin:-2px -4px 5px}
+.doc .pdf{width:34px;height:40px;border-radius:5px;background:#E5484D;color:#fff;font:700 10px var(--display);display:grid;place-items:center;flex:0 0 auto}
+.doc b{display:block;font-size:13px;line-height:1.2;word-break:break-all}.doc span{font-size:11.5px;color:#667781}
+.rcpt{margin:-2px -4px 5px;border-radius:6px;background:#fff;border:1px solid #E5E7E8;padding:10px 11px;font:11px var(--mono);color:#3c4a4e;line-height:1.5;width:196px}
+.rcpt h5{margin:0 0 4px;font:700 12px var(--display);color:#0a5;display:flex;justify-content:space-between}
+.rcpt hr{border:0;border-top:1px dashed #cdd5d6;margin:5px 0}
+.wi{display:flex;align-items:center;gap:8px;padding:7px 8px 10px;background:#F0F2F5;color:#667781;font-size:14px}
+.wi div{flex:1;background:#fff;border-radius:20px;padding:8px 14px}
+.wi i{width:34px;height:34px;border-radius:50%;background:#00A884;display:grid;place-items:center;color:#fff;font-style:normal;font-size:14px}
+.idle{flex:1;display:grid;place-items:center;text-align:center;padding:30px;color:#54656F;font-size:13.5px;background:#EFEAE2}
+.idle div{background:#FFFFFFB8;border-radius:12px;padding:14px 16px;max-width:240px}
+.picker{flex:1;background:#fff;display:flex;flex-direction:column;position:relative}
+.picker .ph{background:#008069;color:#fff;padding:8px 14px 12px;font-weight:600;font-size:16px}
+.picker .ph small{display:block;font-weight:400;font-size:12px;opacity:.85}
+.picker .row{display:flex;align-items:center;gap:11px;padding:9px 14px;border-bottom:1px solid #F0F2F5;font-size:14.5px}
+.picker .row.sel{background:#E7F5EE}
+.picker .row .tkc{margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid #C5CED1}
+.picker .row.sel .tkc{background:#00A884;border-color:#00A884;color:#fff;font-size:12px;display:grid;place-items:center}
+.picker .lab{padding:9px 14px 4px;font-size:12px;color:#667781;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.picker .send{position:absolute;right:14px;bottom:16px;background:#00A884;color:#fff;border-radius:22px;padding:11px 20px;font-weight:600;font-size:14px;box-shadow:0 3px 8px rgba(0,0,0,.2)}
+.fresh{animation:pop .35s ease-out both}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.fresh{animation:none}.wbody{scroll-behavior:auto}}
+
+.ctl{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center}
+.nav{display:flex;gap:8px}
+.nb{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 16px;font-weight:600;font-size:14px}
+.nb.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.nb[disabled]{opacity:.4;cursor:default}
+.cap{min-width:0}
+.cap .n{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.cap .n button{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:var(--line)}
+.cap .n button.on{background:var(--accent);width:22px;border-radius:6px}
+.cap .n span{font-size:12px;color:var(--muted);margin-left:6px}
+.cap p{font-size:16px;line-height:1.4;font-weight:500}
+.tog{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.sw{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;user-select:none}
+.sw input{position:absolute;opacity:0}
+.sw i{width:34px;height:20px;border-radius:12px;background:var(--line);position:relative;transition:background .15s;flex:0 0 auto}
+.sw i::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .15s}
+.sw input:checked+i{background:var(--accent)}
+.sw input:checked+i::after{transform:translateX(14px)}
+.sw input:focus-visible+i{outline:3px solid var(--accent);outline-offset:2px}
+.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}
+.notes .card h3{display:flex;align-items:center;gap:8px;font-size:14px;text-transform:uppercase;letter-spacing:.07em}
+.notes .card h3 small{font:500 12px var(--body);text-transform:none;letter-spacing:0;color:var(--muted)}
+.next-up{margin-top:22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (max-width:1020px){
+  .stage{grid-template-columns:minmax(0,1fr)}.phone-col{position:static}
+  .notes{grid-template-columns:minmax(0,1fr)}
+  .ctl{grid-template-columns:minmax(0,1fr)}
+}
+
+/* ===== TravelTank site mock (fixed brand look, scaled by JS) ===== */
+.tt{position:absolute;left:0;top:0;width:900px;transform-origin:0 0;background:#F1F1F1;font-family:'Roboto',Arial,sans-serif;font-size:13px;color:#2E2E2E;line-height:1.35}
+.tt *{box-sizing:border-box}
+.tt h2{font:500 24px 'Roboto';color:#333;letter-spacing:0}
+.tt h3{font:500 18px 'Roboto';color:#333;margin:18px 0 8px;letter-spacing:0}
+.tt h4{font:500 18px 'Roboto';letter-spacing:0;margin:0}
+.t-hdr{background:#fff;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 30px}
+.t-hdr img{height:24px}
+.t-steps{display:flex;gap:0;align-items:flex-start}
+.t-st{width:98px;text-align:center;font-size:9.5px;color:#444;text-transform:uppercase;font-weight:500;position:relative;padding-top:20px}
+.t-st::before{content:"";position:absolute;top:6px;left:-49px;width:98px;border-top:1px dotted #FF9D9F}
+.t-st:first-child::before{display:none}
+.t-st i{position:absolute;left:50%;top:0;width:13px;height:13px;margin-left:-6.5px;border-radius:50%;border:2px solid #EFB5B6;background:#fff}
+.t-st.done i{background:#FE5C61;border-color:#FE5C61}
+.t-st.cur i{border-color:#FE5C61;border-width:3px}
+.t-st.done{color:#FE5C61}.t-st.cur{font-weight:700;color:#222}
+.t-sec{font-size:12px;color:#01747F;display:flex;align-items:center;gap:6px}
+.t-sec svg{width:14px;height:14px}
+.t-body{display:grid;grid-template-columns:1fr 292px;gap:20px;padding:20px 30px 28px}
+.t-main{min-width:0}
+.t-card{background:#fff;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.t-pad{padding:14px}
+.t-note{background:#F5EED6;color:#5c4d1d;font-weight:500;font-size:11.5px;padding:10px 12px;border-radius:3px}
+.t-signed{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;margin:10px 0 0}
+.t-signed small{display:block;font-size:10.5px;color:#666}
+.t-btn{display:inline-flex;align-items:center;gap:8px;background:#FE5C61;color:#fff;font-weight:700;font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:9px 16px;border-radius:3px;border:0}
+.t-btn.o{background:#fff;color:#FE5C61;border:1px solid #FE5C61}
+.t-btn.sm{padding:6px 12px;font-size:10px}
+.t-lab{font-size:10.5px;color:#555;margin:9px 0 3px;display:block}
+.t-inp{background:#fff;border:1px solid #D9D9D9;border-radius:3px;height:32px;padding:0 10px;display:flex;align-items:center;font-size:12.5px}
+.t-chips{display:flex;gap:7px}
+.t-chips span{width:48px;height:30px;border:1px solid #DDD;border-radius:3px;display:grid;place-items:center;color:#999;font-size:12px}
+.t-chips span.on{background:#E9F6F6;color:#222;border-color:#CBE5E7}
+.t-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.t-cc{display:flex;gap:0}.t-cc .cc{background:#F0F2F2;border:1px solid #D9D9D9;border-right:0;padding:0 10px;display:flex;align-items:center;font-size:12px;border-radius:3px 0 0 3px;gap:6px}
+.t-cc .t-inp{flex:1;border-radius:0 3px 3px 0}
+.t-opt{display:flex;align-items:center;gap:10px;border:1px solid #DADADA;border-radius:3px;padding:9px 11px;margin-top:10px;background:#fff;position:relative}
+.t-opt .cb{width:16px;height:16px;border:1px solid #999;border-radius:3px;flex:0 0 auto;display:grid;place-items:center;font-size:12px;color:#fff;background:#fff}
+.t-opt .cb.on{background:#168F4D;border-color:#168F4D}
+.t-opt b{font-weight:500;font-size:12px}
+.t-opt small{display:block;color:#666;font-size:11px;margin-top:1px}
+.t-opt .pr{margin-left:auto;font-size:12px;color:#01747F;font-weight:500;white-space:nowrap}
+.t-opt .pr.free{color:#168F4D;font-weight:700}
+.t-wa-ico{width:26px;height:26px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;flex:0 0 auto}
+.t-wa-ico svg{width:15px;height:15px}
+.t-consent{font-size:10.5px;color:#666;margin-top:6px;line-height:1.4}.t-consent u{color:#FE5C61}
+.t-total{background:#E9F6F6;display:flex;justify-content:space-between;align-items:center;padding:12px 14px;margin-top:14px;border-radius:3px}
+.t-total b{font-size:12px;color:#01747F;letter-spacing:.02em}.t-total strong{font-size:19px;font-weight:500}
+.t-cont{display:flex;justify-content:center;margin-top:16px}
+.t-hero{width:100%;height:112px;object-fit:cover;display:block;border-radius:4px 4px 0 0}
+.t-leg{border:1px solid #BFE0E3;border-radius:3px;padding:8px 10px;font-size:11px;display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.t-leg .r{display:flex;justify-content:space-between;gap:8px}
+.t-leg .ba{font:italic 700 8.5px 'Roboto';color:#1B2A5C;letter-spacing:.02em}
+.t-leg .tm{color:#01747F;font-size:10.5px}
+.t-leg hr{border:0;border-top:1px solid #E6EEEF;width:100%;margin:0}
+.t-tot2{background:#E9F6F6;padding:10px 12px;margin-top:10px;border-radius:3px;font-size:11px;color:#444}
+.t-tot2 .a{display:flex;justify-content:space-between;align-items:baseline}.t-tot2 .a b{color:#01747F;font-size:12px}.t-tot2 .a strong{font-size:18px;font-weight:500;color:#222}
+.t-tot2 .nr{display:flex;justify-content:space-between;margin-top:6px}.t-tot2 .nr b{color:#222}
+.t-warn{background:#FFEDEE;color:#444;font-weight:500;font-size:11px;padding:9px 10px;margin-top:10px;border-radius:3px;border:1px solid #FBD1D3}
+.t-help{background:#01747F;color:#fff;border-radius:4px;padding:16px;margin-top:14px}
+.t-help h4{font-size:17px;color:#fff;font-weight:500}.t-help p{font-size:11.5px;margin-top:8px;line-height:1.45;opacity:.95}
+.t-help .ph{font-size:18px;margin-top:10px;font-weight:400}
+.t-help .wab{display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#073B1D;font-weight:700;font-size:12px;border-radius:4px;padding:10px;margin-top:12px;position:relative}
+.t-help .wab svg{width:17px;height:17px}
+.t-help .or{font-size:10.5px;opacity:.85;margin-top:8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.t-qr{width:46px;height:46px;background:#fff;padding:3px;border-radius:3px;flex:0 0 auto}
+.t-share{margin-top:10px;border:1px solid #D9EFE1;border-radius:4px;padding:10px;background:#fff;position:relative}
+.t-share p{font-size:11px;color:#555;margin-bottom:7px}
+.t-wabtn{display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid #25D366;color:#0E7A3E;background:#F1FBF5;border-radius:4px;padding:8px 10px;font-weight:700;font-size:11.5px;width:100%}
+.t-wabtn svg{width:15px;height:15px}
+.t-wabtn.solid{background:#25D366;color:#073B1D;width:auto;white-space:nowrap}
+.t-radio{display:flex;gap:10px;align-items:flex-start}
+.t-radio i{width:16px;height:16px;border-radius:50%;border:1.5px solid #BDBDBD;flex:0 0 auto;margin-top:1px;position:relative}
+.t-radio.on i{border-color:#1BA6B1}.t-radio.on i::after{content:"";position:absolute;inset:3px;border-radius:50%;background:#1BA6B1}
+.t-pay{border:1px solid #E3E3E3;border-radius:4px;padding:12px 14px;margin-top:10px}
+.t-pay.on{border-color:#7CC7CD}
+.t-pay em{display:block;font-size:11px;color:#555;margin-top:3px}
+.t-bank{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.t-bank div{border:1px solid #E3E3E3;border-radius:4px;padding:10px;font-size:11px}
+.t-bank b{display:block;text-align:center;font-size:12px;margin-bottom:6px;letter-spacing:.03em}
+.t-bank .kv{display:flex;justify-content:space-between;gap:6px;padding:2px 0}.t-bank .kv span{color:#666}
+.t-wablock{display:flex;gap:11px;align-items:center;border:1px solid #CDEBD8;background:#F6FCF8;border-radius:4px;padding:10px 12px;margin-top:12px;position:relative}
+.t-wablock b{font-size:12px;font-weight:500}.t-wablock small{display:block;font-size:11px;color:#666;margin-top:1px}
+.t-wablock .rcp{margin-left:auto}
+.t-due{background:#E9F6F6;border-radius:3px;padding:10px 14px;display:flex;justify-content:space-between;font-size:15px;margin:10px 0}
+.t-due strong{font-weight:500}
+.t-cn{max-width:600px;margin:0 auto;padding:22px 20px 28px}
+.t-top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+.t-top h2{font-size:22px}.t-top .l{display:flex;flex-direction:column;gap:5px;font-size:12px}
+.t-ref{color:#01747F;font-size:10.5px}
+.t-ps{display:inline-block;background:#fff;color:#FE5C61;font-weight:500;font-size:11px;padding:7px 10px;margin-top:4px;border-radius:3px}
+.t-ps.ok{color:#0E7A3E}
+.t-stamp{width:112px;height:112px;border-radius:50%;border:4px double #67A8AD;color:#2A8E98;display:grid;place-items:center;font:700 20px 'Roboto';letter-spacing:.03em;transform:rotate(-9deg);flex:0 0 auto;text-align:center;line-height:1.1}
+.t-stamp.ok{border-color:#74BF92;color:#2C8C55}
+.t-acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.t-cdw{display:inline-flex;align-items:center;gap:7px;border-radius:4px;padding:6px 10px;font-size:11.5px;font-weight:500;margin-top:8px;background:#FFF5DD;color:#6a4b00;border:1px solid #F1DDA5;position:relative}
+.t-cdw svg{width:14px;height:14px;flex:0 0 auto}
+.t-cdw.red{background:#FFE9EA;color:#9B1C21;border-color:#F5B9BC}
+.t-cdw.ok{background:#E4F6EA;color:#1B6E3F;border-color:#B5E1C4}
+.t-trav{margin-top:14px;font-size:12px}.t-trav .r{display:flex;gap:30px;padding:8px 0;border-bottom:1px solid #EEE}.t-trav .r span:first-child{width:80px;color:#555}
+.t-pp{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;font-size:11px;margin-top:6px}
+.t-mgmt{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.t-trk{margin-top:14px}
+.t-trk h4{font-size:15px}
+.t-tl{display:flex;margin-top:16px;position:relative}
+.t-tl .s{flex:1;text-align:center;font-size:11px;color:#777;position:relative;padding-top:24px}
+.t-tl .s::before{content:"";position:absolute;top:8px;left:-50%;width:100%;border-top:2px solid #DDD}
+.t-tl .s:first-child::before{display:none}
+.t-tl .s i{position:absolute;left:50%;top:1px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:#fff;border:2px solid #CCC;z-index:1}
+.t-tl .s.d{color:#222}.t-tl .s.d::before{border-color:#01747F}.t-tl .s.d i{background:#01747F;border-color:#01747F}
+.t-tl .s.c i{border-color:#01747F;box-shadow:0 0 0 4px #CFE9EB}.t-tl .s.c{color:#222;font-weight:500}.t-tl .s.c::before{border-color:#01747F}
+.t-tl .s small{display:block;color:#777;font-weight:400;margin-top:2px;font-size:10.5px}
+.t-prefs{width:100%;border-collapse:collapse;font-size:12px;min-width:0}
+.t-prefs th{background:none;color:#666;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;padding:8px 10px;border-bottom:1px solid #E6E6E6;text-align:center}
+.t-prefs th:first-child,.t-prefs td:first-child{text-align:left}
+.t-prefs td{padding:11px 10px;border-bottom:1px solid #F0F0F0;text-align:center;vertical-align:middle;font-weight:400}
+.t-prefs td:first-child{font-weight:500}
+.t-prefs td small{display:block;color:#777;font-weight:400;font-size:10.5px}
+.t-prefs tr.hl td{background:#F2FBF6}
+.t-tg{display:inline-block;width:32px;height:18px;border-radius:10px;background:#CFCFCF;position:relative;vertical-align:middle}
+.t-tg::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff}
+.t-tg.on{background:#01747F}.t-tg.on::after{left:16px}
+.t-tg.w.on{background:#168F4D}
+.t-acc{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:20px 30px 28px}
+.t-acc nav{display:flex;flex-direction:column;gap:2px;font-size:12.5px}
+.t-acc nav span{padding:8px 10px;border-radius:3px;color:#555}.t-acc nav span.on{background:#E9F6F6;color:#01747F;font-weight:500}
+
+/* pre-booking screens */
+.t-mh{background:linear-gradient(100deg,#06585F,#0B7D84);color:#fff;display:flex;align-items:center;gap:26px;padding:0 28px;height:54px;font-size:12px}
+.t-mh img{height:21px}.t-mh nav{display:flex;gap:6px;font-weight:500}.t-mh nav span{padding:4px 11px;border-radius:14px}.t-mh nav .on{background:#fff;color:#01747F}
+.t-mh .rt{margin-left:auto;display:flex;gap:18px;font-size:11px;opacity:.95}
+.h-hero{background:linear-gradient(110deg,#06585F 0%,#0E7C83 62%,#4FB0B5 100%);padding:22px 28px 34px;color:#fff;position:relative;overflow:hidden}
+.h-hero h1{font:700 25px/1.2 'Roboto';letter-spacing:0;margin:0 0 14px;max-width:400px}
+.h-pills{display:flex;gap:8px}.h-pills span{border-radius:20px;padding:8px 18px;font-weight:700;font-size:10.5px;background:rgba(255,255,255,.15)}.h-pills span.on{background:#fff;color:#01747F}
+.h-sub{display:flex;gap:14px;margin:12px 0 8px;font-size:11px}.h-sub .on{border-bottom:2px solid #FE5C61;font-weight:700}
+.h-search{background:#fff;color:#8a8a8a;border-radius:26px;display:flex;align-items:center;height:42px;max-width:480px;padding:0 6px 0 18px;gap:20px;font-size:10.5px}
+.h-search i{margin-left:auto;width:32px;height:32px;border-radius:50%;background:#FE5C61;color:#fff;display:grid;place-items:center;font-style:normal;font-size:14px}
+.circ{position:absolute;border-radius:50%;background:linear-gradient(135deg,#F3C98B,#8FC9CD)}
+.circ.c1{right:130px;top:12px;width:86px;height:86px}.circ.c2{right:34px;top:20px;width:124px;height:124px;background:linear-gradient(135deg,#8CC0EE,#1E6FA8)}.circ.c3{right:236px;top:76px;width:66px;height:66px;background:linear-gradient(135deg,#E9A9A0,#B25C70)}
+.h-quick{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:16px 28px 0}
+.h-qc{background:#fff;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,.12);padding:13px 14px;display:flex;gap:10px;align-items:flex-start;color:#333}
+.h-qc>i{width:28px;height:28px;border:2px solid #8B3A8F;color:#8B3A8F;border-radius:6px;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:13px;flex:0 0 auto}
+.h-qc b{display:block;font-weight:500;font-size:13px}.h-qc small{color:#666;font-size:10.5px;display:block;margin-top:1px}
+.h-qc .go{margin-left:auto;color:#FE5C61;font-size:15px}
+.h-wapill{display:inline-flex;align-items:center;gap:5px;margin-top:8px;background:#25D366;color:#073B1D;font-weight:700;font-size:10px;border-radius:12px;padding:4px 10px;position:relative}
+.h-wapill svg{width:11px;height:11px}
+.h-sec{padding:22px 28px 0}.h-sec h3{margin:0;font:500 18px 'Roboto'}.h-sec p{color:#666;font-size:11.5px;margin-top:2px}
+.h-regions{display:flex;gap:6px;margin:12px 0}.h-regions span{border:1px solid #DDD;border-radius:16px;padding:4px 12px;font-size:11px;background:#fff}.h-regions span.on{background:#01747F;color:#fff;border-color:#01747F}
+.h-deals{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.h-deal{border-radius:6px;overflow:hidden;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.h-deal .im{height:74px;background:linear-gradient(135deg,var(--a),var(--b))}
+.h-deal .tx{padding:8px 10px;font-size:10.5px;color:#666}.h-deal b{display:block;font-size:13px;color:#222;font-weight:500}.h-deal em{font-style:normal;color:#01747F;font-weight:700;font-size:12px}
+.h-news{margin:22px 28px 26px;background:#E9F6F6;border-radius:6px;padding:16px 18px;display:flex;align-items:center;gap:12px;font-size:13px;flex-wrap:wrap}
+.k-title{padding:14px 28px 0}.k-title h2{font:500 20px 'Roboto';margin:0}
+.k-body{display:grid;grid-template-columns:1fr 292px;gap:20px;padding:12px 28px 28px}
+.k-photo{width:100%;border-radius:3px;display:block}.k-thumbs{display:flex;gap:6px;margin-top:6px}.k-thumbs img{height:54px;flex:1;min-width:0;object-fit:cover;border-radius:2px}
+.d-wrap{display:grid;grid-template-columns:1fr 440px;min-height:660px}
+.d-left{padding:18px 20px;opacity:.5}
+.d-stub{background:#fff;border-radius:4px;margin-bottom:12px;padding:12px;font-size:11px;border-top:3px solid #3A45A8;line-height:1.5}
+.d-panel{background:#fff;padding:16px 18px 18px;box-shadow:-4px 0 18px rgba(0,0,0,.12);position:relative}
+.d-panel h2{font:700 21px 'Roboto';color:#2B2B2B}
+.d-acts{display:flex;gap:8px;align-items:center;margin-top:12px;position:relative}
+.d-btn{border:1px solid #DDD;border-radius:3px;padding:8px 12px;font-size:11.5px;font-weight:500;display:flex;gap:6px;align-items:center;background:#fff;position:relative}
+.d-pop{position:absolute;bottom:48px;width:292px;background:#fff;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.24);padding:12px;z-index:3;font-size:11.5px;border:1px solid #E4E4E4}
+.d-opt{display:flex;gap:9px;align-items:center;padding:8px 9px;border:1px solid #E4E4E4;border-radius:5px;margin-top:7px}
+.d-opt.on{border-color:#8ED3A9;background:#F6FCF8}.d-opt small{display:block;color:#666;font-size:10.5px}
+.d-opt .rd{margin-left:auto;width:15px;height:15px;border-radius:50%;border:1.5px solid #BDBDBD}.d-opt.on .rd{border-color:#168F4D;background:radial-gradient(#168F4D 45%,transparent 50%)}
+.t-ask{display:flex;gap:10px;align-items:center;border:1px solid #CDEBD8;background:#F6FCF8;border-radius:4px;padding:9px 11px;margin:10px 0 2px;position:relative}
+.t-ask b{font-size:12px;font-weight:500}.t-ask small{display:block;font-size:10.5px;color:#666;margin-top:1px}.t-ask .t-wabtn{margin-left:auto}
+.who{margin-bottom:8px}
+.chb{background:linear-gradient(120deg,#06585F,#0E8B93);color:#fff;padding:14px 14px 12px}.chb b{display:block;font:700 16px var(--display)}.chb span{font-size:12px;opacity:.9}
+.flowov{position:absolute;left:0;right:0;bottom:0;top:96px;z-index:4}
+.flowov .dim{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.flowov .sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:18px 18px 0 0;padding:14px 16px 16px}
+.flowov h5{margin:0;font:700 16px var(--display)}.flowov p{margin:2px 0 0;font-size:12px;color:#667781}
+.flowov .f{border:1px solid #D1D7DB;border-radius:8px;padding:6px 10px;margin-top:9px;font-size:13.5px}.flowov .f small{display:block;color:#667781;font-size:10.5px}
+.flowov .f2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.flowov .sub{background:#00A884;color:#fff;border-radius:22px;text-align:center;padding:11px;margin-top:14px;font-weight:600;font-size:14px}
+
+.new{outline:2px dashed #1DA85A;outline-offset:3px;border-radius:5px}
+.new::after{content:"NEW";position:absolute;top:-10px;right:10px;background:#1DA85A;color:#fff;font:700 8.5px/1 'Roboto';padding:3px 6px;border-radius:3px;letter-spacing:.07em}
+.t-help .wab.new::after{top:-9px}
+.chg{outline:2px dashed #E39A00;outline-offset:3px;border-radius:5px;position:relative}
+.chg::after{content:"CHANGED";position:absolute;top:-10px;right:10px;background:#E39A00;color:#fff;font:700 8.5px/1 'Roboto';padding:3px 6px;border-radius:3px;letter-spacing:.07em}
+.noanim .new,.noanim .chg{outline:0}.noanim .new::after,.noanim .chg::after{display:none}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <img class="logo logo-g" src="__LOGO_GREEN__" alt="TravelTank"><img class="logo logo-w" src="__LOGO_WHITE__" alt="TravelTank">
+      <span class="x"></span>
+      <span class="wa-name"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>WhatsApp</span>
+    </div>
+    <span class="status">Concept prototype for discussion · illustrative content</span>
+  </div>
+  <nav class="tabs" id="tabs" aria-label="Touchpoints"></nav>
+  <main id="view"></main>
+</div>
+
+<script>
+(function(){
+"use strict";
+var LOGO_G="__LOGO_GREEN__", LONDON="__LONDON__";
+var WA='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>';
+var LOCK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 10V8a6 6 0 1112 0v2h1a1 1 0 011 1v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9a1 1 0 011-1h1zm2 0h8V8a4 4 0 10-8 0v2z"/></svg>';
+var TICK='<svg viewBox="0 0 24 24"><path fill="#fff" d="M12 1l2.4 1.7 2.9-.2 1.2 2.7 2.6 1.3-.3 2.9L22 12l-1.2 2.6.3 2.9-2.6 1.3-1.2 2.7-2.9-.2L12 23l-2.4-1.7-2.9.2-1.2-2.7-2.6-1.3.3-2.9L2 12l1.2-2.6-.3-2.9 2.6-1.3 1.2-2.7 2.9.2z"/><path fill="#008069" d="M10.6 15.6L7.9 12.9l1-1 1.7 1.7 4.2-4.3 1 1z"/></svg>';
+
+var NAIRA="₦";
+var LOGO_W="__LOGO_WHITE__", HOTEL="__HOTEL__", HOTELT="__HOTELT__";
+
+/* ---------- Site screens ---------- */
+function hdr(step){
+  var L=["Traveller info","Extras","Payment","Confirmation"];
+  return '<div class="t-hdr"><img src="'+LOGO_G+'" alt=""><div class="t-steps"'+(step<0?' style="visibility:hidden"':'')+'>'+L.map(function(l,i){
+    return '<div class="t-st'+(i<step?' done':i===step?' cur':'')+'"><i></i>'+l+'</div>';}).join('')+
+    '</div><div class="t-sec">Secure Booking <svg viewBox="0 0 24 24" fill="#01747F"><path d="M6 10V8a6 6 0 1112 0v2h1a1 1 0 011 1v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9a1 1 0 011-1h1zm2 0h8V8a4 4 0 10-8 0v2z"/></svg></div></div>';
+}
+function legs(){
+  return '<div class="t-leg"><div class="r"><b>Outbound</b><span class="ba">BRITISH AIRWAYS</span></div>'+
+   '<div class="r"><span>Lagos (LOS) &rarr; London (LHR)</span><span>6h 30m</span></div>'+
+   '<div class="r tm"><span>Fri, 21 Aug 22:50</span><span>Sat, 22 Aug 05:20 +1</span></div><hr>'+
+   '<div class="r"><b>Inbound</b><span class="ba">BRITISH AIRWAYS</span></div>'+
+   '<div class="r"><span>London (LHR) &rarr; Lagos (LOS)</span><span>6h 40m</span></div>'+
+   '<div class="r tm"><span>Mon, 21 Sep 12:05</span><span>Mon, 21 Sep 18:45</span></div></div>';
+}
+function help(o){
+  var btn='';
+  if(o.wa&&!o.before){
+    btn='<div class="wab new">'+WA+'Chat with a Shark on WhatsApp</div>'+
+     '<div class="or"><span>Or call +234 (0) 7000202020</span>'+(o.qr?'<svg class="t-qr" viewBox="0 0 9 9" shape-rendering="crispEdges"><rect width="9" height="9" fill="#fff"/><path fill="#073B3F" d="M0 0h3v3H0zM6 0h3v3H6zM0 6h3v3H0zM4 0h1v1H4zM4 2h1v2H3V3h1zM5 4h2v1H5zM7 4h1v2H7zM4 6h2v1H4zM6 7h3v1H6zM4 8h1v1H4zM5 5h1v1H5z"/><path fill="#fff" d="M1 1h1v1H1zM7 1h1v1H7zM1 7h1v1H1z"/></svg>':'')+'</div>';
+  } else {
+    btn='<div class="ph">+234 (0) 7000202020</div>';
+  }
+  return '<div class="t-help"><h4>Need help?</h4><p>Our team of travel sharks are here to help you 24/7.'+(btn.indexOf('wab')<0?' Please contact us on the number below:':'')+'</p>'+btn+'</div>';
+}
+function rail(o){
+  var share='';
+  if(o.share&&!o.before){
+    share='<div class="t-share new"><p>Travelling with someone? Let them see this trip.</p><div class="t-wabtn">'+WA+'Share on WhatsApp</div></div>';
+  }
+  return '<aside><div class="t-card"><img class="t-hero" src="'+LONDON+'" alt="">'+
+    '<div class="t-pad"><div style="display:flex;justify-content:space-between;align-items:baseline"><h4>Flight Summary</h4><span style="color:#FE5C61;font-size:10.5px">Full itinerary</span></div>'+legs()+
+    '<div style="font-size:11px;margin-top:8px;color:#444">Hand Baggage: 1 x 7 Kg &nbsp;&middot;&nbsp; Checked Bag: 0 x 23 Kg</div>'+
+    '<div class="t-warn">Prices are not guaranteed until booked</div>'+
+    '<div class="t-tot2"><div class="a"><b>TOTAL</b><strong>'+(o.total||NAIRA+'5,673,507')+'</strong></div><div class="nr"><span>This booking is:</span><b>Non-Refundable</b></div></div>'+share+'</div></div>'+help({wa:o.helpWa,before:o.before})+'</aside>';
+}
+function waRow(o){
+  if(o.before) return '';
+  var on=o.wa==='ticked';
+  return '<div class="t-opt'+(o.stat?'':' new')+'" style="border-color:'+(on?'#8ED3A9':'#DADADA')+'"><span class="cb'+(on?' on':'')+'">'+(on?'&#10003;':'')+'</span><span class="t-wa-ico">'+WA+'</span>'+
+    '<div><b>Send my booking, reminders and updates on WhatsApp</b><small>Confirmation, payment reminders and flight changes for this trip</small></div><span class="pr free">FREE</span></div>'+
+    '<div class="t-consent">By ticking this box you agree that TravelTank may message <b>+234 801 234 5678</b> on WhatsApp about this booking. Reply STOP in the chat at any time to opt out. <u>Privacy Policy</u></div>';
+}
+function contact(o){
+  return hdr(0)+'<div class="t-body"><div class="t-main"><h2>Your trip to London</h2>'+
+   '<div class="t-card t-signed"><div><small>Signed in as</small><b>Mr Tunde Bakare</b></div><span class="t-btn sm">Logout</span></div>'+
+   '<h3>Contact Details</h3><div class="t-note">We need this to verify your booking and send you any important updates.</div>'+
+   '<div class="t-card t-pad" style="margin-top:10px">'+
+   '<span class="t-lab" style="margin-top:0">Title</span><div class="t-chips"><span class="on">Mr</span><span>Mrs</span><span>Ms</span></div>'+
+   '<div class="t-2"><div><span class="t-lab">First Name</span><div class="t-inp">Tunde</div></div><div><span class="t-lab">Surname</span><div class="t-inp">Bakare</div></div></div>'+
+   '<span class="t-lab">Email Address</span><div class="t-inp">tunde.bakare@example.com</div>'+
+   '<span class="t-lab">Mobile Number</span><div class="t-cc"><span class="cc">NG +234 &#9662;</span><div class="t-inp">801 234 5678</div></div>'+
+   waRow(o)+
+   '<div class="t-opt"><span class="cb"></span><b>Send booking details via SMS</b><span class="pr">'+NAIRA+'3,000</span></div></div>'+
+   '<div class="t-total"><b>BOOKING TOTAL</b><strong>'+NAIRA+'5,673,507</strong></div>'+
+   '<div class="t-cont"><span class="t-btn" style="'+(o.cont?'box-shadow:0 0 0 4px #FFD3D4':'')+'">Continue &rarr;</span></div>'+
+   '</div>'+rail(o)+'</div>';
+}
+function pay(o){
+  var hold=o.method==='hold', bank=o.method==='bank';
+  var h='<div class="t-card t-pad"><h4 style="font-size:16px">Reserve flight for later</h4>'+
+   '<div class="t-pay'+(hold?' on':'')+'"><div class="t-radio'+(hold?' on':'')+'"><i></i><div><b style="font-weight:500">Hold Booking</b><em>No payment will be taken. Bookings will be released in 72 hours if no payment received</em></div></div>';
+  if(hold){
+    if(!o.before){
+      h+='<div class="t-opt new" style="margin-left:26px;border-color:#8ED3A9"><span class="cb on">&#10003;</span><span class="t-wa-ico">'+WA+'</span><div><b>Remind me on WhatsApp before the hold ends</b><small>Sent to +234 801 234 5678 &middot; <u>Change</u></small></div></div>';
+    }
+    h+='<div style="text-align:center;margin-top:12px"><span class="t-btn">Continue &rarr;</span></div>';
+  }
+  h+='</div><h4 style="font-size:16px;margin-top:16px">Book flight today</h4>'+
+   '<div class="t-pay"><div class="t-radio"><i></i><div><b style="font-weight:500">Credit / Debit Card</b><em>Transaction fee applies</em></div></div></div>'+
+   '<div class="t-pay'+(bank?' on':'')+'"><div class="t-radio'+(bank?' on':'')+'"><i></i><div><b style="font-weight:500">Bank Transfer / Cash Deposit</b></div></div>';
+  if(bank){
+    h+='<div class="t-due"><span>Amount due:</span><strong>'+NAIRA+'5,673,507</strong></div>'+
+     '<div class="t-note" style="text-align:center">Prices are not guaranteed until payment has been confirmed by TravelTank</div>'+
+     '<div class="t-bank"><div><b>PROVIDUSBANK</b><div class="kv"><span>Bank</span>Providus Bank plc</div><div class="kv"><span>Account Holder</span>TravelTank Limited</div><div class="kv"><span>Account Number</span>1300128292</div></div>'+
+     '<div><b>ZENITH</b><div class="kv"><span>Bank</span>Zenith Bank plc</div><div class="kv"><span>Account Holder</span>TravelTank Limited</div><div class="kv"><span>Account Number</span>1015243345</div></div></div>';
+    if(o.before){
+      h+='<p style="text-align:center;font-size:11px;font-weight:500;margin-top:10px">These details will also be included in your Confirmation email so you don\'t need to remember them now</p>';
+    } else {
+      h+='<div class="t-wablock new"><span class="t-wa-ico" style="width:30px;height:30px">'+WA+'</span><div><b>Get these details on WhatsApp</b><small>Easy to copy, and you can send your receipt in the same chat</small></div><span class="t-wabtn solid rcp">Send to WhatsApp</span></div>'+
+        '<p style="text-align:center;font-size:11px;margin-top:9px;color:#444">Already paid? <u style="color:#168F4D;font-weight:500">Send your receipt on WhatsApp</u></p>';
+    }
+    h+='<div style="text-align:center;margin-top:12px"><span class="t-btn">Continue &rarr;</span></div>';
+  }
+  h+='</div></div>';
+  return hdr(2)+'<div class="t-body"><div class="t-main"><div style="font-size:11px;color:#666">Nearly done...</div><h2 style="margin-bottom:12px">Secure payment</h2>'+h+'</div>'+rail(o)+'</div>';
+}
+function stampHTML(t,ok){return '<div class="t-stamp'+(ok?' ok':'')+'">'+t+'</div>';}
+function confirm(o){
+  var st=o.status; // hold | pending | paid
+  var ok=(st==='paid');
+  var title= ok?'Your trip is confirmed.':'Your trip is on Hold.';
+  var sub= ok?'Tickets are being issued for your trip to <b>London, United Kingdom</b>':'Please make payment for your trip to <b>London, United Kingdom</b>';
+  var ps= ok?'<span class="t-ps ok">Payment status: Payment received</span>':'<span class="t-ps">Payment status: Payment Pending</span>';
+  var chip='';
+  if(!o.before&&o.chip){ chip='<div class="t-cdw '+(o.chip.level||'')+' new">'+WA+'&nbsp;'+o.chip.text+'</div>'; }
+  var emailLine= (o.before||o.manage)?'':'<span>and to your WhatsApp on <b>+234 801 234 5678</b></span>';
+  var resend= (o.before||o.manage)?'<span class="t-btn o sm">Resend itinerary &rarr;</span>':'<span class="t-btn o sm">Resend by email &rarr;</span><span class="t-wabtn solid new" style="font-size:10px;padding:6px 11px;position:relative">'+WA+' Send to WhatsApp</span>';
+  var acts='<div class="t-acts">'+resend+(ok?'':'<span class="t-btn o sm">Make payment &rarr;</span>')+'<span class="t-btn o sm">Go to my account &rarr;</span></div>';
+  var extra='';
+  if(o.manage){
+    extra='<div class="t-card t-pad t-mgmt" style="margin-top:14px"><div><b style="font-weight:500">Manage this booking</b><div style="font-size:11px;color:#666">Fare rules: <b>Non-Refundable</b></div></div><div style="display:flex;gap:8px;align-items:center"><span class="t-btn o sm">Cancel booking &rarr;</span>'+(o.before?'':'<span class="t-wabtn solid new" style="font-size:10px;padding:6px 11px;position:relative">'+WA+' Cancel or change in chat</span>')+'</div></div>';
+    if(!o.before&&o.stage>=0){
+      var S=[["Request received","14:42"],["Sent to airline","Today"],["Airline decision",""],["Refund paid",""]];
+      extra+='<div class="t-card t-pad t-trk new" style="position:relative"><h4>Refund tracker &middot; <span style="color:#01747F">RF-20481</span></h4><div class="t-tl">'+S.map(function(s,i){
+        var c=i<o.stage?'d':i===o.stage?'c':''; return '<div class="s '+c+'"><i></i>'+s[0]+'<small>'+(i<=o.stage?(o.times&&o.times[i]||''):'')+'</small></div>';}).join('')+'</div>'+
+        (o.amount?'<div style="margin-top:14px;background:#E9F6F6;border-radius:3px;padding:9px 12px;display:flex;justify-content:space-between"><span>Unused taxes approved by airline</span><b>'+o.amount+'</b></div>':'')+'</div>';
+    }
+  }
+  var body='';
+  if(!o.manage){
+    body='<div class="t-trav"><b style="font-size:14px;font-weight:500">Traveller names</b><div class="r"><span>Traveller 01</span><span>Mr Tunde Bakare</span></div><div class="r"><span>Traveller 02</span><span>Mrs Ada Bakare</span></div></div>'+
+     '<div class="t-card t-pad" style="margin-top:14px"><b style="font-weight:500;font-size:14px">Flight details</b>'+legs()+'<div class="t-total" style="margin-top:10px"><b>TOTAL</b><strong>'+NAIRA+'5,673,507</strong></div></div>';
+  }
+  var helpH='<div style="margin-top:14px">'+help({wa:true,before:o.before||o.plainHelp,qr:true}).replace('<div class="t-help">','<div class="t-help" style="margin-top:0">')+'</div>';
+  return hdr(3)+'<div class="t-cn"><div class="t-top"><div class="l"><h2>'+title+'</h2><span>'+sub+'</span><span class="t-ref">Booking Reference: TT7K2QPD</span>'+
+   '<span>We\'ve also sent a confirmation email to <b>tunde.bakare@example.com</b></span>'+emailLine+ps+chip+'</div>'+
+   stampHTML(ok?'BOOKED':'ON<br>HOLD',ok)+'</div>'+acts+extra+body+(o.noHelp?'':helpH)+'</div>';
+}
+function prefs(o){
+  var rows=[
+   ["Booking confirmations and e-tickets","Sent as soon as your booking is made",1,1,0],
+   ["Payment and hold reminders","Before a hold ends or a payment is due",1,1,0],
+   ["Trip reminders","Documents checklist and check-in",1,1,0],
+   ["Flight changes","Schedule changes and cancellations by the airline",1,1,1],
+   ["Offers and add-ons for this trip","Protocol, baggage and other extras (marketing)",1,0,0]
+  ];
+  var wa=!o.before;
+  var h='<table class="t-prefs"><thead><tr><th>Message</th>'+(wa?'<th>WhatsApp</th>':'')+'<th>Email</th><th>SMS</th></tr></thead><tbody>';
+  rows.forEach(function(r,i){
+    h+='<tr'+(o.row===i&&wa?' class="hl"':'')+'><td>'+r[0]+'<small>'+r[1]+'</small></td>'+
+      (wa?'<td><span class="t-tg w '+(r[2]?'on':'')+'"></span></td>':'')+'<td><span class="t-tg '+(r[3]?'on':'')+'"></span></td><td><span class="t-tg '+(r[4]?'on':'')+'"></span></td></tr>';
+  });
+  h+='</tbody></table>';
+  return hdr(-1)+
+   '<div class="t-acc"><nav><span>My trips</span><span>Saved travellers</span><span class="on">Notifications</span><span>Payment history</span><span>Security</span></nav>'+
+   '<div><h2>Notifications</h2><p style="color:#555;margin:6px 0 14px">Choose how TravelTank reaches you about your trips.</p>'+
+   '<div class="t-card t-pad '+(wa?'chg':'')+'" style="position:relative">'+
+   (wa?'<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12px"><span class="t-wa-ico">'+WA+'</span><div><b style="font-weight:500">WhatsApp connected</b><div style="color:#666;font-size:11px">+234 801 234 5678 &middot; opted in at checkout</div></div><span class="t-btn o sm" style="margin-left:auto">Change number</span></div>':'')+
+   h+(wa?'<p style="font-size:11px;color:#666;margin-top:10px">You can also reply STOP in any WhatsApp chat to turn off all WhatsApp messages. <u style="color:#FE5C61">Stop all WhatsApp messages</u></p>':'')+'</div></div></div>';
+}
+
+
+function mhdr(act){
+  var N=['Flights','Hotels','Holidays','More'];
+  return '<div class="t-mh"><img src="'+LOGO_W+'" alt=""><nav>'+N.map(function(n){return '<span'+(n===act?' class="on"':'')+'>'+n+'</span>';}).join('')+'</nav><div class="rt"><span>&#9825; Favourites (0)</span><span>NGN (&#8358;) Naira</span><span>My account</span></div></div>';
+}
+function home(o){
+  var w=!o.before, sh=o.show||{};
+  function pill(k,t){return (w&&sh[k])?'<span class="h-wapill new">'+WA+t+'</span>':'';}
+  var Q=[['Change or cancel your trip','Make updates or cancel a booking','&#10003;',''],
+         ['Need help?','Our Travel Sharks are available 24/7','?',pill('help','Chat on WhatsApp')],
+         ['Track your refund','Check the status of a refund that\'s in progress','&#8358;',pill('refund','Check on WhatsApp')]];
+  var D=[['Dubai','United Arab Emirates','752,060','#0B7D84','#6FC2C6'],['Istanbul','Turkey','870,943','#8A3B5E','#E58C9E'],['Jeddah','Saudi Arabia','896,298','#B8862B','#F0CE82'],['Guangzhou','China','1,009,800','#3A5BA8','#8FB0F0']];
+  return mhdr('Flights')+
+   '<div class="h-hero"><h1>Find and book cheap flights &amp; hotels in Nigeria.</h1><div class="h-pills"><span class="on">FLIGHTS</span><span>HOTELS</span><span>HOLIDAYS</span></div><div class="h-sub"><span class="on">Return</span><span>One-way</span><span>Multi-city</span></div><div class="h-search"><span>Leaving from</span><span>Going to</span><span>When?</span><span>1 Adult . Economy</span><i>&#9906;</i></div><span class="circ c1"></span><span class="circ c2"></span><span class="circ c3"></span></div>'+
+   '<div class="h-quick">'+Q.map(function(q){return '<div class="h-qc"><i>'+q[2]+'</i><div><b>'+q[0]+'</b><small>'+q[1]+'</small>'+q[3]+'</div><span class="go">&rarr;</span></div>';}).join('')+'</div>'+
+   '<div class="h-sec"><div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px"><div><h3>Our best flight deals from Lagos this Week</h3><p>The lowest fares we\'ve found this week</p></div>'+(w&&sh.deals?'<span class="t-wabtn solid new" style="position:relative">'+WA+'Follow deals on WhatsApp</span>':'')+'</div>'+
+   '<div class="h-regions"><span class="on">Asia</span><span>Africa</span><span>Europe</span><span>North America</span><span>South America</span></div>'+
+   '<div class="h-deals">'+D.map(function(d){return '<div class="h-deal"><div class="im" style="--a:'+d[3]+';--b:'+d[4]+'"></div><div class="tx"><b>'+d[0]+'</b>'+d[1]+'<br>from <em>'+NAIRA+d[2]+'</em></div></div>';}).join('')+'</div></div>'+
+   '<div class="h-news"><b style="font-weight:500">Receive the best deals and offers straight to your inbox!</b><div class="t-inp" style="width:180px;background:#fff">Email address</div><span class="t-btn sm">Sign-up</span>'+(w&&sh.news?'<span class="t-wabtn solid new" style="position:relative">'+WA+'Or get them on WhatsApp</span>':'')+'</div>';
+}
+function hotel(o){
+  var w=!o.before;
+  var hp='<div class="t-help"><h4>Need help?</h4><p>Our team of travel sharks are here to help you 24/7.'+(w?'':' Please contact us on the number below:')+'</p>'+
+    (w?'<div class="wab new">'+WA+'Ask about this hotel on WhatsApp</div><div class="or"><span>Hotel, dates and guests go with your message</span></div><div class="or" style="margin-top:3px"><span>Or call +234 (0) 7000202020</span></div>':'<div class="ph">+234 (0) 7000202020</div>')+'</div>';
+  var th=[0,25,50,75].map(function(x){return '<img src="'+HOTELT+'" style="object-position:'+x+'% 50%" alt="">';}).join('');
+  return mhdr('Hotels')+
+   '<div class="k-title"><div style="display:flex;justify-content:space-between;align-items:baseline"><h2>Hotel Marrakech House</h2><span style="color:#FE5C61;font-size:11px">Add to favourites &#9825;</span></div><div style="font-size:11px;color:#01747F;margin-top:2px">Avenue Abdelkarim El Khattabi N1 Bouizgarn, 1 Marrakech, Marrakech &nbsp;&#9733;&#9733;&#9733;</div></div>'+
+   '<div class="k-body"><div><img class="k-photo" src="'+HOTEL+'" alt=""><div class="k-thumbs">'+th+'</div>'+
+   '<div class="t-card t-pad" style="margin-top:12px;font-size:11.5px;color:#555;line-height:1.5">This comfortable hotel is located in Marrakech. The property is ideal for a productive stay thanks to the internet access available to guests. Hotel has a reception open 24 hours on 24&hellip;</div></div>'+
+   '<aside><div class="t-card t-pad"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px"><div><h4 style="font-size:18px;color:#555">Room details</h4><div style="font-size:11px;color:#01747F;margin-top:3px">Total for 7 nights</div><div style="font-size:20px;font-weight:500">'+NAIRA+'550,921</div></div><span class="t-btn sm">Book room &rarr;</span></div>'+
+   '<div class="t-leg" style="margin-top:12px"><div class="r"><b>Double Standard</b><span style="color:#666">2 adults for 7 nights</span></div><div class="r"><span>Bed And Breakfast</span><b>'+NAIRA+'550,921</b></div><div class="r"><span>Non Refundable</span><span style="color:#FE5C61">Show more rooms</span></div></div></div>'+hp+'</aside></div>';
+}
+function drawer(o){
+  var w=!o.before, tot=o.dropped?NAIRA+'5,673,507':NAIRA+'5,800,854';
+  var pop='';
+  if(w&&o.pop==='track'){
+    pop='<div class="d-pop new" style="left:92px"><b style="font-size:12.5px">Track this price</b><div style="color:#666;margin-top:2px">Tell me if the price changes. Prices can also go up.</div>'+
+     '<div class="d-opt on"><span class="t-wa-ico">'+WA+'</span><div><b>WhatsApp</b><small>+234 801 234 5678</small></div><span class="rd"></span></div>'+
+     '<div class="d-opt"><span class="t-wa-ico" style="background:#DCE6E7;color:#456">@</span><div><b>Email</b><small>tunde.bakare@example.com</small></div><span class="rd"></span></div>'+
+     '<div class="t-consent">By choosing WhatsApp you agree to get price alerts for this trip on WhatsApp. Reply STOP in the chat to opt out.</div><span class="t-btn sm" style="margin-top:8px;display:flex;justify-content:center">Start tracking</span></div>';
+  }
+  if(w&&o.pop==='share'){
+    pop='<div class="d-pop new" style="left:0;width:220px"><b style="font-size:12.5px">Share this trip</b>'+
+     '<div class="d-opt on"><span class="t-wa-ico">'+WA+'</span><b>WhatsApp</b></div><div class="d-opt"><span class="t-wa-ico" style="background:#DCE6E7;color:#456">&#128279;</span><b>Copy link</b></div><div class="d-opt"><span class="t-wa-ico" style="background:#DCE6E7;color:#456">@</span><b>Email</b></div></div>';
+  }
+  return mhdr('Flights')+'<div class="d-wrap"><div class="d-left"><div style="font:700 15px Roboto;margin-bottom:10px">Flights departing <span style="color:#FE5C61">Fri, 21 Aug</span></div>'+
+   '<div class="d-stub"><b>Fastest</b> &middot; British Airways<br>LOS 22:50 &rarr; LHR 05:20 +1 &middot; Direct<br><b style="font-size:15px">'+NAIRA+'5,800,854</b></div>'+
+   '<div class="d-stub" style="border-top-color:#9B2D8E"><b>Best</b> &middot; KLM<br>LOS 22:10 &rarr; LHR 07:40 +1 &middot; 1 stop</div>'+
+   '<div class="d-stub" style="border-top-color:#1BA6B1"><b>Cheapest</b> &middot; Rwandair<br>LOS 14:45 &rarr; LHR 07:05 +1 &middot; 1 stop</div></div>'+
+   '<div class="d-panel"><h2>Flight details</h2>'+legs()+
+   '<div class="t-card" style="border:1px solid #DDD;margin-top:12px"><div class="t-pad"><b style="font-size:14px;font-weight:500">Fare breakdown</b><div style="font-size:11.5px;color:#444;margin-top:6px;line-height:1.7">Cabin: Economy<br>Hand Baggage: 1 x 7 Kg &nbsp;&middot;&nbsp; Checked Bag: 2 x 23 Kg</div></div>'+
+   '<div class="t-total" style="margin:0;border-radius:0"><b>TOTAL</b><strong>'+tot+'</strong></div>'+
+   '<div style="display:flex;justify-content:space-between;padding:8px 14px;font-size:11px"><span style="color:#01747F">&#9662; Full breakdown</span><b>Non Refundable</b></div></div>'+
+   (o.dropped&&w?'<div class="t-cdw ok" style="margin-top:8px">&#8595; Price dropped '+NAIRA+'127,347 since you started tracking</div>':'')+
+   '<div class="t-note" style="margin-top:10px">&#9432; Fare Rules</div>'+
+   '<div class="d-acts">'+pop+'<span class="d-btn">&#9741; Share</span><span class="d-btn">&#9825; Track price</span><span class="t-btn" style="margin-left:auto;padding:10px 20px">Book flight &rarr;</span></div></div></div>';
+}
+function paxCard(n,v,extra){
+  var T=['Mr','Mrs','Ms'];
+  return '<div class="t-card t-pad" style="margin-top:10px"><b style="font-weight:500;font-size:14px">Passenger '+n+' (Adult)</b><div>'+extra+'</div>'+
+   '<span class="t-lab">Title</span><div class="t-chips">'+T.map(function(t){return '<span'+((v?v.t:'Mr')===t?' class="on"':'')+'>'+t+'</span>';}).join('')+'</div>'+
+   '<div class="t-2"><div><span class="t-lab">First Name</span><div class="t-inp">'+(v?v.f:'')+'</div></div><div><span class="t-lab">Surname</span><div class="t-inp">'+(v?v.s:'')+'</div></div></div>'+
+   '<span class="t-lab">Date of Birth</span><div class="t-inp" style="width:170px;color:'+(v?'#222':'#BBB')+'">'+(v?v.d:'DD / MM / YYYY')+'</div></div>';
+}
+function travellers(o){
+  var w=!o.before, extra='';
+  if(w&&o.filled) extra='<div class="t-cdw ok new" style="margin:8px 0 0">'+WA+'&nbsp;Received from the traveller on WhatsApp</div>';
+  else if(w&&o.sent) extra='<div class="t-cdw new" style="margin:8px 0 0">'+WA+'&nbsp;Link sent &middot; waiting for them to add their details</div>';
+  else if(w) extra='<div class="t-ask new"><span class="t-wa-ico">'+WA+'</span><div><b>Ask this traveller to add their own details</b><small>They get a secure link on WhatsApp. You can still type them in yourself.</small></div><span class="t-wabtn solid">Send link</span></div>';
+  var p2=o.filled?{t:'Mrs',f:'Ada',s:'Bakare',d:'14 / 03 / 1991'}:null;
+  return hdr(0)+'<div class="t-body"><div class="t-main"><h3 style="margin-top:0">Who\'s travelling?</h3><div class="t-note" style="display:flex;gap:8px">&#9432; All names must match government-issued photo ID</div>'+
+   paxCard(1,{t:'Mr',f:'Tunde',s:'Bakare',d:'02 / 09 / 1988'},'')+paxCard(2,p2,extra)+'</div>'+rail(o)+'</div>';
+}
+
+/* ---------- Chat scripts ---------- */
+function T(s){return s.replace(/\*([^*\n]+)\*/g,'<b>$1</b>').replace(/\n/g,'<br>');}
+function B(at,kind,o){o.at=at;o.kind=kind;o.from=o.from||'biz';return o;}
+var prevCard={img:LONDON,title:'Lagos ⇄ London · 21 Aug to 21 Sep',desc:'British Airways · 2 travellers · '+NAIRA+'5,673,507 total. Price not guaranteed until booked.',dom:'traveltank.com'};
+
+var SCN=[
+{id:'home',title:'Help, refund status and weekly fares, from the homepage',
+ kicker:'Homepage',tag:['ex','Existing cards, new WhatsApp options'],url:'traveltank.com',
+ lede:'The homepage already promises Travel Sharks 24/7, a refund tracker and "the lowest fares we\'ve found this week". WhatsApp gives each of those a place to happen, with no app to install.',
+ screen:home,chat:{name:'TravelTank',sub:'Business account',biz:true},
+ steps:[
+  {cap:'Today the help card shows a phone number, the refund tracker is a form, and the weekly fares are a web page and an email list.',site:{before:true},ph:{view:'idle',note:'No WhatsApp channel yet.'}},
+  {cap:'New: the Need help? card offers WhatsApp. The chat opens with a message already typed, and a menu answers straight away.',site:{show:{help:1}},ph:{view:'chat'}},
+  {cap:'The Track your refund card works the same way. The customer sends a reference and gets the live status back.',site:{show:{help:1,refund:1}},ph:{view:'chat'}},
+  {cap:'The weekly fares get a Follow button for a WhatsApp Channel, and the sign-up box offers WhatsApp beside email.',site:{show:{help:1,refund:1,deals:1,news:1}},ph:{view:'channel'}}
+ ],
+ msgs:[
+  B(1,'chip',{text:'Today'}),
+  B(1,'text',{from:'me',text:'Hi TravelTank, I need help with a trip \u2708\uFE0F',time:'20:12',tag:'Prefilled by the site button \u00B7 opens the 24h window'}),
+  B(1,'text',{text:T('Hi \uD83D\uDC4B I\'m the TravelTank assistant. A Travel Shark can step in at any time.\n\nWhat do you need?'),btns:['\u21A9 Plan a trip','\u21A9 Change or cancel','\u21A9 Track a refund','\u21A9 Visa help'],time:'20:12',tag:'Session message \u00B7 interactive list \u00B7 auto-reply'}),
+  B(2,'text',{from:'me',text:'Track a refund',time:'20:13',tag:'List selection'}),
+  B(2,'text',{text:T('Sure. Send me your booking reference or refund number, for example *TT7K2QPD* or *RF-20481*.'),time:'20:13'}),
+  B(2,'text',{from:'me',text:'RF-20481',time:'20:13'}),
+  B(2,'text',{text:T('*Refund RF-20481*\nStatus: *Sent to British Airways* \u2705\nStep 2 of 4 \u00B7 updated today 15:20\n\nWe\'ll message you here when it changes.'),btns:['\u21A9 Notify me here','\u21A9 Talk to a Shark'],time:'20:13',tag:'Session message \u00B7 status read from the case record'})
+ ],
+ notes:{
+  design:['The existing cards keep their layout. WhatsApp is a small pill inside each one, so nothing moves.','The prefilled message means the customer starts in one tap and never faces an empty box.','The menu gives a first answer in seconds, and a Shark takes over for anything it does not cover.'],
+  biz:['A 24/7 promise needs a channel that works at 2am without a phone call.','Refund status checks are repeat contacts. Answering them in chat is cheaper than a call.','A Channel is a free one-way broadcast, so it can start before any messaging budget exists. It also bridges the gap until the app (shown as coming soon) ships.','Measure chats started from the homepage, chats resolved without an agent and Channel followers.'],
+  build:['Buttons are wa.me links with prefilled text and a source tag, so the inbox shows where each chat came from.','The menu is an interactive list message. Refund lookup reads the case record by reference.','At the time of writing, Channels are posted from the WhatsApp app rather than the Cloud API. Confirm current options and decide who owns the weekly post.','The weekly fares can come from the same data that feeds the homepage section.']}},
+
+{id:'hotel',title:'Ask a Shark about this hotel, with the details attached',
+ kicker:'Hotel details, also flight results',tag:['ex','Existing help panel, new button'],url:'traveltank.com/hotels/hotel-marrakech-house',
+ lede:'On hotel pages, and in the Need help? panel of flight results, the offer is a phone number. Someone mid-search needs a quick question answered, not a call. WhatsApp carries the hotel, dates and guests across, so nobody repeats themselves.',
+ screen:hotel,chat:{name:'Kemi \u00B7 TravelTank',sub:'Travel Shark',biz:true},
+ steps:[
+  {cap:'Today the panel offers a phone number, and the Shark starts from nothing.',site:{before:true},ph:{view:'idle',note:'Help is a phone call.'}},
+  {cap:'New: Ask about this hotel on WhatsApp. The hotel, dates, guests and price travel with the message.',site:{},ph:{view:'idle',note:'The chat has not started yet.'}},
+  {cap:'One tap and the chat opens with the question already written, plus a card for the hotel.',site:{},ph:{view:'chat'}},
+  {cap:'A Shark joins with the page context in front of them and asks what matters.',site:{},ph:{view:'chat'}},
+  {cap:'Kemi answers from the rate details. This rate is non-refundable, so she offers a refundable option from the same search.',site:{},ph:{view:'chat'}}
+ ],
+ msgs:[
+  B(2,'chip',{text:'Today'}),
+  B(2,'text',{from:'me',text:T('Hi, I\'m looking at *Hotel Marrakech House* for 15 to 22 Aug, 2 adults, 1 room. '+NAIRA+'550,921 for 7 nights. Can you help?'),time:'11:02',tag:'Prefilled from the page \u00B7 the customer can edit it before sending'}),
+  B(2,'preview',{from:'me',card:{img:HOTEL,title:'Hotel Marrakech House \u00B7 Marrakech',desc:'15 to 22 Aug \u00B7 2 adults \u00B7 '+NAIRA+'550,921 for 7 nights \u00B7 Non-refundable',dom:'traveltank.com'},time:'11:02',tag:'Context card \u00B7 hotel id, dates, guests and price seen'}),
+  B(3,'sys',{text:'Kemi, Travel Shark, joined the chat'}),
+  B(3,'text',{text:T('Hi Tunde, Kemi here. I can see you\'re looking at Hotel Marrakech House. What would you like to know?'),time:'11:03',tag:'Human agent \u00B7 page context pinned in the inbox'}),
+  B(3,'text',{from:'me',text:'Does the price include breakfast? And can I cancel if plans change?',time:'11:03'}),
+  B(4,'text',{text:T('Yes, this rate is *bed and breakfast*.\nIt is *non-refundable* though, so it can\'t be cancelled for a refund.\n\nIf you want flexibility, *Es Saadi Marrakech Resort - Palace* is available on the same dates with a *refundable* rate at '+NAIRA+'4,669,061 for 7 nights.'),btns:['\u21A9 Send me details','\u21A9 Stay with this one'],time:'11:04',tag:'Human agent \u00B7 figures from live availability'})
+ ],
+ notes:{
+  design:['The panel keeps the phone number. WhatsApp becomes the first and larger option, because a quick question belongs in text.','The same pattern fits the Need help? card in flight results and on holiday pages.','The opening message is written for the customer, in their voice, and they can edit it before sending.'],
+  biz:['Answers a question at the moment of doubt, which is when people leave for another site.','With the page context attached, one message replaces a five-minute call.','Measure chats per search session, conversion of chat sessions against non-chat sessions and time to first answer.'],
+  build:['The link carries hotel id, dates, guests, price shown and a timestamp, so the inbox can show the page and re-price it.','Handoff from the auto-reply to a human, with the context card pinned.','Anything a Shark quotes in chat must come from live availability, not memory.']}},
+
+{id:'track',title:'Track the price, or share the trip',
+ kicker:'Flight details, Track price and Share',tag:['ex','Existing buttons, new channel choice'],url:'traveltank.com/flights/results',
+ lede:'The flight details panel already has Track price and Share, and the homepage promises to "notify you when the prices change". WhatsApp is where those alerts and shares get seen and acted on.',
+ screen:drawer,chat:{name:'TravelTank',sub:'Business account',biz:true},chats:{group:{name:'London 2026 \u2708\uFE0F',sub:'Ada, Chidi, You',biz:false}},
+ steps:[
+  {cap:'Today, Track price and Share sit beside Book flight. Alerts go to email.',site:{before:true},ph:{view:'idle',note:'Alerts arrive by email.'}},
+  {cap:'New: Track price asks how to be told. WhatsApp is offered first, with the consent wording in view.',site:{pop:'track'},ph:{view:'idle',note:'Nothing is sent until he taps Start tracking.'}},
+  {cap:'The first message confirms what is being watched and how to stop.',site:{},ph:{view:'chat'}},
+  {cap:'Two days later the fare drops. The alert shows the old and new price in a card that carries the whole trip.',site:{dropped:true},ph:{view:'chat'}},
+  {cap:'Share now lists WhatsApp first. He picks the group.',site:{pop:'share',dropped:true},ph:{view:'picker'}},
+  {cap:'The trip card lands in the group with the price and the usual warning. Anyone can tap through to the same itinerary.',site:{dropped:true},ph:{view:'chat',scene:'group'}}
+ ],
+ msgs:[
+  B(2,'chip',{text:'Today'}),
+  B(2,'text',{text:T('*Watching your London fares* \uD83D\uDC40\nLOS \u21C4 LHR \u00B7 Fri 21 Aug to Mon 21 Sep\nBritish Airways, 2 adults\nNow *'+NAIRA+'5,800,854*\n\nWe\'ll message you here if the price drops. Prices can also go up, and they\'re not guaranteed until booked.'),btns:['\u21A9 Stop watching'],time:'09:14',tag:'Template \u00B7 alert subscription confirmed'}),
+  B(3,'chip',{text:'Two days later'}),
+  B(3,'preview',{card:{img:LONDON,title:'Price drop \u00B7 Lagos \u21C4 London',desc:'Now '+NAIRA+'5,673,507 for 2 adults. Was '+NAIRA+'5,800,854. British Airways, direct, 21 Aug to 21 Sep. Not guaranteed until booked.',dom:'traveltank.com'},btns:['\u21A9 Hold for 72 hours','\u2197 Book now','\u21A9 Stop watching'],time:'08:30',tag:'Marketing template \u00B7 price-drop alert, opted-in subscribers only'}),
+  B(5,'chip',{scene:'group',text:'Today'}),
+  B(5,'text',{scene:'group',from:'me',text:'Found us a flight to London \uD83D\uDC47 what do you think?',time:'18:26',tag:'Prefilled text from the share link'}),
+  B(5,'preview',{scene:'group',from:'me',card:prevCard,time:'18:26',tag:'Link preview built from Open Graph tags'}),
+  B(5,'text',{scene:'group',from:'ada',sender:'Ada',color:'#B0397A',text:'That\'s a fair price. Can we hold it first?',time:'18:27'}),
+  B(5,'text',{scene:'group',from:'chidi',sender:'Chidi',color:'#2A7DB4',text:'Hold am before the price changes \uD83D\uDE05',time:'18:27'}),
+  B(5,'text',{scene:'group',from:'me',text:'You can hold it for 72 hours with no payment. Doing it now.',time:'18:28'})
+ ],
+ notes:{
+  design:['The popover is small and sits on the button, so tracking stays a one-tap action.','WhatsApp is first because it is the channel most likely to be seen. Email stays as the second option.','The alert shows old and new price, so the saving is obvious.','Share keeps its button. The menu simply lists WhatsApp first.'],
+  biz:['A price drop is the strongest reason to come back, and WhatsApp gets it seen.','Hold for 72 hours on the alert turns a drop into a reserved fare before it disappears.','Sharing costs nothing to send and reaches people who have never visited.','Measure alert-to-booking rate, holds started from alerts, shares per fare view and visits from shared links.'],
+  build:['A subscription stores route, dates, passengers, price seen, threshold and consent.','Price-drop alerts are promotional, so they go out as marketing templates, only to people who opted in. Confirm category and cost with the provider.','Limit to one alert per fare per day.','Share link: wa.me text, short URL with a price snapshot, Open Graph tags for the card.']}},
+
+{id:'opt-in',n:1,title:'Opt in where the number is already asked',
+ kicker:'Checkout, traveller info',tag:['ex','Existing screen, one new row'],url:'traveltank.com/booking/traveller-info',
+ lede:'This page already asks for a mobile number and sells SMS booking details for '+NAIRA+'3,000. Offer WhatsApp beside it, free, and make that tick the consent record for every message that follows.',
+ screen:contact,chat:{name:'TravelTank',sub:'Business account',biz:true},
+ steps:[
+  {cap:'Today the only way to get booking details on your phone is SMS, at '+NAIRA+'3,000.',site:{before:true,wa:'',cont:false},ph:{view:'idle',note:'There is no WhatsApp channel yet.'}},
+  {cap:'New: a WhatsApp option sits above SMS. It is unticked, so consent is a deliberate choice.',site:{wa:'show'},ph:{view:'idle',note:'Nothing is sent until Tunde ticks the box.'}},
+  {cap:'Tunde ticks it. The wording names his number, what he will get and how to stop.',site:{wa:'ticked'},ph:{view:'idle',note:'Consent is recorded with the wording shown and a timestamp.'}},
+  {cap:'On Continue, TravelTank sends a first message. The chat now exists on his phone.',site:{wa:'ticked',cont:true},ph:{view:'chat'}},
+  {cap:'Tunde replies. That opens a 24-hour window in which a Shark can answer freely.',site:{wa:'ticked',cont:true},ph:{view:'chat'}}
+ ],
+ msgs:[
+  B(3,'chip',{text:'Today'}),
+  B(3,'text',{text:T('Hi Tunde, this is *TravelTank*. 👋\nYou\'ve chosen to get updates on your trip to *London* here. We\'ll send your booking, payment reminders and flight changes, nothing else.\n\nReply *STOP* at any time to opt out.'),btns:['↩ Got it','↩ Talk to a Shark'],tag:'Utility template · business-initiated · opt-in confirmation',time:'14:21'}),
+  B(4,'text',{from:'me',text:'Got it 👍',time:'14:21',tag:'Customer reply · opens a 24h service window'}),
+  B(4,'text',{text:T('Perfect. If you have any questions before you book, just ask here. Our Travel Sharks are online 24/7.'),time:'14:22',tag:'Service message · free-form inside the 24h window'})
+ ],
+ notes:{
+  design:['The row sits directly under the mobile field, so the link between number and channel is obvious.','Unticked by default. Consent to WhatsApp has to be an affirmative act.','SMS stays as it is. WhatsApp goes first because it is free and richer.','If the first message cannot be delivered, fall back to email and show a one-line prompt in My Account.'],
+  biz:['Replaces a paid add-on that few people choose with a free opt-in. Each tick is a consented, reachable contact.','Owner decision: SMS is a '+NAIRA+'3,000 line today. Suggest keeping it for anyone who prefers it.','Measure opt-in rate at checkout, then hold-to-paid conversion for opted-in against not.'],
+  build:['Store consent: timestamp, wording version, number, user and booking id.','WhatsApp Business Platform (Cloud API), direct or through a Business Solution Provider. Verified business, display name TravelTank.','The first business-initiated message must be an approved template. Category: utility.','Normalise numbers to E.164 (+234…) before sending.']}},
+
+
+{id:'travellers',title:'Let each traveller add their own details',
+ kicker:'Checkout, traveller info',tag:['ex','Existing passenger form, new option'],url:'traveltank.com/booking/traveller-info',
+ lede:'Checkout says every name must match government ID, and the booker types them for everyone. Instead, send each traveller a link. They fill in their own details from their own passport, without leaving WhatsApp.',
+ screen:travellers,chat:{name:'TravelTank',sub:'Business account',biz:true},chats:{tunde:{name:'Ada',sub:'online',biz:false},ada:{name:'TravelTank',sub:'Business account',biz:true}},
+ steps:[
+  {cap:'Today the booker types every passenger\'s name and date of birth, and has to chase friends for them.',site:{before:true},ph:{view:'idle',note:'Details are collected by messaging people separately.'}},
+  {cap:'New: inside each extra passenger, an option to ask them to add their own details.',site:{},ph:{view:'idle',note:'Nothing is sent from TravelTank. The booker sends the link.'}},
+  {cap:'Tunde taps Send link. WhatsApp opens with the message ready, addressed to Ada.',site:{sent:true},ph:{view:'chat',scene:'tunde',who:'Tunde\'s phone'}},
+  {cap:'Ada taps the link and the chat with TravelTank opens. She started it, so TravelTank can reply straight away.',site:{sent:true},ph:{view:'chat',scene:'ada',who:'Ada\'s phone'}},
+  {cap:'The button opens a short WhatsApp form. She enters her name as it appears on her passport.',site:{sent:true},ph:{view:'flow',scene:'ada',who:'Ada\'s phone'}},
+  {cap:'Her details land in Tunde\'s booking, and Ada is asked, separately, whether she wants updates here.',site:{filled:true},ph:{view:'chat',scene:'ada',who:'Ada\'s phone'}}
+ ],
+ msgs:[
+  B(2,'chip',{scene:'tunde',text:'Today'}),
+  B(2,'text',{scene:'tunde',from:'me',text:'Hi Ada, can you add your passport details for our London trip? It\'s quick and secure \uD83D\uDC47',time:'14:31',tag:'Prefilled share text \u00B7 the link carries a one-time token'}),
+  B(2,'preview',{scene:'tunde',from:'me',card:{img:LONDON,title:'Add your details \u00B7 London, 21 Aug',desc:'Tunde has invited you to add your name and date of birth. Names must match your passport.',dom:'traveltank.com'},time:'14:31'}),
+  B(3,'chip',{scene:'ada',text:'Today'}),
+  B(3,'text',{scene:'ada',from:'me',text:'Hi, I\'m adding my details for Tunde\'s London booking',time:'14:33',tag:'Prefilled by the link \u00B7 customer-initiated, so no template is needed'}),
+  B(3,'text',{scene:'ada',text:T('Hi Ada \uD83D\uDC4B Tunde is booking Lagos \u2192 London on Fri 21 Aug for you both.\n\nYour name must match your passport exactly. Ready?'),btns:['\u21A9 Add my details'],time:'14:33',tag:'Session message \u00B7 the button opens a WhatsApp Flow'}),
+  B(5,'text',{scene:'ada',from:'me',text:T('*Details sent*\nAda Bakare\nBorn 14 Mar 1991'),time:'14:34',tag:'Flow response \u00B7 structured data returned to the booking'}),
+  B(5,'text',{scene:'ada',text:T('Thanks Ada, your details are now part of Tunde\'s booking. \u2705\n\nWould you like your tickets and trip updates here too?'),btns:['\u21A9 Yes, on WhatsApp','\u21A9 No thanks'],time:'14:34',tag:'Session message \u00B7 Ada\'s own opt-in, kept separate from Tunde\'s'})
+ ],
+ notes:{
+  design:['The option sits inside the extra passenger, exactly where the missing details are.','TravelTank cannot message Ada first. She gets a link from Tunde and chooses to start the chat.','The form is a native WhatsApp form, so Ada never leaves the app. Tunde can still type everything himself.'],
+  biz:['Each traveller enters their name from their own passport, which reduces name mismatches that can lead to correction fees or refused boarding.','A group booking is no longer held up while the booker chases details.','Ada becomes a consented contact in her own right.','Measure completion by link, time to complete traveller details and name-correction requests.'],
+  build:['One-time token tied to booking and passenger slot. It expires and needs no account or payment.','The Flow returns structured fields and runs basic validation, such as letters only in names.','Opening the chat is customer-initiated, so the first reply is free-form.','Passport numbers are sensitive. Collect them only when the supplier needs them, and store accordingly.']}},
+{id:'hold',n:3,title:'A 72-hour hold that does not slip away',
+ kicker:'Payment, then confirmation',tag:['ex','Existing screens, new row and status'],url:'traveltank.com/booking/payment',
+ lede:'Hold booking is a strong feature: no payment, 72 hours. But the hold is easy to forget, and the site only mentions the deadline once. WhatsApp reminds people while there is still time to act.',
+ screen:null,chat:{name:'TravelTank',sub:'Business account',biz:true},
+ steps:[
+  {cap:'Today Tunde picks Hold booking. The only promise is that the booking will be released in 72 hours.',scr:'pay',site:{method:'hold',before:true,wa:true},ph:{view:'idle',note:'No reminder is scheduled.'}},
+  {cap:'New: a reminder opt-in under Hold booking, pre-filled from touchpoint 4. He can change the number.',scr:'pay',site:{method:'hold',wa:true},ph:{view:'idle',note:'If he skipped touchpoint 1, this tick is where he opts in.'}},
+  {cap:'The hold is placed. The confirmation page shows the deadline and that WhatsApp reminders are on. A message arrives with the same facts.',scr:'confirm',site:{status:'hold',chip:{text:'Hold ends Mon 24 Aug, 14:30 · 72h left. Reminders on WhatsApp.'}},ph:{view:'chat'}},
+  {cap:'Two days later. 24 hours left. The message offers both ways to pay.',scr:'confirm',site:{status:'hold',chip:{text:'24h left · pay by Mon 24 Aug, 14:30',level:''}},ph:{view:'chat'}},
+  {cap:'Six hours left. The tone shifts from reminder to help, with a human option.',scr:'confirm',site:{status:'hold',chip:{text:'6h left · fare may change after 14:30',level:'red'}},ph:{view:'chat'}}
+ ],
+ msgs:[
+  B(2,'chip',{text:'Day 0 · Fri, 14:30'}),
+  B(2,'text',{text:T('*Your trip to London is on hold* ✈️\nRef *TT7K2QPD*\nLOS → LHR · Fri 21 Aug (return Mon 21 Sep)\nTotal '+NAIRA+'5,673,507 for 2 travellers\n\nWe\'ll keep this fare until *Mon 24 Aug, 14:30*. No payment has been taken. Prices are not guaranteed until you pay.'),btns:['↩ Pay by card','↩ Bank transfer details','↩ Talk to a Shark'],time:'14:30',tag:'Utility template · quick-reply buttons'}),
+  B(3,'chip',{text:'Day 2 · Sun, 14:30'}),
+  B(3,'text',{text:T('*24 hours left* on your London hold. ⏳\nPay by Mon 24 Aug, 14:30 to keep this fare. Fares can change once the hold ends.'),btns:['↩ Pay by card','↩ Bank transfer details'],time:'14:30',tag:'Utility template · scheduled 24h before expiry'}),
+  B(4,'chip',{text:'Day 2 · Sun, 20:30'}),
+  B(4,'text',{text:T('*6 hours left.* Want a hand finishing up? Reply here and a Travel Shark will help right away.'),btns:['↩ Pay now','↩ Ask a Shark'],time:'20:30',tag:'Utility template · scheduled 6h before expiry'})
+ ],
+ notes:{
+  design:['The opt-in is a row inside the Hold option, so it appears exactly when it is useful.','The confirmation page mirrors the message: same deadline, same wording, one source of truth.','The chip turns red in the final six hours. The message tone changes with it.'],
+  biz:['The hold is the moment of highest intent without payment. Reminders turn a soft yes into a paid booking.','Fewer holds expire silently, and fewer Sharks chase holds by phone.','Measure hold-to-paid rate for opted-in against not, and the share of payments that follow a reminder.'],
+  build:['Scheduler fires at hold start, expiry minus 24h and minus 6h. Cancel the schedule when payment arrives.','All three are utility templates, sent outside the 24h window, so each must be pre-approved.','Quick-reply taps arrive as webhook events and route to the payment link or the bank-details flow.','Hold expiry time must come from the supplier response, not a fixed 72 hours.']}},
+
+{id:'bank',n:4,title:'Bank transfer, with proof of payment in the chat',
+ kicker:'Payment, bank transfer',tag:['ex','Existing screen, one new block'],url:'traveltank.com/booking/payment',
+ lede:'Bank transfer is a core payment method here, and today it is manual: details are shown on screen and emailed, then the customer waits. WhatsApp can hold the details, take the receipt and confirm the payment in one place.',
+ screen:null,chat:{name:'TravelTank',sub:'Business account',biz:true},
+ steps:[
+  {cap:'Today the account details sit on screen and in an email. After paying, the customer has nowhere obvious to say so.',scr:'pay',site:{method:'bank',before:true},ph:{view:'idle',note:'Details by email only.'}},
+  {cap:'New: Send to WhatsApp, plus a prompt for people who have already paid. Tunde taps it and the details arrive in the chat.',scr:'pay',site:{method:'bank'},ph:{view:'chat'}},
+  {cap:'He pays in his banking app and sends a photo of the receipt back in the same chat.',scr:'confirm',site:{status:'pending',chip:{text:'Waiting for your receipt on WhatsApp'}},ph:{view:'chat'}},
+  {cap:'An instant reply tells him what happens next. The site status changes too.',scr:'confirm',site:{status:'pending',chip:{text:'Receipt received · confirming with the bank'}},ph:{view:'chat'}},
+  {cap:'A Shark confirms the money. The chat and the booking page both say so.',scr:'confirm',site:{status:'paid',chip:{text:'Payment confirmed on WhatsApp',level:'ok'}},ph:{view:'chat'}}
+ ],
+ msgs:[
+  B(1,'text',{from:'me',text:'Send me the bank details',time:'14:35',tag:'Opened by the site button · prefilled message starts the 24h window'}),
+  B(1,'text',{text:T('*Bank transfer details*\nAmount due: *'+NAIRA+'5,673,507*\n\nProvidus Bank plc\nTravelTank Limited\n<span class="mono">1300128292</span>\n\nPlease use *TT7K2QPD* as the narration. When you\'ve paid, send a photo of your receipt here.'),btns:['↩ I\'ve paid','↩ Zenith Bank details'],time:'14:35',tag:'Session message with quick replies · inside the 24h window'}),
+  B(2,'chip',{text:'A few minutes later'}),
+  B(2,'rcpt',{from:'me',time:'14:48',tag:'Customer media · stored against the booking'}),
+  B(2,'text',{from:'me',text:'Transfer done',time:'14:48'}),
+  B(3,'text',{text:T('Thanks Tunde, we\'ve got your receipt. 🙌\nA Travel Shark is confirming it with the bank now and will message you here as soon as it lands.'),time:'14:48',tag:'Auto-reply · case opened in the agent inbox'}),
+  B(4,'text',{text:T('*Payment confirmed* ✅\n'+NAIRA+'5,673,507 received for *TT7K2QPD*. We\'re issuing your tickets now.'),time:'14:59',tag:'Utility message · triggered by the finance confirmation event'})
+ ],
+ notes:{
+  design:['The block sits inside the Bank Transfer option, under the account cards, so it appears exactly when needed.','The site status line and the chat say the same thing at the same time.','Copy-friendly details: the account number is set in monospace so it is easy to select.'],
+  biz:['Shortens the wait between paying and being confirmed, which is the anxious part of a transfer.','Receipts arrive attached to a booking instead of in a personal inbox or on a phone call.','Measure time from receipt to confirmation, support calls about payment status and abandoned transfers.'],
+  build:['The receipt is media on the webhook. Store it and attach it to the booking and the case.','Finance confirmation is a back-office action or a bank-feed match, and it triggers the message.','Option for later: a dynamic virtual account per booking from the payment provider, so confirmation is automatic.','Service SLA on receipt review has to be agreed before the copy promises one.']}},
+
+{id:'confirm',n:5,title:'Tickets, and a Shark, on tap',
+ kicker:'Confirmation page',tag:['ex','Existing screen, two additions'],url:'traveltank.com/booking/confirmation',
+ lede:'After booking, the page offers a phone number and Resend itinerary. WhatsApp delivers the e-ticket where people already look for it and puts a person one tap away, with the booking already attached.',
+ screen:confirm,chat:{name:'Kemi · TravelTank',sub:'Travel Shark',biz:true},
+ steps:[
+  {cap:'Today the confirmation page offers email and a phone number for help.',site:{status:'paid',before:true},ph:{view:'idle',note:'Help is a phone call.'}},
+  {cap:'New: Send to WhatsApp beside Resend, and a WhatsApp button in the help panel. On desktop, a QR code carries the booking across to the phone.',site:{status:'paid'},ph:{view:'idle',note:'The e-ticket has not been sent yet.'}},
+  {cap:'The e-ticket arrives as a PDF in the chat, with the next useful actions.',site:{status:'paid'},ph:{view:'chat'}},
+  {cap:'Tunde asks about a bag. A named Shark joins and already has the booking.',site:{status:'paid'},ph:{view:'chat'}},
+  {cap:'Kemi quotes it and sends a secure payment link. The extra goes on the same ticket.',site:{status:'paid'},ph:{view:'chat'}}
+ ],
+ msgs:[
+  B(2,'chip',{text:'Today'}),
+  B(2,'text',{text:T('*Your tickets are ready* 🎉\nTunde, you\'re booked to London.\nRef *TT7K2QPD*'),doc:{name:'E-ticket_TT7K2QPD.pdf',meta:'2 pages · 148 kB · PDF'},btns:['↩ Add a bag','↩ Talk to a Shark','↗ Add to calendar'],time:'15:03',tag:'Utility template · PDF document header'}),
+  B(3,'text',{from:'me',text:'Hi, can I add a checked bag for both of us? It says 0 x 23kg.',time:'15:05',tag:'Customer message · 24h window opens'}),
+  B(3,'sys',{text:'Kemi, Travel Shark, joined the chat'}),
+  B(3,'text',{text:T('Hi Tunde, Kemi here. Yes, I can add 1 x 23kg to each ticket both ways on British Airways. Pricing it now.'),time:'15:06',tag:'Human agent · booking ref and passenger names shown in the inbox'}),
+  B(4,'text',{text:T('Added to your quote: *2 x 23kg bags, return*\nTotal *'+NAIRA+'96,000*\n\nPay securely below and I\'ll update your ticket as soon as it clears.'),btns:['↗ Pay '+NAIRA+'96,000'],time:'15:09',tag:'Interactive CTA URL · hosted payment page'})
+ ],
+ notes:{
+  design:['Send to WhatsApp sits beside Resend by email, same size, so it reads as an equal choice.','The help panel keeps the phone number. WhatsApp is added, not swapped in.','The QR is for desktop only. On a phone the button opens the chat directly.'],
+  biz:['Fewer calls asking where the ticket is, and a faster route to selling the bag, protocol and baggage services.','A human conversation, in text, scales better than phone: one Shark can handle several chats at once.','Measure support calls per booking, extras attach rate and first response time.'],
+  build:['E-ticket PDF goes out as a template with a document header.','Agent inbox: BSP or helpdesk with the booking, passengers and history shown beside the chat.','Handoff rules: bot or auto-reply first, then a Shark. Out-of-hours messages queue with an honest wait time.','Payment links are one-time and amount-locked. Do not take card details in chat.']}},
+
+{id:'pretrip',n:6,title:'Pre-trip care, with the right controls',
+ kicker:'Between booking and departure',tag:['nw','New screen: My Account notifications'],url:'traveltank.com/account/notifications',
+ lede:'The days before a trip are where most travel anxiety lives. Timely messages cut the worry, and a notifications screen keeps the customer in control, which also keeps the channel healthy.',
+ screen:prefs,chat:{name:'TravelTank',sub:'Business account',biz:true},
+ steps:[
+  {cap:'New screen in My Account. Today there is no place to choose channels. WhatsApp joins email and SMS, one row per message type.',site:{before:true},ph:{view:'idle',note:'Nothing yet.'}},
+  {cap:'With WhatsApp on: seven days out, a short checklist, with a link to visa help.',site:{row:2},ph:{view:'chat'}},
+  {cap:'The day before: check-in is open, and a protocol offer for the airport. It is a marketing message, so it needs its own consent row.',site:{row:4},ph:{view:'chat'}},
+  {cap:'Tunde taps Add. The service is confirmed and payment is one tap away.',site:{row:4},ph:{view:'chat'}},
+  {cap:'Later, the airline moves the return flight. He hears first, with a way to react.',site:{row:3},ph:{view:'chat'}}
+ ],
+ msgs:[
+  B(1,'chip',{text:'7 days before · Fri 14 Aug'}),
+  B(1,'text',{text:T('*London in 7 days* 🧳\nQuick checklist for Tunde and Ada:\n• Passport valid beyond your return date\n• Visa or entry permission for the UK\n• E-ticket saved offline'),btns:['↩ Visa help','↩ I\'m all set'],time:'09:00',tag:'Utility template · scheduled 7 days before departure'}),
+  B(2,'chip',{text:'1 day before · Thu 20 Aug'}),
+  B(2,'text',{text:T('*Check-in is open* for your British Airways flight tomorrow, LOS 22:50.\n\nGoing through Lagos airport? Add *Protocol Departure* and an agent meets you at the door and takes you through. '+NAIRA+'40,000 per person.'),btns:['↩ Add Protocol Departure','↩ Not now'],time:'10:00',tag:'Marketing template · contains an offer, needs the offers consent'}),
+  B(3,'text',{from:'me',text:'Add Protocol Departure',time:'10:02',tag:'Quick-reply tap'}),
+  B(3,'text',{text:T('Done. *Protocol Departure* for 2 travellers, *'+NAIRA+'80,000*.\nPay below to confirm and we\'ll send your agent\'s name and number.'),btns:['↗ Pay '+NAIRA+'80,000'],time:'10:02',tag:'Session message · inside the 24h window'}),
+  B(4,'chip',{text:'Later in the trip'}),
+  B(4,'text',{text:T('*Schedule change* ⚠️\nBritish Airways has moved your return on Mon 21 Sep from 12:05 to 13:20.\nNo action needed unless that doesn\'t work for you.'),btns:['↩ That\'s fine','↩ Talk to a Shark'],time:'16:12',tag:'Utility template · triggered by the airline schedule-change event'})
+ ],
+ notes:{
+  design:['One row per message type, one toggle per channel. Offers are separate from the rest and off for email and SMS.','A visible way out, twice: the link on this screen and STOP in any chat.','Highlighted row shows which setting the message on the phone belongs to.'],
+  biz:['Fewer missed flights, fewer "where do I go?" calls, and a natural moment to offer protocol, baggage and insurance.','Controls build trust, and a trusted channel keeps its high open rates.','Measure extras attach rate from reminders, opt-out rate and schedule-change acknowledgement.'],
+  build:['Triggers: time-to-departure jobs and supplier schedule-change webhooks. Both need idempotent delivery.','Marketing and utility are different template categories with different consent and price. Keep them apart.','Quality rating matters: too many blocks or reports lowers the number\'s sending limit.','Preference store must be the single source for email, SMS and WhatsApp.']}},
+
+{id:'refund',n:7,title:'Cancel, change and refund, without chasing',
+ kicker:'After booking',tag:['nw','Existing button, new tracker'],url:'traveltank.com/booking/TT7K2QPD',
+ lede:'Non-refundable fares make cancellation emotional. A clear, honest conversation and a status that moves on its own is the most valuable thing support can offer, and the cheapest to deliver.',
+ screen:confirm,chat:{name:'TravelTank',sub:'Business account',biz:true},
+ steps:[
+  {cap:'Today there is a single Cancel booking button on a non-refundable fare.',site:{status:'paid',before:true,manage:true,noHelp:true},ph:{view:'idle',note:'Cancelling is a form, a call or an email.'}},
+  {cap:'New: Cancel or change in chat. Tunde asks, and the reply starts from the fare rules for his booking.',site:{status:'paid',manage:true,noHelp:true},ph:{view:'chat'}},
+  {cap:'He picks Request cancellation. A case is opened, and the tracker appears on the booking page.',site:{status:'paid',manage:true,noHelp:true,stage:0,times:['Today 14:42']},ph:{view:'chat'}},
+  {cap:'A Shark submits it to the airline. Both places update.',site:{status:'paid',manage:true,noHelp:true,stage:1,times:['Today 14:42','Today 15:20']},ph:{view:'chat'}},
+  {cap:'The airline answers. Even on a non-refundable fare, unused taxes may come back.',site:{status:'paid',manage:true,noHelp:true,stage:2,times:['Today 14:42','Today 15:20','2 days later'],amount:NAIRA+'186,400'},ph:{view:'chat'}},
+  {cap:'Refund paid. The tracker closes and the chat has a clear last line.',site:{status:'paid',manage:true,noHelp:true,stage:3,times:['Today 14:42','Today 15:20','2 days later','5 days later'],amount:NAIRA+'186,400'},ph:{view:'chat'}}
+ ],
+ msgs:[
+  B(1,'text',{from:'me',text:'I need to cancel my London trip',time:'14:40',tag:'Customer message · 24h window opens'}),
+  B(1,'text',{text:T('I\'m sorry to hear that, Tunde. I\'ve looked at booking *TT7K2QPD*.\n\nYour fare is *non-refundable*, so the airline may not return the ticket price. Here\'s what we can do:'),btns:['↩ Request cancellation','↩ Change travel dates','↩ Name change','↩ Talk to a Shark'],time:'14:40',tag:'Interactive list · options come from the fare rules on the booking'}),
+  B(2,'text',{from:'me',text:'Request cancellation',time:'14:42',tag:'List selection'}),
+  B(2,'text',{text:T('Understood. Even on non-refundable fares the airline can sometimes return unused taxes. A Travel Shark will check with British Airways and update you here.\n\nRequest *RF-20481* received.'),time:'14:42',tag:'Service message · creates a case in the agent inbox'}),
+  B(3,'text',{text:T('*Refund update · RF-20481*\nStatus: *Sent to British Airways* ✅\nWe\'ll message you as soon as they reply.'),time:'15:20',tag:'Utility template · case status change'}),
+  B(4,'text',{text:T('*Refund update · RF-20481*\nBritish Airways has approved *'+NAIRA+'186,400* in unused taxes.\nWe\'re processing the payment to you.'),time:'Mon 11:05',tag:'Utility template · case status change'}),
+  B(5,'text',{text:T('*Refund paid* 💸\n'+NAIRA+'186,400 has been sent to your original payment method. It can take a few working days to show.\n\nThank you for travelling with TravelTank. We hope to see you again soon.'),time:'Thu 09:30',tag:'Utility template · case closed'})
+ ],
+ notes:{
+  design:['The existing Cancel booking button stays. WhatsApp is an alternative, not a replacement.','The tracker is a four-step timeline using the site\'s own teal. The chat message names the same step.','The first reply says plainly what the fare rules allow. No false hope, no dead end.'],
+  biz:['Refund anxiety drives repeat contacts. A status that moves by itself removes most of them.','Honest handling of a non-refundable fare protects trust, which is the main barrier for online travel agencies.','Measure contacts per refund case, time to close and post-case satisfaction.'],
+  build:['Case management: each status change is an event that triggers a template and updates the tracker.','Airline decisions arrive by supplier channels or by a Shark updating the case. Both write to the same record.','Amounts shown in chat must come from the case, never typed freehand.','Refund wording needs review by the owner and legal before launch.']}}
+];
+
+SCN.forEach(function(s,i){s.n=i+1;});
+
+/* ---------- Rendering ---------- */
+var view=document.getElementById('view'), tabs=document.getElementById('tabs');
+var state={id:'overview',step:0,tags:false,today:false};
+
+function scrFor(s,i){
+  var st=s.steps[i], o=Object.assign({},st.site||{});
+  var fn=st.scr?{pay:pay,confirm:confirm}[st.scr]:s.screen;
+  if(state.today){o.before=true;}
+  if(s.id==='hold'||s.id==='bank'){o.plainHelp=true;}
+  return fn(o);
+}
+
+function msgHTML(m,fresh,chat){
+  if(m.kind==='chip') return '<div class="chip'+(fresh?' fresh':'')+'">'+m.text+'</div>';
+  if(m.kind==='sys') return '<div class="sysmsg'+(fresh?' fresh':'')+'">'+m.text+'</div>';
+  var out=m.from==='me', inner='';
+  if(m.sender) inner+='<div class="snd" style="color:'+m.color+'">'+m.sender+'</div>';
+  if(m.kind==='preview'){ var c=m.card; inner+='<div class="prev"><img src="'+c.img+'" alt=""><div><b>'+c.title+'</b><span>'+c.desc+'</span><small>'+c.dom+'</small></div></div>'; }
+  if(m.kind==='rcpt'){ inner+='<div class="rcpt"><h5><span>Transfer successful</span><span>&#10003;</span></h5>To<br>TravelTank Limited<hr>Amount<br><b>'+NAIRA+'5,673,507.00</b><hr>Narration<br>TT7K2QPD<hr>Ref 0824-77310-5521</div>'; }
+  if(m.doc){ inner+='<div class="doc"><div class="pdf">PDF</div><div><b>'+m.doc.name+'</b><span>'+m.doc.meta+'</span></div></div>'; }
+  if(m.text) inner+=m.text;
+  var tk=out?'<span class="tk">&#10003;&#10003;</span>':'';
+  inner+='<span class="tm">'+(m.time||'')+tk+'</span>';
+  var btns=m.btns?'<div class="btns">'+m.btns.map(function(b){return '<div class="wbtn">'+b+'</div>';}).join('')+'</div>':'';
+  var tag=m.tag?'<div class="tag">'+m.tag+'</div>':'';
+  return '<div class="mg '+(out?'out':'in')+(fresh?' fresh':'')+'"><div class="bub">'+inner+'</div>'+btns+tag+'</div>';
+}
+
+function phoneHTML(s,i){
+  var st=s.steps[i], ph=st.ph, sc=ph.scene||'';
+  var c=(sc&&s.chats&&s.chats[sc])||s.chat;
+  if(ph.view==='channel') c={name:'TravelTank Deals',sub:'Channel \u00B7 weekly fares',biz:true};
+  var head='<div class="st"><span>9:41</span><span>&#9679;&#9679;&#9679;&nbsp;&#9646;</span></div>';
+  var avatar=c.biz?'<div class="av">TT</div>':'<div class="av g">'+(c.name.charAt(0)==='L'?'&#9992;':c.name.charAt(0))+'</div>';
+  var h=head+'<div class="wh"><span class="back">&#8249;</span>'+avatar+'<div><div class="nm">'+c.name+(c.biz?TICK:'')+'</div><div class="sb">'+c.sub+'</div></div><div class="ic"><span>&#9742;</span><span>&#8942;</span></div></div>';
+  var body='';
+  function chat(){
+    var parts=s.msgs.filter(function(m){return m.at<=i&&(m.scene||'')===sc;}).map(function(m){return msgHTML(m,m.at===i);}).join('');
+    return '<div class="wbody" id="wbody">'+parts+'</div>';
+  }
+  if(ph.view==='idle'){
+    body='<div class="idle"><div>'+ph.note+'</div></div>';
+  } else if(ph.view==='picker'){
+    body='<div class="picker"><div class="ph">Send to&hellip;<small>1 selected</small></div><div class="lab">Recent chats</div>'+
+     '<div class="row sel"><div class="av g">&#9992;</div>London 2026 &#9992;&#65039;<span class="tkc">&#10003;</span></div>'+
+     '<div class="row"><div class="av g">A</div>Ada<span class="tkc"></span></div>'+
+     '<div class="row"><div class="av g">F</div>Family<span class="tkc"></span></div>'+
+     '<div class="row"><div class="av g">C</div>Chidi Okeke<span class="tkc"></span></div>'+
+     '<div class="row"><div class="av g">M</div>Mum<span class="tkc"></span></div><div class="send">Send &#10148;</div></div>';
+  } else if(ph.view==='channel'){
+    body='<div class="wbody" id="wbody"><div class="chip">Monday</div><div class="mg in" style="max-width:94%"><div class="bub" style="padding:0;overflow:hidden"><div class="chb"><b>This week from Lagos</b><span>The lowest fares we\'ve found</span></div>'+
+     '<div style="padding:9px 11px 4px;font-size:13.8px;line-height:1.55">\u2708\uFE0F <b>Dubai</b> from '+NAIRA+'752,060<br>\u2708\uFE0F <b>Istanbul</b> from '+NAIRA+'870,943<br>\u2708\uFE0F <b>Jeddah</b> from '+NAIRA+'896,298<br>\u2708\uFE0F <b>Guangzhou</b> from '+NAIRA+'1,009,800<br><span style="font-size:12px;color:#667781">Fares can change. Not guaranteed until booked.</span><span class="tm">09:00</span></div></div>'+
+     '<div class="btns"><div class="wbtn">\u2197 See all fares</div></div><div class="tag">Channel update \u00B7 one-way broadcast, no template cost</div></div>'+
+     '<div class="chip" style="margin-top:8px">\uD83D\uDD14 You are following this channel</div></div>';
+  } else if(ph.view==='chat'||ph.view==='flow'){
+    body=chat();
+    if(ph.view==='chat') body+='<div class="wi"><div>Message</div><i>&#9658;</i></div>';
+    if(ph.view==='flow') body+='<div class="flowov"><div class="dim"></div><div class="sheet"><h5>Your details</h5><p>Enter your name exactly as on your passport.</p>'+
+      '<div class="f2"><div class="f"><small>First name</small>Ada</div><div class="f"><small>Surname</small>Bakare</div></div>'+
+      '<div class="f"><small>Date of birth</small>14 / 03 / 1991</div><div class="f"><small>Frequent flyer number (optional)</small>&nbsp;</div><div class="sub">Submit</div></div></div>';
+  }
+  return (ph.who?'<div class="frame-bar who"><span class="pill">'+ph.who+'</span></div>':'')+'<div class="phone"><div class="scr">'+h+body+'</div></div>';
+}
+
+function scenarioHTML(s){
+  var idx=SCN.indexOf(s), prev=SCN[idx-1], next=SCN[idx+1];
+  var tg=s.tag;
+  return '<section aria-labelledby="h-'+s.id+'">'+
+   '<div class="scn-head"><div class="kicker">Touchpoint '+s.n+' of '+SCN.length+' \u00B7 '+s.kicker+'</div><h2 id="h-'+s.id+'">'+s.title+'</h2><p class="lede">'+s.lede+'</p></div>'+
+   '<div class="stage"><div><div class="frame-bar"><span class="pill '+tg[0]+'">'+tg[1]+'</span><span class="pill">Dashed outlines mark what is new or changed</span></div>'+
+   '<div class="browser"><div class="b-bar"><i></i><i></i><i></i><div class="url">'+s.url+'</div></div><div class="viewport" id="vp"><div class="tt" id="tt"></div></div></div></div>'+
+   '<div class="phone-col" id="pcol"><div id="ph"></div></div></div>'+
+   '<div class="ctl"><div class="nav"><button class="nb" id="bk">&larr; Back</button><button class="nb pri" id="nx">Next &rarr;</button></div>'+
+   '<div class="cap"><div class="n" id="dots"></div><p id="cap" aria-live="polite"></p></div>'+
+   '<div class="tog"><label class="sw"><input type="checkbox" id="tg-today"><i></i>Show today\'s site</label><label class="sw"><input type="checkbox" id="tg-tags"><i></i>Show build tags</label></div></div>'+
+   '<div class="notes">'+
+    noteCard('For design','layout and states',s.notes.design)+noteCard('For the business','value and measures',s.notes.biz)+noteCard('For the build','what it takes',s.notes.build)+'</div>'+
+   '<div class="next-up">'+(prev?'<button class="nb" data-go="'+prev.id+'">&larr; '+prev.n+'. '+prev.title+'</button>':'<button class="nb" data-go="overview">&larr; Overview</button>')+(next?'<button class="nb pri" data-go="'+next.id+'">'+next.n+'. '+next.title+' &rarr;</button>':'<button class="nb pri" data-go="overview">Back to overview</button>')+'</div></section>';
+}
+function noteCard(t,sm,arr){return '<div class="card"><h3>'+t+' <small>'+sm+'</small></h3><ul>'+arr.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul></div>';}
+
+function fit(){
+  var vp=document.getElementById('vp'), tt=document.getElementById('tt'); if(!vp||!tt) return;
+  var sc=vp.clientWidth/900; tt.style.transform='scale('+sc+')'; vp.style.height=Math.ceil(tt.offsetHeight*sc)+'px';
+}
+function draw(){
+  var s=SCN.filter(function(x){return x.id===state.id;})[0]; if(!s) return;
+  var i=state.step, st=s.steps[i];
+  var tt=document.getElementById('tt'); tt.innerHTML=scrFor(s,i);
+  document.getElementById('ph').innerHTML=phoneHTML(s,i);
+  document.getElementById('pcol').classList.toggle('show-tags',state.tags);
+  document.getElementById('cap').textContent=st.cap;
+  document.getElementById('dots').innerHTML=s.steps.map(function(_,k){return '<button class="'+(k===i?'on':'')+'" aria-label="Step '+(k+1)+'" data-step="'+k+'"></button>';}).join('')+'<span>Step '+(i+1)+' of '+s.steps.length+'</span>';
+  document.getElementById('bk').disabled=(i===0);
+  document.getElementById('nx').disabled=(i===s.steps.length-1);
+  var wb=document.getElementById('wbody'); if(wb){wb.scrollTop=wb.scrollHeight;}
+  tt.classList.toggle('noanim',state.today);
+  fit();
+}
+function overview(){
+  var stages=[
+   ['Discover and search',[1,2,3],''],
+   ['Traveller info',[4,5],''],
+   ['Extras',[],'Protocol and baggage offers, asked in chat (see 8 and 9)'],
+   ['Payment',[6,7],''],
+   ['Confirmation',[8],''],
+   ['Before the trip',[9],''],
+   ['After booking',[10],'']
+  ];
+  var jm=stages.map(function(st){
+    var tp=st[1].map(function(n){var s=SCN[n-1];return '<button data-go="'+s.id+'"><b>'+n+'</b><span>'+s.title+'</span></button>';}).join('');
+    if(st[2]) tp+='<div class="later"><em>Also</em>'+st[2]+'</div>';
+    return '<div class="jm-st"><h4>'+st[0]+'</h4><div class="jm-line"><i></i></div><div class="jm-tp">'+tp+'</div></div>';}).join('');
+  var obs=[
+   ['The homepage promises Sharks 24/7 and a refund tracker','Homepage cards','home'],
+   ['Hotel and flight pages offer help as a phone number only','Need help? panel','hotel'],
+   ['Track price and Share are buttons, and the site promises to notify you of price changes','Flight details','track'],
+   ['The SMS option costs '+NAIRA+'3,000 at checkout','Traveller info page','opt-in'],
+   ['Names must match ID, and the booker types them for everyone','Traveller info page','travellers'],
+   ['Holds are released in 72 hours if no payment is received','Payment page','hold'],
+   ['Bank transfer details go on screen and by email only','Payment page','bank'],
+   ['Fares can be non-refundable, and Cancel is one button','Confirmation page','refund']
+  ].map(function(o){return '<div class="ob"><q>'+o[1]+'</q><strong>'+o[0]+'</strong><button data-go="'+o[2]+'">See the idea &rarr;</button></div>';}).join('');
+  var eff=[
+   ['1. Homepage chat, refunds, deals','Cheap first contact, fewer repeat refund calls','wa.me links, auto-reply menu, case lookup, Channel','m','Chats started, resolved without an agent'],
+   ['2. Ask a Shark with context','Answers at the moment of doubt','Prefilled link, agent inbox','l','Conversion of chat against non-chat sessions'],
+   ['3. Track price and share','Return visits and new visitors','Alert subscriptions, marketing templates, share links','m','Alert-to-booking rate, shares per fare'],
+   ['4. Opt in at checkout','Consented contact for everything else','Cloud API, consent log, first template','m','Opt-in rate'],
+   ['5. Traveller details by link','Faster group bookings, fewer name errors','Tokenised link, WhatsApp Flow','m','Completion by link'],
+   ['6. Hold reminders','Holds that turn into payments','Templates, scheduler, payment links','m','Hold-to-paid rate'],
+   ['7. Bank transfer and receipts','Faster, calmer confirmation','Media handling, agent inbox, finance event','h','Receipt-to-confirmed time'],
+   ['8. Tickets and a Shark','Fewer calls, more extras sold','Document template, inbox, handoff rules','h','Calls per booking, extras attach'],
+   ['9. Pre-trip care','Trust and add-on sales','Triggers, preference store, marketing consent','h','Opt-out rate, add-on attach'],
+   ['10. Cancel and refund tracker','Fewer repeat contacts','Case management, status events','h','Contacts per refund case']
+  ];
+  var lvl={l:'Low',m:'Medium',h:'Higher'};
+  var rows=eff.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td><span class="lv '+r[3]+'">'+lvl[r[3]]+'</span></td><td>'+r[4]+'</td></tr>';}).join('');
+  return '<div class="hero"><div class="kicker">Concept prototype</div><h1>WhatsApp, woven into the TravelTank booking journey</h1>'+
+   '<p>Ten touchpoints, designed on the real site from homepage to refund. Each one pairs a TravelTank screen with the WhatsApp conversation it triggers, and can be stepped through. Use the toggles to see today\'s site, or the build tags.</p></div>'+
+   '<div class="sec"><h2>What the current site tells us</h2><p class="sub">Each touchpoint starts from something the site already does or promises.</p><div class="obs">'+obs+'</div></div>'+
+   '<div class="sec"><h2>The journey</h2><p class="sub">Numbers follow the customer\'s order. Select one to open it.</p><div class="jm"><div class="jm-grid">'+jm+'</div></div></div>'+
+   '<div class="sec"><h2>At a glance</h2><p class="sub">Effort is indicative and needs to be confirmed with the tech partner.</p><div class="tbl"><table><thead><tr><th>Touchpoint</th><th>What it buys</th><th>What it needs</th><th>Effort</th><th>Measure</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>'+
+   '<div class="sec"><div class="two"><div class="card"><h3>Ground rules</h3><ul><li>Opt-in is explicit and unticked. Marketing consent is separate from service messages.</li><li>WhatsApp carries the conversation. Card payments stay on the site or a hosted payment page.</li><li>A Shark is always one tap away, and the booking is attached.</li><li>Every message can be stopped by replying STOP, and from My Account.</li><li>Messages outside the 24-hour window use approved templates only.</li></ul></div>'+
+   '<div class="card"><h3>Decisions for the owner</h3><ul><li>SMS at '+NAIRA+'3,000: keep, reprice or retire.</li><li>One dedicated WhatsApp number for TravelTank, or reuse the 24/7 line.</li><li>Staffing and hours for the WhatsApp inbox, and out-of-hours wording.</li><li>Which Business Solution Provider, and who owns the template library.</li><li>Data protection review of consent wording and retention.</li></ul></div>'+
+   '<div class="card"><h3>Later phases</h3><ul><li>Visa concierge: checklist, document uploads and status.</li><li>Holiday enquiries in chat, with the itinerary as a PDF.</li><li>WhatsApp code at sign-in, using the mobile number already collected.</li><li>Click-to-WhatsApp from Instagram and Facebook posts and ads.</li><li>Post-trip review and rebooking.</li></ul></div></div></div>'+
+   '<p class="fine">All screens are illustrative concepts built from the current TravelTank site. Names, numbers, prices, times and service promises are examples. WhatsApp message categories, pricing and policies change and must be confirmed with Meta or the chosen provider before launch. WhatsApp is a trademark of Meta and this prototype is not affiliated with it.</p>';
+}
+
+function render(){
+  var s=SCN.filter(function(x){return x.id===state.id;})[0];
+  Array.prototype.forEach.call(tabs.children,function(b){b.setAttribute('aria-current',String(b.dataset.go===state.id));});
+  if(!s){ view.innerHTML=overview(); return; }
+  view.innerHTML=scenarioHTML(s);
+  document.getElementById('tg-tags').checked=state.tags; document.getElementById('tg-today').checked=state.today;
+  draw();
+}
+function go(id,step){
+  state.id=id; state.step=step||0;
+  try{ history.replaceState(null,'','#'+id); }catch(e){ try{location.hash=id;}catch(_){} }
+  render(); window.scrollTo(0,0);
+}
+tabs.innerHTML='<button class="tab" data-go="overview">Overview</button>'+SCN.map(function(s){
+  var short={'home':'Homepage','hotel':'Ask a Shark','track':'Track and share','opt-in':'Opt in','travellers':'Traveller details','hold':'Hold reminders','bank':'Bank transfer','confirm':'Tickets and a Shark','pretrip':'Pre-trip care','refund':'Cancel and refund'}[s.id];
+  return '<button class="tab" data-go="'+s.id+'"><b>'+s.n+'</b>'+short+'</button>';}).join('');
+document.addEventListener('click',function(e){
+  var g=e.target.closest('[data-go]'); if(g){go(g.dataset.go);return;}
+  var d=e.target.closest('[data-step]'); if(d){state.step=+d.dataset.step;draw();return;}
+  if(e.target.id==='nx'){var s=SCN.filter(function(x){return x.id===state.id;})[0]; if(state.step<s.steps.length-1){state.step++;draw();}}
+  if(e.target.id==='bk'){ if(state.step>0){state.step--;draw();}}
+});
+document.addEventListener('change',function(e){
+  if(e.target.id==='tg-tags'){state.tags=e.target.checked;draw();}
+  if(e.target.id==='tg-today'){state.today=e.target.checked;draw();}
+});
+document.addEventListener('keydown',function(e){
+  if(/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  var s=SCN.filter(function(x){return x.id===state.id;})[0]; if(!s) return;
+  if(e.key==='ArrowRight'&&state.step<s.steps.length-1){state.step++;draw();}
+  if(e.key==='ArrowLeft'&&state.step>0){state.step--;draw();}
+});
+window.addEventListener('resize',fit);
+if(window.ResizeObserver){ new ResizeObserver(fit).observe(document.body); }
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);}
+var h=(location.hash||'').replace('#','');
+if(h&&(h==='overview'||SCN.some(function(x){return x.id===h;}))) state.id=h;
+render();
+})();
+</script>
