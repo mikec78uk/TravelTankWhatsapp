@@ -719,10 +719,9 @@ function travellers(o){
   var w=!o.before, extra='';
   if(w&&o.filled) extra='<div class="t-cdw ok new" style="margin:8px 0 0">'+WA+'&nbsp;Received from the traveller on WhatsApp</div>';
   else if(w&&o.sent) extra='<div class="t-cdw new" style="margin:8px 0 0">'+WA+'&nbsp;Link sent &middot; waiting for them to add their details</div>';
-  else if(w) extra='<div class="t-ask new"><span class="t-wa-ico">'+WA+'</span><div><b>Ask this traveller to add their own details</b><small>They get a secure link on WhatsApp. You can still type them in yourself.</small></div><span class="t-wabtn solid">Send link</span></div>';
+  else if(w&&!o.arrive) extra='<div class="t-ask new"><span class="t-wa-ico">'+WA+'</span><div><b>Ask this traveller to add their own details</b><small>They get a secure link on WhatsApp. You can still type them in yourself.</small></div><span class="t-wabtn solid">Send link</span></div>';
   var p2=o.filled?{t:'Mrs',f:'Ada',s:'Bakare',d:'14 / 03 / 1991'}:null;
   var p1=o.arrive?null:{t:'Mr',f:'Tunde',s:'Bakare',d:'02 / 09 / 1988'}, from='';
-  if(w&&o.arrive) from='<div class="t-from new"><span class="t-wa-ico">'+WA+'</span><div><b>Your trip from WhatsApp</b><small>'+(o.holiday?'Lagos &rArr; Istanbul &middot; 21 to 31 Aug &middot; flights and hotel &middot; 2 adults &middot; checked just now':'Lagos &rArr; London &middot; 21 Aug to 21 Sep &middot; 2 adults &middot; fare checked just now')+'</small></div><u>Change trip</u></div>';
   return hdr(0)+'<div class="t-body"><div class="t-main">'+from+'<h3 style="margin-top:0">Who\'s travelling?</h3><div class="t-note" style="display:flex;gap:8px">&#9432; All names must match government-issued photo ID</div>'+
    paxCard(1,p1,'')+paxCard(2,p2,extra)+'</div>'+(o.holiday?holidayRail(o):rail(o))+'</div>';
 }
@@ -795,7 +794,7 @@ var SCN=[
   B(6,'text',{text:T('No rush on London. 🙂 The fare is still *'+NAIRA+'5,673,507* for two.\n\nWant me to watch it and message you if the price drops?'),btns:['↩ Watch this fare','↩ Send me ideas weekly','↩ No thanks'],time:'17:02',tag:'Session message · inside the 24h window · sent once · each button records its own consent'})
  ],
  notes:{
-  design:['The entry sits in the hero beside the search, where someone who does not know where to go gets stuck. Search is untouched.','Three questions, one tap each, so ideas arrive in about a minute with no typing. A Shark is always one tap away.','Cards lead with the place and the price for two, return, so people compare like with like. Two images here are placeholders, and photography and tone are for the visual designer.','The link lands on traveller details with a banner saying where the trip came from and a Change trip link, so nobody feels locked in.'],
+  design:['The entry sits in the hero beside the search, where someone who does not know where to go gets stuck. Search is untouched.','Three questions, one tap each, so ideas arrive in about a minute with no typing. A Shark is always one tap away.','Cards lead with the place and the price for two, return, so people compare like with like. Two images here are placeholders, and photography and tone are for the visual designer.','The link lands on the existing traveller details page with the trip already in, so nothing about the page itself needs to change.'],
   biz:['Today the site serves people who already know where they are going. This reaches the undecided, who currently leave or ask a friend.','It skips search and results. One WhatsApp tap lands on traveller details, the step where intent is highest.','Ideas should be fares TravelTank can sell, so every card is a real booking path. Ranking by price, margin, seat availability or editorial is a business decision.','Entry rules matter for Nigerian passports on many routes. Each card should show the visa position before the price excites, which is also a natural hand-off to the later visa concierge.','Measure chats started from the line, ideas viewed, card taps, link taps, traveller page reached, hold or paid, and weekly-ideas opt-ins.'],
   build:['The entry is a wa.me link with prefilled text and a source tag. The same link works from the homepage, Channel posts and social ads.','Ideas come from a live fare search on the mood, party size and dates, limited to destinations TravelTank sells. The mood-to-destination list is maintained by people, not generated.','Cards may be a carousel or three separate messages. Confirm what the provider and current API allow inside a session, and which category applies. [confirm]','The link carries a fare or itinerary key, party size, source tag and a short-lived one-time token. No names, phone numbers or other personal data go in the URL.','On open, the site re-prices the fare. If it changed, show the new price first. If it is gone, offer the nearest alternative and keep the trip in context.','The site knows the chat number, so the contact step can offer WhatsApp updates for it, still unticked. Starting a chat is not consent to booking updates after the 24-hour window.','The follow-up is one message, only if no booking has started, and never after a reply. Outside the window, only opted-in people and approved templates.']},
  help:{
@@ -1093,7 +1092,7 @@ var SCN=[
     B(7,'text',{text:T('Great. I\'ve re-checked the fare and the room just now. Both are still available at *'+NAIRA+'3,764,300*.\n\nNext, add who is travelling. You can hold this for 72 hours without paying. Prices are not guaranteed until booked.'),btns:['↗ Add traveller details'],time:'14:05',tag:'Session message · one link button · the URL carries a basket key, party size, source and a one-time token'})
    ]),
    notes:{
-    design:['The trip stays on one card as it changes: place, dates, hotel and total. Each change is said back in plain words, so nobody has to trust a figure they cannot see.','Two options, not ten. Each package says what is in it and gives one total for two.','Questions are answered from the rate details, in plain words such as "free until 14 Aug". Anything the assistant cannot answer from data goes to a Shark.','Agreement is explicit: a summary, a total and a Looks good button. Nothing is held or sent to the site before that tap.','The link lands on traveller details with flights, hotel and total already in, and a Change trip link.'],
+    design:['The trip stays on one card as it changes: place, dates, hotel and total. Each change is said back in plain words, so nobody has to trust a figure they cannot see.','Two options, not ten. Each package says what is in it and gives one total for two.','Questions are answered from the rate details, in plain words such as "free until 14 Aug". Anything the assistant cannot answer from data goes to a Shark.','Agreement is explicit: a summary, a total and a Looks good button. Nothing is held or sent to the site before that tap.','The link lands on the existing traveller details page with flights, hotel and total already in.'],
     biz:['An undecided customer becomes a ready-to-book basket inside one chat. Search, results and hotel pages are skipped.','Flight and hotel together is the package the site already names as Holidays. Confirm which packages can be priced and sold as one.','Agreeing in chat means traveller details starts from high intent, which is the step the other touchpoints aim at.','Which two packages are offered first is a business rule: price, margin, availability or editorial.','Measure chats reaching a package, packages agreed, link taps, traveller page reached, hold or paid, and questions passed to a Shark.'],
     build:['Changes such as dates, nights and hotel wishes fill the same fields as before and run a live search for flight and hotel together. [confirm]','Every price and rule on screen comes from the rate data, never from generated text.','Answers about cancellation or airport distance come from rate and property fields. If a field is missing, the assistant says it is not sure and offers a Shark.','On the agree tap, the system re-checks price and availability and creates a basket. The link button carries a basket key, party size, source and a one-time token. No personal data goes in the URL.','If the price has changed when the site opens, the site shows the new price first and keeps the trip.','Session messages only. Reminders after the 24-hour window need opt-in and approved templates, as in touchpoint 7.']}
   };
@@ -1388,6 +1387,7 @@ function draw(){
   var s=SCN.filter(function(x){return x.id===state.id;})[0]; if(!s) return;
   var C=cur(s), i=state.step, st=C.steps[i];
   var tt=document.getElementById('tt'); tt.innerHTML=scrFor(s,i);
+  var oldWb=document.getElementById('wbody'), keep=oldWb?oldWb.scrollTop:null;
   document.getElementById('ph').innerHTML=phoneHTML(s,i);
   document.getElementById('pcol').classList.toggle('show-tags',state.tags);
   document.body.classList.toggle('solo-site',!!(SOLO&&st.showSite));
@@ -1396,7 +1396,16 @@ function draw(){
   document.getElementById('dots').innerHTML=C.steps.map(function(_,k){return '<button class="'+(k===i?'on':'')+'" aria-label="Step '+(k+1)+'" data-step="'+k+'"></button>';}).join('')+'<span>Step '+(i+1)+' of '+C.steps.length+'</span>';
   document.getElementById('bk').disabled=(i===0);
   document.getElementById('nx').disabled=(i===C.steps.length-1);
-  var wb=document.getElementById('wbody'); if(wb){wb.scrollTop=wb.scrollHeight;}
+  /* The chat is redrawn on every step. Put it back where it was, then glide down to the new message,
+     so it never snaps to the top first. A fresh chat (first draw, or a new path) goes straight to the bottom. */
+  var wb=document.getElementById('wbody');
+  if(wb){
+    wb.style.scrollBehavior='auto';
+    wb.scrollTop=(keep===null)?wb.scrollHeight:keep;
+    void wb.offsetHeight;
+    wb.style.scrollBehavior='';
+    if(keep!==null) wb.scrollTop=wb.scrollHeight;
+  }
   tt.classList.toggle('noanim',state.today);
   fit();
 }
