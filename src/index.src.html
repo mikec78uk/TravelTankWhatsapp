@@ -170,15 +170,19 @@ td:first-child{font-weight:600}
 .paths .seg button{border:0;background:transparent;border-radius:9px;padding:8px 14px;font-weight:600;font-size:14px;color:var(--muted)}
 .paths .seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
 .paths small{font-size:12.5px;color:var(--muted)}
-/* stand-alone page: phone on the left, caption, notes and questions on the right */
-body.solo .tabs,body.solo .paths,body.solo .next-up,body.solo .stage>div:first-child,body.solo .tog .sw:first-child{display:none}
+/* stand-alone page: phone on the left; caption on the right, with the site mock beneath it on the steps that need it */
+body.solo .tabs,body.solo .next-up,body.solo .tog .sw:first-child{display:none}
+body.solo .stage>div:first-child{display:none}
+body.solo.solo-site .stage>div:first-child{display:block}
 body.solo section{display:grid;grid-template-columns:minmax(0,352px) minmax(0,1fr);gap:0 32px;align-items:start}
 body.solo .scn-head{grid-column:1/-1}
-body.solo .stage{grid-column:1;grid-row:2/6;display:block}
-body.solo .phone-col{top:16px}
-body.solo .ctl{grid-column:2;grid-row:2;margin-top:0;grid-template-columns:minmax(0,1fr)}
+body.solo .paths{grid-column:1/-1}
+body.solo .stage{display:contents}
+body.solo .phone-col{grid-column:1;grid-row:3/6;top:16px}
+body.solo .ctl{grid-column:2;grid-row:3;margin-top:0;grid-template-columns:minmax(0,1fr)}
+body.solo .stage>div:first-child{grid-column:2;grid-row:4;margin-top:16px}
 body.solo .cap{order:-1}
-@media (max-width:1020px){body.solo section{display:block}body.solo .stage{margin-bottom:16px}body.solo .ctl{margin-top:22px}}
+@media (max-width:1020px){body.solo section{display:flex;flex-direction:column}body.solo .phone-col{order:1;position:static;margin-bottom:16px}body.solo .ctl{order:2;margin-top:0}body.solo .stage>div:first-child{order:3}body.solo .paths{order:0}}
 .cap{min-width:0}
 .cap .n{display:flex;align-items:center;gap:6px;margin-bottom:6px}
 .cap .n button{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:var(--line)}
@@ -490,6 +494,16 @@ var SHOW_CASE=false; /* set true to show the Business case tab and its overview 
 var LOGO_W="__LOGO_WHITE__", HOTEL="__HOTEL__", HOTELT="__HOTELT__";
 
 /* ---------- Site screens ---------- */
+function holidayRail(o){
+  return '<aside><div class="t-card"><img class="t-hero" src="'+tile('#8A3B5E','#E58C9E','Istanbul')+'" alt="">'+
+    '<div class="t-pad"><div style="display:flex;justify-content:space-between;align-items:baseline"><h4>Trip Summary</h4><span style="color:#FE5C61;font-size:10.5px">Full itinerary</span></div>'+
+    '<div class="t-leg"><div class="r"><b>Outbound</b><span class="ba">TURKISH AIRLINES</span></div><div class="r"><span>Lagos (LOS) &rarr; Istanbul (IST)</span><span>6h 40m</span></div><div class="r tm"><span>Fri, 21 Aug 23:30</span><span>Sat, 22 Aug 08:10 +1</span></div><hr>'+
+    '<div class="r"><b>Inbound</b><span class="ba">TURKISH AIRLINES</span></div><div class="r"><span>Istanbul (IST) &rarr; Lagos (LOS)</span><span>6h 50m</span></div><div class="r tm"><span>Mon, 31 Aug 09:20</span><span>Mon, 31 Aug 14:10</span></div></div>'+
+    '<div class="t-leg"><div class="r"><b>Hotel</b><span class="tm">9 nights</span></div><div class="r"><span>Galata Courtyard &middot; 4&#9733;</span><span>2 adults</span></div><div class="r tm"><span>22 Aug to 31 Aug</span><span>Breakfast included</span></div></div>'+
+    '<div style="font-size:11px;margin-top:8px;color:#444">Hand Baggage: 1 x 7 Kg &nbsp;&middot;&nbsp; Checked Bag: 0 x 23 Kg</div>'+
+    '<div class="t-warn">Prices are not guaranteed until booked</div>'+
+    '<div class="t-tot2"><div class="a"><b>TOTAL</b><strong>'+NAIRA+'3,764,300</strong></div><div class="nr"><span>Flights</span><b>'+NAIRA+'1,624,300</b></div><div class="nr"><span>Hotel</span><b>'+NAIRA+'2,140,000</b></div><div class="nr"><span>Flights are:</span><b>Non-Refundable</b></div><div class="nr"><span>Hotel:</span><b>Free cancellation to 14 Aug</b></div></div></div></div>'+help({wa:o.helpWa,before:o.before})+'</aside>';
+}
 function hdr(step){
   var L=["Traveller info","Extras","Payment","Confirmation"];
   return '<div class="t-hdr"><img src="'+LOGO_G+'" alt=""><div class="t-steps"'+(step<0?' style="visibility:hidden"':'')+'>'+L.map(function(l,i){
@@ -708,9 +722,9 @@ function travellers(o){
   else if(w) extra='<div class="t-ask new"><span class="t-wa-ico">'+WA+'</span><div><b>Ask this traveller to add their own details</b><small>They get a secure link on WhatsApp. You can still type them in yourself.</small></div><span class="t-wabtn solid">Send link</span></div>';
   var p2=o.filled?{t:'Mrs',f:'Ada',s:'Bakare',d:'14 / 03 / 1991'}:null;
   var p1=o.arrive?null:{t:'Mr',f:'Tunde',s:'Bakare',d:'02 / 09 / 1988'}, from='';
-  if(w&&o.arrive) from='<div class="t-from new"><span class="t-wa-ico">'+WA+'</span><div><b>Your trip from WhatsApp</b><small>Lagos &rArr; London &middot; 21 Aug to 21 Sep &middot; 2 adults &middot; fare checked just now</small></div><u>Change trip</u></div>';
+  if(w&&o.arrive) from='<div class="t-from new"><span class="t-wa-ico">'+WA+'</span><div><b>Your trip from WhatsApp</b><small>'+(o.holiday?'Lagos &rArr; Istanbul &middot; 21 to 31 Aug &middot; flights and hotel &middot; 2 adults &middot; checked just now':'Lagos &rArr; London &middot; 21 Aug to 21 Sep &middot; 2 adults &middot; fare checked just now')+'</small></div><u>Change trip</u></div>';
   return hdr(0)+'<div class="t-body"><div class="t-main">'+from+'<h3 style="margin-top:0">Who\'s travelling?</h3><div class="t-note" style="display:flex;gap:8px">&#9432; All names must match government-issued photo ID</div>'+
-   paxCard(1,p1,'')+paxCard(2,p2,extra)+'</div>'+rail(o)+'</div>';
+   paxCard(1,p1,'')+paxCard(2,p2,extra)+'</div>'+(o.holiday?holidayRail(o):rail(o))+'</div>';
 }
 
 /* ---------- Chat scripts ---------- */
@@ -749,7 +763,7 @@ var SCN=[
 
 {id:'ideas',title:'Get trip ideas on WhatsApp, then land on traveller details',
  kicker:'Homepage, Channel and ads, then traveller details',tag:['nw','New entry point, lands on an existing page'],url:'traveltank.com',
- lede:'Not everyone arrives knowing where to go, and the site is built for people who do. WhatsApp can play the well-travelled friend: three taps to get ideas that fit, then a link that opens TravelTank at traveller details with the trip already chosen. Prefer to type? The assistant can read a request in the customer\'s own words, and hands over to a Shark or a call when it is not sure.',
+ lede:'Not everyone arrives knowing where to go, and the site is built for people who do. WhatsApp can play the well-travelled friend: three taps to get ideas that fit, then a link that opens TravelTank at traveller details with the trip already chosen. Prefer to type? The assistant can read a request in the customer\'s own words, help them settle on a flight and hotel, and hand over to a Shark or a call when it is not sure.',
  screen:inspHome,chat:{name:'TravelTank',sub:'Business account',biz:true},
  steps:[
   {cap:'Today the search box assumes you know where you are going. Everyone else browses the weekly deals, or leaves.',site:{before:true},ph:{view:'idle',note:'No way to ask for ideas.'}},
@@ -784,9 +798,9 @@ var SCN=[
   design:['The entry sits in the hero beside the search, where someone who does not know where to go gets stuck. Search is untouched.','Three questions, one tap each, so ideas arrive in about a minute with no typing. A Shark is always one tap away.','Cards lead with the place and the price for two, return, so people compare like with like. Two images here are placeholders, and photography and tone are for the visual designer.','The link lands on traveller details with a banner saying where the trip came from and a Change trip link, so nobody feels locked in.'],
   biz:['Today the site serves people who already know where they are going. This reaches the undecided, who currently leave or ask a friend.','It skips search and results. One WhatsApp tap lands on traveller details, the step where intent is highest.','Ideas should be fares TravelTank can sell, so every card is a real booking path. Ranking by price, margin, seat availability or editorial is a business decision.','Entry rules matter for Nigerian passports on many routes. Each card should show the visa position before the price excites, which is also a natural hand-off to the later visa concierge.','Measure chats started from the line, ideas viewed, card taps, link taps, traveller page reached, hold or paid, and weekly-ideas opt-ins.'],
   build:['The entry is a wa.me link with prefilled text and a source tag. The same link works from the homepage, Channel posts and social ads.','Ideas come from a live fare search on the mood, party size and dates, limited to destinations TravelTank sells. The mood-to-destination list is maintained by people, not generated.','Cards may be a carousel or three separate messages. Confirm what the provider and current API allow inside a session, and which category applies. [confirm]','The link carries a fare or itinerary key, party size, source tag and a short-lived one-time token. No names, phone numbers or other personal data go in the URL.','On open, the site re-prices the fare. If it changed, show the new price first. If it is gone, offer the nearest alternative and keep the trip in context.','The site knows the chat number, so the contact step can offer WhatsApp updates for it, still unticked. Starting a chat is not consent to booking updates after the 24-hour window.','The follow-up is one message, only if no booking has started, and never after a reply. Outside the window, only opted-in people and approved templates.']},
- talk:{
+ help:{
   steps:[
-   {cap:'The homepage button opens the chat with a message already typed. The assistant invites a request in the customer\'s own words, and keeps the quick questions one tap away.',site:{},ph:{view:'chat'}},
+   {cap:'The homepage button opens the chat with a message already typed. The assistant invites a request in the customer\'s own words, and keeps the quick questions one tap away.',site:{},showSite:true,ph:{view:'chat'}},
    {cap:'Tunde types it the way he would say it. The assistant picks out mood, party size, dates and budget, and says back what it understood before it searches.',site:{},ph:{view:'chat'}},
    {cap:'One tap to confirm. Ideas arrive as before, within budget. From here, Plan this trip opens traveller details on the TravelTank site with the trip already chosen.',site:{},ph:{view:'chat'}},
    {cap:'Then he types something the assistant cannot pin down. It does not guess. It says so, asks one specific question, and offers a way out.',site:{},ph:{view:'chat'}},
@@ -1050,6 +1064,41 @@ var SCN=[
   build:['Case management: each status change is an event that triggers a template and updates the tracker.','Airline decisions arrive by supplier channels or by a Shark updating the case. Both write to the same record.','Amounts shown in chat must come from the case, never typed freehand.','Refund wording needs review by the owner and legal before launch.']}}
 ];
 
+/* Typed path that carries on to an agreed holiday. Its first three steps are shared with the help path. */
+(function(){
+  var s=SCN.filter(function(x){return x.id==='ideas';})[0], H=s.help;
+  var open=H.steps.slice(0,2).concat([{cap:'One tap to confirm. Three ideas arrive within his budget, from a live fare search.',site:{},ph:{view:'chat'}}]);
+  s.talk={
+   steps:open.concat([
+    {cap:'He picks Istanbul and changes two things in his own words: ten days, and a hotel near the food streets. The assistant says back what it will look for.',site:{},ph:{view:'chat'}},
+    {cap:'It searches flights and hotels together and offers two packages, each with one total for two.',site:{},ph:{view:'chat'}},
+    {cap:'He asks a question in his own words. The answer comes from the rate details, not from memory.',site:{},ph:{view:'chat'}},
+    {cap:'He chooses. The assistant sums up the whole trip and asks for a clear yes before anything moves on.',site:{},ph:{view:'chat'}},
+    {cap:'He agrees. The fare and room are re-checked just now, and one link button opens traveller details.',site:{},ph:{view:'chat'}},
+    {cap:'TravelTank opens at traveller details with the flights, hotel and total already in. Names are left blank, because they must match passports. He completes the booking here.',site:{arrive:true,holiday:true},scr:'travellers',showSite:true,url:'traveltank.com/booking/traveller-info?src=wa-ideas',ph:{view:'chat'}}
+   ]),
+   msgs:H.msgs.filter(function(m){return m.at<=2;}).concat([
+    B(3,'text',{from:'me',text:'Istanbul looks great! A month is too long though. Can we do 10 days, and a hotel near the food streets with breakfast?',time:'14:01',tag:'Free text · picks a place and changes two details'}),
+    B(3,'text',{text:T('Istanbul it is. Let me look for:\n\n• *Istanbul*, 2 adults\n• *21 to 31 Aug* (10 days)\n• A hotel near the *Karaköy and Galata* food streets, *breakfast included*\n\nSearching flights and hotels together…'),time:'14:01',tag:'Changes read from free text and said back · the search starts at once, because nothing is held or paid yet'}),
+    B(4,'text',{text:T('Two packages for *two people*, 21 to 31 Aug. Turkish Airlines, direct, plus 9 nights in a hotel. Prices are the total for both of you, and both fit your budget. ✈️'),time:'14:02',tag:'Session message · flights and hotel priced together from one live search'}),
+    B(4,'carousel',{cards:[
+     {img:tile('#8A3B5E','#E58C9E','Galata'),title:'Galata Courtyard · 4★',desc:'Flights and 9 nights with breakfast',price:NAIRA+'3,764,300 total',btn:'Choose this one'},
+     {img:tile('#0B7D84','#6FC2C6','Karaköy'),title:'Karaköy Loft · 3★',desc:'Flights and 9 nights, no breakfast',price:NAIRA+'3,210,000 total',btn:'Choose this one'}
+    ],tag:'Image cards · fares not guaranteed until booked'}),
+    B(5,'text',{from:'me',text:'Does the first one have free cancellation? And how far is it from the airport?',time:'14:03',tag:'Free text question'}),
+    B(5,'text',{text:T('*Galata Courtyard*\n• Hotel cancellation: *free until 14 Aug*, then non-refundable\n• Airport: about *50 minutes* by taxi\n• The flights are *non-refundable* once booked. You can hold the trip for 72 hours without paying.\n\nWould you like to go with this one?'),btns:['↩ Go with this one','↩ Show the other','↩ Talk to a Shark'],time:'14:03',tag:'Answers come from the rate and property data · if a field is missing it says so and offers a Shark'}),
+    B(6,'text',{from:'me',text:'Go with this one',time:'14:04',tag:'Button reply'}),
+    B(6,'text',{text:T('Here\'s your trip:\n\n*Lagos ⇄ Istanbul*\nFri 21 Aug to Mon 31 Aug · Turkish Airlines, direct\n*Galata Courtyard, 4★* · 9 nights · breakfast\n2 adults\n\nFlights '+NAIRA+'1,624,300\nHotel '+NAIRA+'2,140,000\n*Total '+NAIRA+'3,764,300*\n\nFree hotel cancellation until 14 Aug. Prices are not guaranteed until booked.\n\nShall I take you to add who is travelling?'),btns:['↩ Looks good','↩ Change something','↩ Talk to a Shark'],time:'14:04',tag:'Agreement step · nothing is held or sent to the site until the customer says yes'}),
+    B(7,'text',{from:'me',text:'Looks good',time:'14:04',tag:'Button reply'}),
+    B(7,'text',{text:T('Great. I\'ve re-checked the fare and the room just now. Both are still available at *'+NAIRA+'3,764,300*.\n\nNext, add who is travelling. You can hold this for 72 hours without paying. Prices are not guaranteed until booked.'),btns:['↗ Add traveller details'],time:'14:05',tag:'Session message · one link button · the URL carries a basket key, party size, source and a one-time token'})
+   ]),
+   notes:{
+    design:['The trip stays on one card as it changes: place, dates, hotel and total. Each change is said back in plain words, so nobody has to trust a figure they cannot see.','Two options, not ten. Each package says what is in it and gives one total for two.','Questions are answered from the rate details, in plain words such as "free until 14 Aug". Anything the assistant cannot answer from data goes to a Shark.','Agreement is explicit: a summary, a total and a Looks good button. Nothing is held or sent to the site before that tap.','The link lands on traveller details with flights, hotel and total already in, and a Change trip link.'],
+    biz:['An undecided customer becomes a ready-to-book basket inside one chat. Search, results and hotel pages are skipped.','Flight and hotel together is the package the site already names as Holidays. Confirm which packages can be priced and sold as one.','Agreeing in chat means traveller details starts from high intent, which is the step the other touchpoints aim at.','Which two packages are offered first is a business rule: price, margin, availability or editorial.','Measure chats reaching a package, packages agreed, link taps, traveller page reached, hold or paid, and questions passed to a Shark.'],
+    build:['Changes such as dates, nights and hotel wishes fill the same fields as before and run a live search for flight and hotel together. [confirm]','Every price and rule on screen comes from the rate data, never from generated text.','Answers about cancellation or airport distance come from rate and property fields. If a field is missing, the assistant says it is not sure and offers a Shark.','On the agree tap, the system re-checks price and availability and creates a basket. The link button carries a basket key, party size, source and a one-time token. No personal data goes in the URL.','If the price has changed when the site opens, the site shows the new price first and keeps the trip.','Session messages only. Reminders after the 24-hour window need opt-in and approved templates, as in touchpoint 7.']}
+  };
+})();
+
 SCN.forEach(function(s,i){s.n=i+1;});
 
 
@@ -1246,7 +1295,7 @@ function caseInit(){
 var view=document.getElementById('view'), tabs=document.getElementById('tabs');
 var state={id:'overview',step:0,tags:false,today:false,path:'tap'};
 
-function cur(s){return (state.path==='talk'&&s.talk)?s.talk:s;}
+function cur(s){return (state.path!=='tap'&&s[state.path])?s[state.path]:s;}
 function scrFor(s,i){
   var st=cur(s).steps[i], o=Object.assign({},st.site||{});
   var fn=st.scr?{pay:pay,confirm:confirm,travellers:travellers}[st.scr]:s.screen;
@@ -1311,13 +1360,14 @@ function phoneHTML(s,i){
   return (ph.who?'<div class="frame-bar who"><span class="pill">'+ph.who+'</span></div>':'')+'<div class="phone"><div class="scr">'+h+body+'</div></div>';
 }
 
+var PATHS=[['tap','Tap the questions','Three taps, no typing.',false],['talk','Type: find and agree a holiday','The assistant reads free text, helps agree a flight and hotel, then links to traveller details.',true],['help','Type: when the assistant is unsure','It does not guess. It rephrases once, then hands over to a Shark by chat or a call.',true]];
 function scenarioHTML(s){
   var idx=SCN.indexOf(s), prev=SCN[idx-1], next=SCN[idx+1];
   var tg=s.tag;
-  var head=SOLO?'<div class="scn-head"><div class="kicker">Concept for review \u00B7 WhatsApp trip ideas</div><h2 id="h-'+s.id+'">Ask for trip ideas in your own words</h2></div>':
+  var head=SOLO?'<div class="scn-head"><div class="kicker">Concept for review \u00B7 WhatsApp trip ideas</div><h2 id="h-'+s.id+'">Plan a holiday on WhatsApp, in your own words</h2></div>':
    '<div class="scn-head"><div class="kicker">Touchpoint '+s.n+' of '+SCN.length+' \u00B7 '+s.kicker+'</div><h2 id="h-'+s.id+'">'+s.title+'</h2><p class="lede">'+s.lede+'</p></div>';
   return '<section aria-labelledby="h-'+s.id+'">'+head+
-   (s.talk?'<div class="paths" role="group" aria-label="Conversation path"><div class="seg"><button data-path="tap" aria-pressed="'+(state.path!=='talk')+'">Tap the questions</button><button data-path="talk" aria-pressed="'+(state.path==='talk')+'">Type in your own words</button></div><small>'+(state.path==='talk'?'The assistant reads free text, confirms it, and hands over when unsure.':'Three taps, no typing.')+'</small></div>':'')+
+   (s.talk?'<div class="paths" role="group" aria-label="Conversation path"><div class="seg">'+PATHS.filter(function(x){return !SOLO||x[3];}).map(function(x){return '<button data-path="'+x[0]+'" aria-pressed="'+(state.path===x[0])+'">'+x[1]+'</button>';}).join('')+'</div><small>'+PATHS.filter(function(x){return x[0]===state.path;})[0][2]+'</small></div>':'')+
    '<div class="stage"><div><div class="frame-bar"><span class="pill '+tg[0]+'">'+tg[1]+'</span><span class="pill">Dashed outlines mark what is new or changed</span></div>'+
    '<div class="browser"><div class="b-bar"><i></i><i></i><i></i><div class="url" id="burl">'+s.url+'</div></div><div class="viewport" id="vp"><div class="tt" id="tt"></div></div></div></div>'+
    '<div class="phone-col" id="pcol"><div id="ph"></div></div></div>'+
@@ -1340,6 +1390,7 @@ function draw(){
   var tt=document.getElementById('tt'); tt.innerHTML=scrFor(s,i);
   document.getElementById('ph').innerHTML=phoneHTML(s,i);
   document.getElementById('pcol').classList.toggle('show-tags',state.tags);
+  document.body.classList.toggle('solo-site',!!(SOLO&&st.showSite));
   document.getElementById('cap').textContent=st.cap;
   var bu=document.getElementById('burl'); if(bu) bu.textContent=(i>0&&st.url)||s.url;
   document.getElementById('dots').innerHTML=C.steps.map(function(_,k){return '<button class="'+(k===i?'on':'')+'" aria-label="Step '+(k+1)+'" data-step="'+k+'"></button>';}).join('')+'<span>Step '+(i+1)+' of '+C.steps.length+'</span>';
@@ -1376,7 +1427,7 @@ function overview(){
   ].map(function(o){return '<div class="ob"><q>'+o[1]+'</q><strong>'+o[0]+'</strong><button data-go="'+o[2]+'">See the idea &rarr;</button></div>';}).join('');
   var eff=[
    ['1. Homepage chat, refunds, deals','Cheap first contact, fewer repeat refund calls','wa.me links, auto-reply menu, case lookup, Channel','m','Chats started, resolved without an agent'],
-   ['2. Trip ideas, then traveller details','Reaches the undecided, and lands on a high-intent step','wa.me entry, fare search, cards, deep link with token. Typing in own words adds text understanding and a Shark handover queue, which is higher effort','m','Chat-to-traveller-page rate, hold or paid, handover rate'],
+   ['2. Trip ideas, then traveller details','Reaches the undecided, and lands on a high-intent step','wa.me entry, fare search, cards, deep link with token. Typing in own words adds text understanding, flight and hotel package search, a basket and a Shark handover queue, which is higher effort','m','Chat-to-traveller-page rate, packages agreed, hold or paid, handover rate'],
    ['3. Ask a Shark with context','Answers at the moment of doubt','Prefilled link, agent inbox','l','Conversion of chat against non-chat sessions'],
    ['4. Track price and share','Return visits and new visitors','Alert subscriptions, marketing templates, share links','m','Alert-to-booking rate, shares per fare'],
    ['5. Opt in at checkout','Consented contact for everything else','Cloud API, consent log, first template','m','Opt-in rate'],
