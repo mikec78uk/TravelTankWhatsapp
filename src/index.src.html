@@ -178,9 +178,7 @@ body.solo .stage{grid-column:1;grid-row:2/6;display:block}
 body.solo .phone-col{top:16px}
 body.solo .ctl{grid-column:2;grid-row:2;margin-top:0;grid-template-columns:minmax(0,1fr)}
 body.solo .cap{order:-1}
-body.solo .notes{grid-column:2;grid-row:3;grid-template-columns:minmax(0,1fr)}
-body.solo .fb{grid-column:2;grid-row:4;margin-top:16px;border-color:var(--coral)}
-@media (max-width:1020px){body.solo section{display:block}body.solo .stage{margin-bottom:16px}body.solo .ctl{margin-top:22px}body.solo .fb{margin-top:16px}}
+@media (max-width:1020px){body.solo section{display:block}body.solo .stage{margin-bottom:16px}body.solo .ctl{margin-top:22px}}
 .cap{min-width:0}
 .cap .n{display:flex;align-items:center;gap:6px;margin-bottom:6px}
 .cap .n button{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:var(--line)}
@@ -1313,11 +1311,10 @@ function phoneHTML(s,i){
   return (ph.who?'<div class="frame-bar who"><span class="pill">'+ph.who+'</span></div>':'')+'<div class="phone"><div class="scr">'+h+body+'</div></div>';
 }
 
-var FB_QS=['Does the opening message make it clear that typing is fine, and that a person is available?','Is it right for the assistant to read back what it understood before searching?','Is two unclear replies the right point to hand over? Should anything hand over straight away?','Chat with a Shark, or a call: which should we offer first, and what should happen out of hours?','Does the tone sound like TravelTank? What would you change in the wording?','Who would staff the handovers, and what response time could we promise?'];
 function scenarioHTML(s){
   var idx=SCN.indexOf(s), prev=SCN[idx-1], next=SCN[idx+1];
   var tg=s.tag;
-  var head=SOLO?'<div class="scn-head"><div class="kicker">Concept for review \u00B7 WhatsApp trip ideas</div><h2 id="h-'+s.id+'">Ask for trip ideas in your own words</h2><p class="lede">A customer taps a button on the TravelTank homepage and chats with an assistant. It reads a typed request, checks it back, and hands over to a Travel Shark by chat or call when it is not sure. Step through the conversation on the phone and tell us what you think. All names, fares and times are examples.</p></div>':
+  var head=SOLO?'<div class="scn-head"><div class="kicker">Concept for review \u00B7 WhatsApp trip ideas</div><h2 id="h-'+s.id+'">Ask for trip ideas in your own words</h2></div>':
    '<div class="scn-head"><div class="kicker">Touchpoint '+s.n+' of '+SCN.length+' \u00B7 '+s.kicker+'</div><h2 id="h-'+s.id+'">'+s.title+'</h2><p class="lede">'+s.lede+'</p></div>';
   return '<section aria-labelledby="h-'+s.id+'">'+head+
    (s.talk?'<div class="paths" role="group" aria-label="Conversation path"><div class="seg"><button data-path="tap" aria-pressed="'+(state.path!=='talk')+'">Tap the questions</button><button data-path="talk" aria-pressed="'+(state.path==='talk')+'">Type in your own words</button></div><small>'+(state.path==='talk'?'The assistant reads free text, confirms it, and hands over when unsure.':'Three taps, no typing.')+'</small></div>':'')+
@@ -1327,9 +1324,8 @@ function scenarioHTML(s){
    '<div class="ctl"><div class="nav"><button class="nb" id="bk">&larr; Back</button><button class="nb pri" id="nx">Next &rarr;</button></div>'+
    '<div class="cap"><div class="n" id="dots"></div><p id="cap" aria-live="polite"></p></div>'+
    '<div class="tog"><label class="sw"><input type="checkbox" id="tg-today"><i></i>Show today\'s site</label><label class="sw"><input type="checkbox" id="tg-tags"><i></i>Show build tags</label></div></div>'+
-   '<div class="notes">'+
-    noteCard('For design','layout and states',cur(s).notes.design)+noteCard('For the business','value and measures',cur(s).notes.biz)+noteCard('For the build','what it takes',cur(s).notes.build)+'</div>'+
-   (SOLO?'<div class="card fb"><h3>Where we would like your input</h3><ul>'+FB_QS.map(function(q){return '<li>'+q+'</li>';}).join('')+'</ul></div>':'')+
+   (SOLO?'':'<div class="notes">'+
+    noteCard('For design','layout and states',cur(s).notes.design)+noteCard('For the business','value and measures',cur(s).notes.biz)+noteCard('For the build','what it takes',cur(s).notes.build)+'</div>')+
    '<div class="next-up">'+(prev?'<button class="nb" data-go="'+prev.id+'">&larr; '+prev.n+'. '+prev.title+'</button>':'<button class="nb" data-go="overview">&larr; Overview</button>')+(next?'<button class="nb pri" data-go="'+next.id+'">'+next.n+'. '+next.title+' &rarr;</button>':'<button class="nb pri" data-go="overview">Back to overview</button>')+'</div></section>';
 }
 function noteCard(t,sm,arr){return '<div class="card"><h3>'+t+' <small>'+sm+'</small></h3><ul>'+arr.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul></div>';}
