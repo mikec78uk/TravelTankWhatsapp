@@ -20,3 +20,10 @@ src = src.replace("__HOTEL__", uri("hotel.jpg", "image/jpeg"))
 out = root / "TravelTank-WhatsApp-Prototype.html"
 out.write_text(src, encoding="utf-8")
 print(out, round(out.stat().st_size / 1024), "kB")
+
+# Stand-alone page: only the typed-conversation path of touchpoint 2, for sharing with stakeholders.
+solo = src.replace("var SOLO=false;", "var SOLO=true;", 1)
+solo = solo.replace("<title>TravelTank on WhatsApp</title>", "<title>WhatsApp Trip Ideas</title>", 1)
+out2 = root / "TravelTank-WhatsApp-Typed-Conversation.html"
+out2.write_text(solo, encoding="utf-8")
+print(out2, round(out2.stat().st_size / 1024), "kB")
