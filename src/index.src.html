@@ -9,14 +9,14 @@
 :root{
   --bg:#F2F6F6; --surface:#FFFFFF; --surface-2:#E9F3F3; --ink:#0F2A2E; --muted:#4D666A; --line:#D5E2E3;
   --accent:#01747F; --accent-ink:#FFFFFF; --coral:#FE5C61; --wa:#168F4D; --wa-soft:#E2F5E9; --wa-line:#9BD9B3;
-  --display:'Manrope','Roboto',system-ui,sans-serif; --body:'Roboto',system-ui,-apple-system,'Segoe UI',sans-serif; --mono:'Roboto Mono',ui-monospace,monospace;
+  --pos:#01747F; --neg:#C73B41; --display:'Manrope','Roboto',system-ui,sans-serif; --body:'Roboto',system-ui,-apple-system,'Segoe UI',sans-serif; --mono:'Roboto Mono',ui-monospace,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0A1315; --surface:#111E21; --surface-2:#172A2E; --ink:#E5F0F1; --muted:#98B1B4; --line:#233a3f;
-  --accent:#4DC4D0; --accent-ink:#06282C; --coral:#FF7A7E; --wa:#3FD17F; --wa-soft:#123325; --wa-line:#21603F; color-scheme:dark}}
+  --accent:#4DC4D0; --accent-ink:#06282C; --coral:#FF7A7E; --wa:#3FD17F; --wa-soft:#123325; --wa-line:#21603F; --pos:#4DC4D0; --neg:#FF8A8E; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0A1315; --surface:#111E21; --surface-2:#172A2E; --ink:#E5F0F1; --muted:#98B1B4; --line:#233a3f;
-  --accent:#4DC4D0; --accent-ink:#06282C; --coral:#FF7A7E; --wa:#3FD17F; --wa-soft:#123325; --wa-line:#21603F; color-scheme:dark}
+  --accent:#4DC4D0; --accent-ink:#06282C; --coral:#FF7A7E; --wa:#3FD17F; --wa-soft:#123325; --wa-line:#21603F; --pos:#4DC4D0; --neg:#FF8A8E; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 56px}
@@ -165,6 +165,11 @@ td:first-child{font-weight:600}
 .nb{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 16px;font-weight:600;font-size:14px}
 .nb.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .nb[disabled]{opacity:.4;cursor:default}
+.paths{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:0 0 16px}
+.paths .seg{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line);background:var(--surface);border-radius:12px}
+.paths .seg button{border:0;background:transparent;border-radius:9px;padding:8px 14px;font-weight:600;font-size:14px;color:var(--muted)}
+.paths .seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.paths small{font-size:12.5px;color:var(--muted)}
 .cap{min-width:0}
 .cap .n{display:flex;align-items:center;gap:6px;margin-bottom:6px}
 .cap .n button{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:var(--line)}
@@ -358,6 +363,16 @@ td:first-child{font-weight:600}
 .d-opt .rd{margin-left:auto;width:15px;height:15px;border-radius:50%;border:1.5px solid #BDBDBD}.d-opt.on .rd{border-color:#168F4D;background:radial-gradient(#168F4D 45%,transparent 50%)}
 .t-ask{display:flex;gap:10px;align-items:center;border:1px solid #CDEBD8;background:#F6FCF8;border-radius:4px;padding:9px 11px;margin:10px 0 2px;position:relative}
 .t-ask b{font-size:12px;font-weight:500}.t-ask small{display:block;font-size:10.5px;color:#666;margin-top:1px}.t-ask .t-wabtn{margin-left:auto}
+.t-from{display:flex;gap:10px;align-items:center;border:1px solid #BFE3E5;background:#E9F6F6;border-radius:4px;padding:10px 12px;margin:0 0 14px;position:relative}
+.t-from b{font-size:12.5px;font-weight:500}.t-from small{display:block;font-size:10.5px;color:#456;margin-top:1px}.t-from u{margin-left:auto;color:#FE5C61;font-size:11px;white-space:nowrap}
+.h-idea{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:12px;position:relative;width:max-content;max-width:100%}
+.h-idea .t-wabtn{font-size:11px;padding:7px 12px}
+.car{display:flex;gap:7px;overflow:hidden;width:100%}
+.cc{flex:0 0 64%;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 1px rgba(0,0,0,.1)}
+.cc img{display:block;width:100%;height:86px;object-fit:cover}
+.cc .ct{padding:7px 9px 6px;line-height:1.3}.cc .ct b{display:block;font-size:14px}.cc .ct span{display:block;font-size:11.5px;color:#667781;margin-top:1px}
+.cc .ct em{display:block;font-style:normal;font-weight:700;font-size:13px;color:#01747F;margin-top:4px}
+.cc .cb{border-top:1px solid #E9EDEF;text-align:center;padding:7px;color:#027EB5;font-size:13px;font-weight:500}
 .who{margin-bottom:8px}
 .chb{background:linear-gradient(120deg,#06585F,#0E8B93);color:#fff;padding:14px 14px 12px}.chb b{display:block;font:700 16px var(--display)}.chb span{font-size:12px;opacity:.9}
 .flowov{position:absolute;left:0;right:0;bottom:0;top:96px;z-index:4}
@@ -367,6 +382,69 @@ td:first-child{font-weight:600}
 .flowov .f{border:1px solid #D1D7DB;border-radius:8px;padding:6px 10px;margin-top:9px;font-size:13.5px}.flowov .f small{display:block;color:#667781;font-size:10.5px}
 .flowov .f2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .flowov .sub{background:#00A884;color:#fff;border-radius:22px;text-align:center;padding:11px;margin-top:14px;font-weight:600;font-size:14px}
+
+
+/* business case */
+.cs-note{margin-top:14px;border:1px solid var(--coral);border-radius:12px;padding:12px 16px;background:var(--surface);max-width:900px;font-size:14px}
+.cs-note b{color:var(--coral)}
+.cs-scn{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.cs-scn .lab{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--muted);margin-right:4px}
+.cs-scn button{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px;font-weight:600;font-size:14px}
+.cs-scn button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.cs-kpis{position:sticky;top:60px;z-index:4;margin-top:16px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.cs-kpi{background:var(--surface);padding:12px 16px;min-width:0}
+.cs-kpi span{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700}
+.cs-kpi b{display:block;font:800 clamp(20px,2.6vw,28px) var(--display);margin-top:2px;font-variant-numeric:tabular-nums}
+.cs-kpi small{color:var(--muted);font-size:12px}
+.cs-main{display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:24px;margin-top:20px;align-items:start}
+.cs-grp{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px 16px 10px;margin-bottom:14px}
+.cs-grp h3{font-size:15px;font-weight:800;padding:12px 0 4px}
+.cs-f{padding:10px 0;border-top:1px solid var(--line)}
+.cs-f:first-of-type{border-top:0}
+.cs-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.cs-top label{font-size:13.5px;font-weight:600;line-height:1.3}
+.cs-top small{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:1px}
+.cs-t{flex:0 0 auto;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line);border-radius:6px;padding:2px 6px;color:var(--muted);background:var(--surface-2)}
+.cs-row{display:grid;grid-template-columns:minmax(0,1fr) 132px;gap:12px;align-items:center;margin-top:6px}
+.cs-row input[type=range]{width:100%;accent-color:var(--accent);min-width:0}
+.cs-num{display:flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:8px;padding:0 8px;background:var(--bg);height:34px}
+.cs-num input{width:100%;min-width:0;border:0;background:transparent;color:var(--ink);font:600 14px var(--body);text-align:right;font-variant-numeric:tabular-nums;outline:0}
+.cs-num:focus-within{outline:3px solid var(--accent);outline-offset:1px}
+.cs-num span{color:var(--muted);font-size:12px}
+.cs-res{position:relative;min-width:0}
+.cs-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.cs-card h3{font-size:16px;font-weight:800}
+.cs-card .sub{color:var(--muted);font-size:13px;margin-top:2px}
+.cs-bars{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.cs-bar{display:grid;grid-template-columns:150px minmax(0,1fr) 78px;gap:10px;align-items:center;font-size:13px;padding:2px 0}
+.cs-bar .tr{height:12px;position:relative}
+.cs-bar .fl{position:absolute;top:0;bottom:0;border-radius:0 4px 4px 0;background:var(--pos)}
+.cs-bar.neg .fl{background:var(--neg)}
+.cs-bar .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.cs-bar.tot{border-top:1px solid var(--line);margin-top:4px;padding-top:8px;font-weight:700}
+.cs-svg{width:100%;height:auto;display:block;overflow:visible}
+.cs-svg text{font:11px var(--body);fill:var(--muted)}
+.cs-svg .g{stroke:var(--line);stroke-width:1}
+.cs-svg .z{stroke:var(--ink);stroke-width:1;opacity:.55}
+.cs-svg .ln{fill:none;stroke:var(--pos);stroke-width:2;stroke-linejoin:round}
+.cs-svg .ar{fill:var(--pos);opacity:.08}
+.cs-svg .pb{fill:var(--pos);stroke:var(--surface);stroke-width:2}
+.cs-svg .lbl{fill:var(--ink);font-weight:600}
+.cs-svg .pos{fill:var(--pos)}.cs-svg .neg{fill:var(--neg)}
+.cs-svg .hv{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3}
+.cs-leg{display:flex;gap:16px;font-size:12.5px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
+.cs-leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.cs-tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);border-radius:8px;padding:6px 10px;font-size:12.5px;line-height:1.35;z-index:6;white-space:nowrap;transform:translate(-50%,-110%);box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.cs-res details{margin-top:4px}.cs-res summary{cursor:pointer;font-weight:600;font-size:14px;padding:6px 0}
+.cs-res table{min-width:0;font-size:13px}
+.cs-res td:last-child,.cs-res th:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.cs-firm ul{margin:8px 0 0;padding-left:18px;font-size:13.5px;display:flex;flex-direction:column;gap:6px}
+.cs-firm b{font-weight:700}
+@media (max-width:1020px){
+  .cs-main{grid-template-columns:minmax(0,1fr)}
+  .cs-kpis{grid-template-columns:repeat(2,minmax(0,1fr));position:static}
+  .cs-bar{grid-template-columns:110px minmax(0,1fr) 70px}
+}
 
 .new{outline:2px dashed #1DA85A;outline-offset:3px;border-radius:5px}
 .new::after{content:"NEW";position:absolute;top:-10px;right:10px;background:#1DA85A;color:#fff;font:700 8.5px/1 'Roboto';padding:3px 6px;border-radius:3px;letter-spacing:.07em}
@@ -398,6 +476,7 @@ var LOCK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 10V8a6 6 0 11
 var TICK='<svg viewBox="0 0 24 24"><path fill="#fff" d="M12 1l2.4 1.7 2.9-.2 1.2 2.7 2.6 1.3-.3 2.9L22 12l-1.2 2.6.3 2.9-2.6 1.3-1.2 2.7-2.9-.2L12 23l-2.4-1.7-2.9.2-1.2-2.7-2.6-1.3.3-2.9L2 12l1.2-2.6-.3-2.9 2.6-1.3 1.2-2.7 2.9.2z"/><path fill="#008069" d="M10.6 15.6L7.9 12.9l1-1 1.7 1.7 4.2-4.3 1 1z"/></svg>';
 
 var NAIRA="₦";
+var SHOW_CASE=false; /* set true to show the Business case tab and its overview button */
 var LOGO_W="__LOGO_WHITE__", HOTEL="__HOTEL__", HOTELT="__HOTELT__";
 
 /* ---------- Site screens ---------- */
@@ -599,6 +678,12 @@ function drawer(o){
    '<div class="t-note" style="margin-top:10px">&#9432; Fare Rules</div>'+
    '<div class="d-acts">'+pop+'<span class="d-btn">&#9741; Share</span><span class="d-btn">&#9825; Track price</span><span class="t-btn" style="margin-left:auto;padding:10px 20px">Book flight &rarr;</span></div></div></div>';
 }
+function inspHome(o){
+  var h=home(o);
+  if(o.before) return h;
+  var strip='<div class="h-idea new"><span>Not sure where to go? Answer three quick questions and get ideas.</span><span class="t-wabtn solid">'+WA+'Get trip ideas on WhatsApp</span></div>';
+  return h.replace('<span class="circ c1">',strip+'<span class="circ c1">');
+}
 function paxCard(n,v,extra){
   var T=['Mr','Mrs','Ms'];
   return '<div class="t-card t-pad" style="margin-top:10px"><b style="font-weight:500;font-size:14px">Passenger '+n+' (Adult)</b><div>'+extra+'</div>'+
@@ -612,11 +697,17 @@ function travellers(o){
   else if(w&&o.sent) extra='<div class="t-cdw new" style="margin:8px 0 0">'+WA+'&nbsp;Link sent &middot; waiting for them to add their details</div>';
   else if(w) extra='<div class="t-ask new"><span class="t-wa-ico">'+WA+'</span><div><b>Ask this traveller to add their own details</b><small>They get a secure link on WhatsApp. You can still type them in yourself.</small></div><span class="t-wabtn solid">Send link</span></div>';
   var p2=o.filled?{t:'Mrs',f:'Ada',s:'Bakare',d:'14 / 03 / 1991'}:null;
-  return hdr(0)+'<div class="t-body"><div class="t-main"><h3 style="margin-top:0">Who\'s travelling?</h3><div class="t-note" style="display:flex;gap:8px">&#9432; All names must match government-issued photo ID</div>'+
-   paxCard(1,{t:'Mr',f:'Tunde',s:'Bakare',d:'02 / 09 / 1988'},'')+paxCard(2,p2,extra)+'</div>'+rail(o)+'</div>';
+  var p1=o.arrive?null:{t:'Mr',f:'Tunde',s:'Bakare',d:'02 / 09 / 1988'}, from='';
+  if(w&&o.arrive) from='<div class="t-from new"><span class="t-wa-ico">'+WA+'</span><div><b>Your trip from WhatsApp</b><small>Lagos &rArr; London &middot; 21 Aug to 21 Sep &middot; 2 adults &middot; fare checked just now</small></div><u>Change trip</u></div>';
+  return hdr(0)+'<div class="t-body"><div class="t-main">'+from+'<h3 style="margin-top:0">Who\'s travelling?</h3><div class="t-note" style="display:flex;gap:8px">&#9432; All names must match government-issued photo ID</div>'+
+   paxCard(1,p1,'')+paxCard(2,p2,extra)+'</div>'+rail(o)+'</div>';
 }
 
 /* ---------- Chat scripts ---------- */
+function tile(a,b,t){
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="300" height="172" viewBox="0 0 300 172"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+a+'"/><stop offset="1" stop-color="'+b+'"/></linearGradient></defs><rect width="300" height="172" fill="url(#g)"/><text x="16" y="152" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#fff" fill-opacity=".92">'+t+'</text></svg>';
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
 function T(s){return s.replace(/\*([^*\n]+)\*/g,'<b>$1</b>').replace(/\n/g,'<br>');}
 function B(at,kind,o){o.at=at;o.kind=kind;o.from=o.from||'biz';return o;}
 var prevCard={img:LONDON,title:'Lagos ⇄ London · 21 Aug to 21 Sep',desc:'British Airways · 2 travellers · '+NAIRA+'5,673,507 total. Price not guaranteed until booked.',dom:'traveltank.com'};
@@ -645,6 +736,80 @@ var SCN=[
   design:['The existing cards keep their layout. WhatsApp is a small pill inside each one, so nothing moves.','The prefilled message means the customer starts in one tap and never faces an empty box.','The menu gives a first answer in seconds, and a Shark takes over for anything it does not cover.'],
   biz:['A 24/7 promise needs a channel that works at 2am without a phone call.','Refund status checks are repeat contacts. Answering them in chat is cheaper than a call.','A Channel is a free one-way broadcast, so it can start before any messaging budget exists. It also bridges the gap until the app (shown as coming soon) ships.','Measure chats started from the homepage, chats resolved without an agent and Channel followers.'],
   build:['Buttons are wa.me links with prefilled text and a source tag, so the inbox shows where each chat came from.','The menu is an interactive list message. Refund lookup reads the case record by reference.','At the time of writing, Channels are posted from the WhatsApp app rather than the Cloud API. Confirm current options and decide who owns the weekly post.','The weekly fares can come from the same data that feeds the homepage section.']}},
+
+{id:'ideas',title:'Get trip ideas on WhatsApp, then land on traveller details',
+ kicker:'Homepage, Channel and ads, then traveller details',tag:['nw','New entry point, lands on an existing page'],url:'traveltank.com',
+ lede:'Not everyone arrives knowing where to go, and the site is built for people who do. WhatsApp can play the well-travelled friend: three taps to get ideas that fit, then a link that opens TravelTank at traveller details with the trip already chosen. Prefer to type? The assistant can read a request in the customer\'s own words, and hands over to a Shark or a call when it is not sure.',
+ screen:inspHome,chat:{name:'TravelTank',sub:'Business account',biz:true},
+ steps:[
+  {cap:'Today the search box assumes you know where you are going. Everyone else browses the weekly deals, or leaves.',site:{before:true},ph:{view:'idle',note:'No way to ask for ideas.'}},
+  {cap:'New: a line beside the search offers ideas on WhatsApp. The same link can sit in Channel posts and social ads.',site:{},ph:{view:'idle',note:'Nothing starts until Tunde taps the button.'}},
+  {cap:'The chat opens with a message ready. Three questions, one tap each: the mood, who is coming, and when.',site:{},ph:{view:'chat'}},
+  {cap:'Three ideas for two people arrive as cards, with the lowest fare found today. London is first.',site:{},ph:{view:'chat'}},
+  {cap:'He taps Plan this trip. TravelTank re-checks the fare and sends one link button to traveller details.',site:{},ph:{view:'chat'}},
+  {cap:'The link opens traveller details with the trip, the two adults and the fare already in. Names are left blank, because they must match passports.',site:{arrive:true},scr:'travellers',url:'traveltank.com/booking/traveller-info?src=wa-ideas',ph:{view:'chat'}},
+  {cap:'If he leaves without finishing, one follow-up inside the 24-hour window offers to watch the fare, and asks about weekly ideas separately.',site:{arrive:true},scr:'travellers',url:'traveltank.com/booking/traveller-info?src=wa-ideas',ph:{view:'chat'}}
+ ],
+ msgs:[
+  B(2,'chip',{text:'Today'}),
+  B(2,'text',{from:'me',text:'Hi TravelTank, I\'d like trip ideas from Lagos ✨',time:'13:58',tag:'Prefilled by the homepage button · opens the 24h window · no template needed'}),
+  B(2,'text',{text:T('Hi 👋 Let\'s find you somewhere good.\n\nWhat kind of trip are you after?'),btns:['↩ Sun and beach','↩ City and food','↩ Family time'],time:'13:58',tag:'Session message · quick-reply buttons (up to 3, 20 characters each)'}),
+  B(2,'text',{from:'me',text:'City and food',time:'13:59',tag:'Button reply'}),
+  B(2,'text',{text:'Who is coming with you?',btns:['↩ Just me','↩ Two of us','↩ A group'],time:'13:59'}),
+  B(2,'text',{from:'me',text:'Two of us',time:'13:59'}),
+  B(2,'text',{text:'And when, roughly?',btns:['↩ Late Aug, a month','↩ Sept, about a week','↩ Not sure yet'],time:'13:59'}),
+  B(3,'text',{from:'me',text:'Late Aug, a month',time:'14:00'}),
+  B(3,'text',{text:T('Here are three ideas for *two people*, leaving around *21 Aug* for about a month. These are the lowest fares we found today. ✈️'),time:'14:00',tag:'Session message · built from a live fare search'}),
+  B(3,'carousel',{cards:[
+    {img:LONDON,title:'London',desc:'Return for 2 · 21 Aug to 21 Sep · direct',price:'from '+NAIRA+'5,673,507',btn:'Plan this trip'},
+    {img:tile('#8A3B5E','#E58C9E','Istanbul'),title:'Istanbul',desc:'Return for 2 · 21 Aug to 21 Sep',price:'from '+NAIRA+'1,741,886',btn:'Plan this trip'},
+    {img:tile('#0B7D84','#6FC2C6','Dubai'),title:'Dubai',desc:'Return for 2 · 21 Aug to 21 Sep',price:'from '+NAIRA+'1,504,120',btn:'Plan this trip'}
+   ],tag:'Image cards · one carousel or three messages, to confirm with the provider · fares not guaranteed until booked'}),
+  B(4,'text',{from:'me',text:'Plan this trip',time:'14:01',tag:'Button reply from the London card'}),
+  B(4,'text',{text:T('Good choice. I\'ve re-checked the fare just now:\n\n*Lagos ⇄ London*\nFri 21 Aug to Mon 21 Sep\nBritish Airways, direct, 2 adults\n*'+NAIRA+'5,673,507* in total\n\nNext, add who is travelling. You can hold the fare for 72 hours without paying. Prices are not guaranteed until booked.'),btns:['↗ Add traveller details'],time:'14:01',tag:'Session message · one link button · the URL carries a fare key, party size, source and a one-time token'}),
+  B(6,'chip',{text:'Three hours later'}),
+  B(6,'text',{text:T('No rush on London. 🙂 The fare is still *'+NAIRA+'5,673,507* for two.\n\nWant me to watch it and message you if the price drops?'),btns:['↩ Watch this fare','↩ Send me ideas weekly','↩ No thanks'],time:'17:02',tag:'Session message · inside the 24h window · sent once · each button records its own consent'})
+ ],
+ notes:{
+  design:['The entry sits in the hero beside the search, where someone who does not know where to go gets stuck. Search is untouched.','Three questions, one tap each, so ideas arrive in about a minute with no typing. A Shark is always one tap away.','Cards lead with the place and the price for two, return, so people compare like with like. Two images here are placeholders, and photography and tone are for the visual designer.','The link lands on traveller details with a banner saying where the trip came from and a Change trip link, so nobody feels locked in.'],
+  biz:['Today the site serves people who already know where they are going. This reaches the undecided, who currently leave or ask a friend.','It skips search and results. One WhatsApp tap lands on traveller details, the step where intent is highest.','Ideas should be fares TravelTank can sell, so every card is a real booking path. Ranking by price, margin, seat availability or editorial is a business decision.','Entry rules matter for Nigerian passports on many routes. Each card should show the visa position before the price excites, which is also a natural hand-off to the later visa concierge.','Measure chats started from the line, ideas viewed, card taps, link taps, traveller page reached, hold or paid, and weekly-ideas opt-ins.'],
+  build:['The entry is a wa.me link with prefilled text and a source tag. The same link works from the homepage, Channel posts and social ads.','Ideas come from a live fare search on the mood, party size and dates, limited to destinations TravelTank sells. The mood-to-destination list is maintained by people, not generated.','Cards may be a carousel or three separate messages. Confirm what the provider and current API allow inside a session, and which category applies. [confirm]','The link carries a fare or itinerary key, party size, source tag and a short-lived one-time token. No names, phone numbers or other personal data go in the URL.','On open, the site re-prices the fare. If it changed, show the new price first. If it is gone, offer the nearest alternative and keep the trip in context.','The site knows the chat number, so the contact step can offer WhatsApp updates for it, still unticked. Starting a chat is not consent to booking updates after the 24-hour window.','The follow-up is one message, only if no booking has started, and never after a reply. Outside the window, only opted-in people and approved templates.']},
+ talk:{
+  steps:[
+   {cap:'Same entry button and prefilled message. This time the assistant invites a request in the customer\'s own words, and keeps the quick questions one tap away.',site:{},ph:{view:'chat'}},
+   {cap:'Tunde types it the way he would say it. The assistant picks out mood, party size, dates and budget, and says back what it understood before it searches.',site:{},ph:{view:'chat'}},
+   {cap:'One tap to confirm. Ideas arrive as before, within budget. From here it continues as on the other path: Plan this trip, then the link to traveller details.',site:{},ph:{view:'chat'}},
+   {cap:'Then he types something the assistant cannot pin down. It does not guess. It says so, asks one specific question, and offers a way out.',site:{},ph:{view:'chat'}},
+   {cap:'A second unclear reply ends the guessing. The assistant hands over and offers a chat or a call. Asking for a person at any point skips straight to this.',site:{},ph:{view:'chat'}},
+   {cap:'Call me back opens a short form inside the chat. The number is prefilled from WhatsApp, and he picks when.',site:{},ph:{view:'callback'}},
+   {cap:'A Travel Shark joins the same thread with the history and the understood request in front of them. Nothing is repeated.',site:{},ph:{view:'chat'}}
+  ],
+  msgs:[
+   B(0,'chip',{text:'Today'}),
+   B(0,'text',{from:'me',text:'Hi TravelTank, I\'d like trip ideas from Lagos ✨',time:'13:58',tag:'Prefilled by the homepage button · opens the 24h window · no template needed'}),
+   B(0,'text',{text:T('Hi 👋 Tell me what you have in mind, in your own words. Where you\'d like to go, who is coming, roughly when, and a budget if you have one.\n\nOr use the quick questions.'),btns:['↩ Quick questions','↩ Talk to a Shark'],time:'13:58',tag:'Session message · free text invited · a person and the buttons are always offered'}),
+   B(1,'text',{from:'me',text:'Somewhere with great food and culture for me and my wife. Late August for about a month, budget around 3m each',time:'13:59',tag:'Free text · the assistant extracts mood, party size, dates and budget'}),
+   B(1,'text',{text:T('Let me check I\'ve got this right:\n\n• Mood: *city and food*\n• Travellers: *2 adults*\n• Dates: *late August*, about a month\n• Budget: up to *'+NAIRA+'3,000,000* each ('+NAIRA+'6,000,000 for two)\n\nShall I search?'),btns:['↩ Yes, show ideas','↩ Change something','↩ Talk to a Shark'],time:'13:59',tag:'Confirm-back · nothing is searched until the customer agrees · each button 20 characters or fewer'}),
+   B(2,'text',{from:'me',text:'Yes, show ideas',time:'14:00',tag:'Button reply'}),
+   B(2,'text',{text:T('Three ideas within your budget, leaving around *21 Aug* for about a month. These are the lowest fares we found today. ✈️'),time:'14:00',tag:'Session message · built from a live fare search, not from the assistant\'s own wording'}),
+   B(2,'carousel',{cards:[
+    {img:LONDON,title:'London',desc:'Return for 2 · 21 Aug to 21 Sep · direct',price:'from '+NAIRA+'5,673,507',btn:'Plan this trip'},
+    {img:tile('#8A3B5E','#E58C9E','Istanbul'),title:'Istanbul',desc:'Return for 2 · 21 Aug to 21 Sep',price:'from '+NAIRA+'1,741,886',btn:'Plan this trip'},
+    {img:tile('#0B7D84','#6FC2C6','Dubai'),title:'Dubai',desc:'Return for 2 · 21 Aug to 21 Sep',price:'from '+NAIRA+'1,504,120',btn:'Plan this trip'}
+   ],tag:'Same cards as the tap path · fares not guaranteed until booked'}),
+   B(3,'text',{from:'me',text:'Actually something like what my brother did last year, you know the one',time:'14:02',tag:'Free text · no mood, place, date or budget can be read from it'}),
+   B(3,'text',{text:T('Sorry, I\'m not sure I\'ve understood. Could you give me a place, or tell me what you\'d like to do there?\n\nOr pick a shortcut.'),btns:['↩ Quick questions','↩ Talk to a Shark'],time:'14:02',tag:'First unclear reply · rephrase once, ask one specific thing, offer a way out'}),
+   B(4,'text',{from:'me',text:'The big one near the sea, he loved it',time:'14:03',tag:'Second unclear reply · counts toward the handover rule'}),
+   B(4,'text',{text:T('Thanks for bearing with me. I\'m not getting this right, and I\'d rather not guess with your money. 🙂\n\nI\'ll bring in a Travel Shark. They can see our chat, so you won\'t need to repeat anything.\n\nHow would you like to carry on?'),btns:['↩ Chat with a Shark','↩ Call me back','↩ Quick questions'],time:'14:03',tag:'Handover · after two unclear replies, or at once if the customer asks for a person or sounds frustrated'}),
+   B(5,'text',{from:'me',text:'Call me back',time:'14:03',tag:'Button reply · opens a WhatsApp Flow, the short form below'}),
+   B(6,'sys',{text:'Kemi, a Travel Shark, joined the chat'}),
+   B(6,'text',{sender:'Kemi · Travel Shark',color:'#0B7D84',text:T('Hi Tunde, it\'s Kemi from TravelTank 👋 I\'ve read your chat: food and culture for two, late August for about a month, up to '+NAIRA+'3m each. Your brother\'s trip sounds like the one to find out about.\n\nI\'ll call you on this number in about 10 minutes. If you\'d rather type, reply here and I\'ll carry on in the chat.'),time:'14:04',tag:'The Shark\'s screen shows: request as understood · budget per person and in total · three ideas shown, none chosen · two messages not understood · reason for handover · call requested for this number'})
+  ],
+  notes:{
+   design:['Typing is optional. The first message invites it, and the quick questions stay one tap away for anyone who would rather tap.','Before searching, the assistant says back what it understood in the customer\'s terms, with one tap to confirm or change. It is the cheapest way to catch a wrong reading, such as a budget meant per person or in total.','When it is not sure it says so plainly and asks one specific thing. It never fills the gap with a guess.','The way out is on screen at the moment of doubt, not buried in a menu. The chat shows one business name, so the handover says a person has joined.'],
+   biz:['Many people will simply type, as they would to a friend, and a fixed menu feels slower than that. This keeps them in the chat instead of losing them to a call or a close.','Someone who is stuck gets a person at the point of doubt, which is where calls to the 24/7 line start today. A good handover protects the sale.','Suggested rules for handing over: two unclear replies, any request for a person, a frustrated tone, and topics the assistant should not handle, such as groups, multi-city trips, visa questions and special assistance.','Staffing is the real cost. A handover queue needs hours, a response target and an honest out-of-hours message. A callback lets a small team batch its calls.','Measure typed against tapped starts, understood first time, handover rate and reasons, time to a Shark, and conversion after a handover.'],
+   build:['Reading free text can use rules, a language model, or both. Whichever it is, it only fills the same fields the buttons fill: mood, party size, dates and budget. It never writes fares or makes promises. [confirm]','A language model means customer text goes to a processor. That needs a data protection review, a clear statement that the assistant is automated, and a rule that passport numbers and similar details are never asked for in free text. [confirm]','Meta restricts general-purpose AI assistants on its Business Platform. A task-specific travel assistant should be in scope, but confirm the current policy with the provider before building. [confirm]','A handover creates an inbox conversation with a summary: the request as understood, what was shown, the messages it could not read, the reason and the contact preference. The Shark replies in the same thread.','Call me back is a WhatsApp Flow that writes a callback task for the call centre, with the number prefilled. A dial button is not available in a session message, so call options are a Flow, an approved template with a call button, or WhatsApp Business Calling. [confirm]','Out of hours, or when the queue is long, the message says so and offers a callback for the next opening time, so nobody waits in silence.']}
+ }},
 
 {id:'hotel',title:'Ask a Shark about this hotel, with the details attached',
  kicker:'Hotel details, also flight results',tag:['ex','Existing help panel, new button'],url:'traveltank.com/hotels/hotel-marrakech-house',
@@ -877,13 +1042,204 @@ var SCN=[
 
 SCN.forEach(function(s,i){s.n=i+1;});
 
+
+/* ---------- Business case ---------- */
+var CASE_FIELDS=[
+ {g:'Your volumes and value',items:[
+  ['bookings','Paid bookings per month','',200,20000,100,2000,'Analytics','Paid flights, hotels and holidays.'],
+  ['value','Average booking value','₦',100000,10000000,50000,2500000,'Analytics','Total paid by the customer.'],
+  ['margin','Net margin on a booking','%',1,15,0.5,4,'Finance','What TravelTank keeps after supplier cost.'],
+  ['holds','Holds placed per month','',0,10000,50,800,'Analytics','Bookings put on the 72-hour hold.'],
+  ['bankShare','Bookings paid by bank transfer','%',0,100,1,40,'Finance','Share of paid bookings.'],
+  ['contacts','Support contacts per booking','',0.1,3,0.1,0.9,'Support','Calls, emails and chats about one booking.']]},
+ {g:'What WhatsApp changes',items:[
+  ['optin','Customers who opt in at checkout','%',0,100,1,35,'Pilot','The most important number to learn first.'],
+  ['mult','Strength of the effects below','×',0.25,2,0.05,1,'Pilot','1 is the central guess. Scenarios move it.'],
+  ['holdLift','Extra held bookings that get paid, among opted-in','pts',0,20,0.5,5,'Pilot','Points added to the hold-to-paid rate.'],
+  ['bankLoss','Bank transfers lost to delay or doubt today','%',0,30,0.5,8,'Finance','Customers who pay late, or not at all.'],
+  ['bankCut','Share of that loss WhatsApp recovers','%',0,100,1,25,'Pilot','Receipts and confirmations in the chat.'],
+  ['alerts','Bookings from alerts and shares, per 100 opted-in','',0,10,0.1,1.5,'Pilot','Price drops, and trips shared to groups.'],
+  ['extrasLift','Extra bookings that add an extra, among opted-in','pts',0,15,0.5,3,'Pilot','Protocol, bags, insurance.'],
+  ['extraSale','Average extra sold','₦',10000,300000,5000,70000,'Finance','Protocol is ₦40,000 per person on the site.'],
+  ['extraMargin','Margin on extras','%',5,60,1,30,'Finance',''],
+  ['statusShare','Contacts that are status checks','%',0,100,1,40,'Support','Where is my ticket, did my payment land, refund status.'],
+  ['statusAvoid','Status checks avoided by proactive messages','%',0,100,1,50,'Pilot',''],
+  ['moveChat','Remaining contacts moved from phone to chat','%',0,100,1,60,'Pilot','']]},
+ {g:'Costs',items:[
+  ['phoneCost','Cost of one phone contact','₦',200,10000,100,1500,'Support','Agent time, lines, overhead.'],
+  ['chatCost','Cost of one chat','₦',100,10000,100,800,'Support','One agent can run several chats.'],
+  ['smsTake','Customers who buy SMS details today','%',0,30,0.5,3,'Analytics','WhatsApp is free, so some switch.'],
+  ['smsPrice','SMS option price','₦',0,10000,100,3000,'Site','Shown at checkout today.'],
+  ['utilN','Service messages per opted-in customer','',0,30,1,8,'Provider','Hold, payment, ticket, reminders, changes.'],
+  ['utilRate','Cost per service message','₦',0,100,1,10,'Provider','Placeholder. Check the current Nigeria rate card.'],
+  ['mktN','Marketing messages per opted-in customer','',0,20,1,2,'Provider','Price drops and offers.'],
+  ['mktRate','Cost per marketing message','₦',0,500,5,80,'Provider','Placeholder. Check the current Nigeria rate card.'],
+  ['platform','Platform and inbox, per month','₦',0,5000000,50000,400000,'Quote','Provider fee and agent inbox seats.'],
+  ['oneoff','One-off build and setup','₦',0,50000000,250000,6000000,'Quote','Integration, templates, training.'],
+  ['ramp','Months to reach full adoption','',1,12,1,4,'Pilot','Adoption grows as checkout and ads promote it.']]}
+];
+var CASE_DEF={}; CASE_FIELDS.forEach(function(g){g.items.forEach(function(f){CASE_DEF[f[0]]=f[6];});});
+var CS=Object.assign({},CASE_DEF);
+try{ var sv=JSON.parse(localStorage.getItem('tt-case')||'null'); if(sv){Object.keys(CASE_DEF).forEach(function(k){if(typeof sv[k]==='number')CS[k]=sv[k];});} }catch(e){}
+var CASE_SCN={cautious:{optin:20,mult:0.5},expected:{optin:35,mult:1},ambitious:{optin:50,mult:1.4}};
+
+function fm(n){var a=Math.abs(n),g=n<0?'−':''; if(a>=1e9)return g+NAIRA+(a/1e9).toFixed(2)+'bn'; if(a>=1e6)return g+NAIRA+(a/1e6).toFixed(a>=1e7?1:2)+'M'; if(a>=1e3)return g+NAIRA+Math.round(a/1e3)+'k'; return g+NAIRA+Math.round(a);}
+function fnum(n){return Math.round(n).toLocaleString('en-US');}
+
+function calc(x){
+  var R=x.value*x.margin/100, O=x.optin/100, U=x.mult;
+  var holds=x.holds*O*(x.holdLift*U)/100;
+  var T=x.bookings*x.bankShare/100;
+  var bank=T*(x.bankLoss/100)*Math.min(1,x.bankCut/100*U)*O;
+  var alerts=x.bookings*O*(x.alerts*U)/100;
+  var extras=x.bookings*O*(x.extrasLift*U)/100;
+  var cO=x.bookings*O*x.contacts, defl=cO*(x.statusShare/100)*Math.min(0.9,x.statusAvoid/100*U);
+  var shifted=(cO-defl)*x.moveChat/100;
+  var parts={
+    holds:holds*R, bank:bank*R, alerts:alerts*R, extras:extras*x.extraSale*x.extraMargin/100,
+    support:defl*x.phoneCost+shifted*Math.max(0,x.phoneCost-x.chatCost),
+    sms:-(x.bookings*x.smsTake/100*O*x.smsPrice),
+    msg:-(x.bookings*O*(x.utilN*x.utilRate+x.mktN*x.mktRate)),
+    platform:-x.platform
+  };
+  var gain=parts.holds+parts.bank+parts.alerts+parts.extras+parts.support;
+  var variable=parts.sms+parts.msg;
+  return {parts:parts,gain:gain,variable:variable,net:gain+variable+parts.platform,extra:holds+bank+alerts};
+}
+function cumulative(x,r){
+  var c=[-x.oneoff];
+  for(var m=1;m<=24;m++){var f=Math.min(1,m/x.ramp); c.push(c[m-1]+f*(r.gain+r.variable)+r.parts.platform);}
+  return c;
+}
+function breakEven(x){
+  var a=Object.assign({},x,{optin:0}), b=Object.assign({},x,{optin:100});
+  var n0=calc(a).net, n100=calc(b).net, slope=(n100-n0)/100;
+  if(slope<=0) return null; return -n0/slope;
+}
+var TORN=[['optin','Opt-in rate'],['mult','Strength of effects'],['bookings','Bookings per month'],['value','Average booking value'],['margin','Net margin'],['holds','Holds per month'],['holdLift','Hold conversion lift'],['alerts','Alerts and shares'],['contacts','Contacts per booking'],['platform','Platform cost'],['oneoff','Build cost']];
+
+function caseHTML(){
+  var groups=CASE_FIELDS.map(function(g){
+    return '<div class="cs-grp"><h3>'+g.g+'</h3>'+g.items.map(function(f){
+      var k=f[0],pre=f[2]==='₦'?'<span>₦</span>':'',suf=(f[2]==='%'||f[2]==='pts'||f[2]==='×')?'<span>'+f[2]+'</span>':'';
+      return '<div class="cs-f"><div class="cs-top"><label for="f-'+k+'">'+f[1]+(f[8]?'<small>'+f[8]+'</small>':'')+'</label><span class="cs-t">'+f[7]+'</span></div>'+
+       '<div class="cs-row"><input type="range" data-k="'+k+'" min="'+f[3]+'" max="'+f[4]+'" step="'+f[5]+'" value="'+CS[k]+'" aria-label="'+f[1]+'"><div class="cs-num">'+pre+'<input id="f-'+k+'" type="number" inputmode="decimal" data-k="'+k+'" min="'+f[3]+'" max="'+f[4]+'" step="'+f[5]+'" value="'+CS[k]+'">'+suf+'</div></div></div>';
+    }).join('')+'</div>';
+  }).join('');
+  var tags={};
+  CASE_FIELDS.forEach(function(g){g.items.forEach(function(f){(tags[f[7]]=tags[f[7]]||[]).push(f[1]);});});
+  var who={Analytics:'Pull from analytics',Finance:'Ask finance',Support:'Ask the support lead',Provider:'Check the provider rate card',Quote:'Get a quote from the tech partner',Pilot:'Only a pilot can tell us',Site:'Already on the site'};
+  var firm=Object.keys(who).map(function(t){return tags[t]?'<li><b>'+who[t]+':</b> '+tags[t].join('; ')+'.</li>':'';}).join('');
+  return '<section id="case"><div class="scn-head"><div class="kicker">Business case</div><h2>What could WhatsApp be worth to TravelTank?</h2>'+
+   '<p class="lede">A calculator built on educated guesses. Change any number and every result updates. Each input is tagged with who can replace the guess with a real figure.</p></div>'+
+   '<div class="cs-note"><b>Not TravelTank data.</b> Every default is an assumption chosen to be plausible, not a measurement. Compare the three scenarios and use the results to see which assumptions matter, not as a forecast.</div>'+
+   '<div class="cs-scn"><span class="lab">Scenario</span><button data-scn="cautious" aria-pressed="false">Cautious</button><button data-scn="expected" aria-pressed="false">Expected</button><button data-scn="ambitious" aria-pressed="false">Ambitious</button><button id="case-reset" style="margin-left:auto">Reset all</button></div>'+
+   '<div class="cs-kpis" id="cs-kpis"></div>'+
+   '<div class="cs-main"><div id="cs-in">'+groups+'</div><div class="cs-res" id="cs-res"><div class="cs-tip" id="cs-tip" hidden></div>'+
+    '<div class="cs-card"><h3>Where the money comes from</h3><p class="sub">Monthly, once adoption is complete. Gains in blue-green, costs in red.</p><div class="cs-bars" id="cs-bars"></div></div>'+
+    '<div class="cs-card"><h3>Cumulative result over 24 months</h3><p class="sub">After the one-off build cost, with adoption ramping up.</p><div id="cs-line"></div></div>'+
+    '<div class="cs-card"><h3>Which guess matters most</h3><p class="sub">Each input moved 50% down and 50% up, one at a time. Longer bars mean the guess matters more, so measure those first.</p><div id="cs-torn"></div>'+
+     '<div class="cs-leg"><span><i style="background:var(--pos)"></i>Better than the base case</span><span><i style="background:var(--neg)"></i>Worse than the base case</span></div></div>'+
+    '<div class="cs-card"><details><summary>View the numbers as tables</summary><div id="cs-tbl"></div></details></div>'+
+    '<div class="cs-card cs-firm"><h3>How to firm this up</h3><p class="sub">Replace the guesses in this order of who can answer.</p><ul>'+firm+'</ul></div></div></div></section>';
+}
+
+function caseUpdate(){
+  var r=calc(CS), cum=cumulative(CS,r), be=breakEven(CS);
+  var pb=-1; for(var m=1;m<=24;m++){ if(cum[m]>=0){pb=m;break;} }
+  document.getElementById('cs-kpis').innerHTML=
+   '<div class="cs-kpi"><span>Net benefit per month</span><b>'+fm(r.net)+'</b><small>at full adoption</small></div>'+
+   '<div class="cs-kpi"><span>Payback</span><b>'+(pb>0?'Month '+pb:'Over 24 mo')+'</b><small>on '+fm(CS.oneoff)+' build</small></div>'+
+   '<div class="cs-kpi"><span>First 12 months</span><b>'+fm(cum[12])+'</b><small>after build cost</small></div>'+
+   '<div class="cs-kpi"><span>Break-even opt-in</span><b>'+(be===null?'None':be>100?'Over 100%':Math.max(0,be).toFixed(0)+'%')+'</b><small>with these assumptions</small></div>';
+  // scenario pressed state
+  Array.prototype.forEach.call(document.querySelectorAll('[data-scn]'),function(b){var sc=CASE_SCN[b.dataset.scn];b.setAttribute('aria-pressed',String(sc.optin===CS.optin&&sc.mult===CS.mult));});
+  // bars
+  var P=r.parts, rows=[['Hold conversion',P.holds],['Bank transfer recovery',P.bank],['Alerts and shares',P.alerts],['Extras sold',P.extras],['Support savings',P.support],['SMS income lost',P.sms],['WhatsApp message fees',P.msg],['Platform and inbox',P.platform]];
+  var mx=Math.max.apply(null,rows.map(function(x){return Math.abs(x[1]);}).concat([1]));
+  document.getElementById('cs-bars').innerHTML=rows.map(function(x){
+    var w=Math.max(0,Math.abs(x[1])/mx*100);
+    return '<div class="cs-bar'+(x[1]<0?' neg':'')+'" data-tip="'+x[0]+': '+fm(x[1])+' per month"><span>'+x[0]+'</span><div class="tr"><div class="fl" style="left:0;width:'+w.toFixed(1)+'%"></div></div><span class="v">'+fm(x[1])+'</span></div>';
+  }).join('')+'<div class="cs-bar tot"><span>Net per month</span><div></div><span class="v">'+fm(r.net)+'</span></div>'+
+   '<p class="sub" style="margin-top:8px">About '+fnum(r.extra)+' extra paid bookings a month from holds, bank transfers and alerts.</p>';
+  drawLine(cum,pb); drawTorn(r.net);
+  // tables
+  var tr=rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>'+fm(x[1])+'</td></tr>';}).join('')+'<tr><td><b>Net per month</b></td><td><b>'+fm(r.net)+'</b></td></tr>';
+  var cr=[0,1,3,6,9,12,18,24].map(function(m){return '<tr><td>Month '+m+'</td><td>'+fm(cum[m])+'</td></tr>';}).join('');
+  document.getElementById('cs-tbl').innerHTML='<table><thead><tr><th>Monthly lever</th><th>Value</th></tr></thead><tbody>'+tr+'</tbody></table><table style="margin-top:10px"><thead><tr><th>Cumulative</th><th>Value</th></tr></thead><tbody>'+cr+'</tbody></table>';
+  try{ localStorage.setItem('tt-case',JSON.stringify(CS)); }catch(e){}
+}
+
+function niceStep(rng){var raw=rng/4,mag=Math.pow(10,Math.floor(Math.log(raw)/Math.LN10)),n=raw/mag;return (n<1.5?1:n<3?2:n<7?5:10)*mag;}
+function drawLine(cum,pb){
+  var W=640,H=250,ml=58,mr=14,mt=14,mb=28, lo=Math.min.apply(null,cum.concat([0])), hi=Math.max.apply(null,cum.concat([0]));
+  var st=niceStep(hi-lo||1); lo=Math.floor(lo/st)*st; hi=Math.ceil(hi/st)*st;
+  function X(m){return ml+m/24*(W-ml-mr);} function Y(v){return mt+(hi-v)/(hi-lo)*(H-mt-mb);}
+  var g='',t=[]; for(var v=lo;v<=hi+st/2;v+=st){t.push(v);}
+  t.forEach(function(v){g+='<line class="g" x1="'+ml+'" x2="'+(W-mr)+'" y1="'+Y(v)+'" y2="'+Y(v)+'"/><text x="'+(ml-8)+'" y="'+(Y(v)+4)+'" text-anchor="end">'+fm(v)+'</text>';});
+  [0,6,12,18,24].forEach(function(m){g+='<text x="'+X(m)+'" y="'+(H-8)+'" text-anchor="middle">'+(m===0?'Start':'M'+m)+'</text>';});
+  var d=cum.map(function(v,m){return (m?'L':'M')+X(m).toFixed(1)+' '+Y(v).toFixed(1);}).join(' ');
+  var area=d+' L'+X(24)+' '+Y(0)+' L'+X(0)+' '+Y(0)+' Z';
+  var mk=pb>0?'<circle class="pb" cx="'+X(pb)+'" cy="'+Y(cum[pb])+'" r="5"/><text class="lbl" x="'+X(pb)+'" y="'+(Y(cum[pb])-12)+'" text-anchor="'+(pb>16?'end':'start')+'">Payback, month '+pb+'</text>':'';
+  document.getElementById('cs-line').innerHTML='<svg class="cs-svg" id="cs-lsvg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Cumulative net result over 24 months">'+g+
+   '<line class="z" x1="'+ml+'" x2="'+(W-mr)+'" y1="'+Y(0)+'" y2="'+Y(0)+'"/><path class="ar" d="'+area+'"/><path class="ln" d="'+d+'"/>'+mk+
+   '<line class="hv" id="cs-hv" y1="'+mt+'" y2="'+(H-mb)+'" x1="0" x2="0" style="display:none"/><circle class="pb" id="cs-hd" r="5" cx="0" cy="0" style="display:none"/></svg>';
+  var svg=document.getElementById('cs-lsvg'), res=document.getElementById('cs-res'), tip=document.getElementById('cs-tip');
+  svg.addEventListener('mousemove',function(e){
+    var b=svg.getBoundingClientRect(), x=(e.clientX-b.left)/b.width*W, m=Math.max(0,Math.min(24,Math.round((x-ml)/(W-ml-mr)*24)));
+    var hv=document.getElementById('cs-hv'), hd=document.getElementById('cs-hd'); hv.style.display='';hd.style.display=''; hv.setAttribute('x1',X(m)); hv.setAttribute('x2',X(m)); hd.setAttribute('cx',X(m)); hd.setAttribute('cy',Y(cum[m]));
+    var rb=res.getBoundingClientRect(); tip.hidden=false; tip.textContent=(m===0?'Start':'Month '+m)+': '+fm(cum[m]);
+    tip.style.left=(b.left-rb.left+X(m)/W*b.width)+'px'; tip.style.top=(b.top-rb.top+Y(cum[m])/H*b.height-8)+'px';
+  });
+  svg.addEventListener('mouseleave',function(){tip.hidden=true;document.getElementById('cs-hv').style.display='none';document.getElementById('cs-hd').style.display='none';});
+}
+function drawTorn(base){
+  var rows=TORN.map(function(t){
+    var k=t[0], lo=Object.assign({},CS), hi=Object.assign({},CS);
+    lo[k]=CS[k]*0.5; hi[k]=k==='optin'?Math.min(100,CS[k]*1.5):CS[k]*1.5;
+    var a=calc(lo).net-base, b=calc(hi).net-base; return {n:t[1],a:a,b:b,sw:Math.abs(a)+Math.abs(b)};
+  }).sort(function(p,q){return q.sw-p.sw;}).slice(0,7);
+  var ext=Math.max.apply(null,rows.map(function(r){return Math.max(Math.abs(r.a),Math.abs(r.b));}).concat([1]));
+  var W=640,rh=30,lw=150,mid=lw+(W-lw)/2,half=(W-lw)/2-14,H=rows.length*rh+30,sv='';
+  rows.forEach(function(r,i){
+    var y=i*rh+6;
+    sv+='<text x="0" y="'+(y+15)+'" style="fill:var(--ink)">'+r.n+'</text>';
+    [['a','50% lower'],['b','50% higher']].forEach(function(pair){
+      var v=r[pair[0]],w=Math.abs(v)/ext*half,x=v>=0?mid:mid-w;
+      sv+='<rect x="'+x.toFixed(1)+'" y="'+(y+3)+'" width="'+Math.max(1,w).toFixed(1)+'" height="14" rx="3" class="'+(v>=0?'pos':'neg')+'" data-tip="'+r.n+', '+pair[1]+': '+(v>=0?'+':'')+fm(v)+' per month"/>';
+    });
+  });
+  sv+='<line class="z" x1="'+mid+'" x2="'+mid+'" y1="0" y2="'+(rows.length*rh+8)+'"/>'+
+   '<text x="'+mid+'" y="'+(H-4)+'" text-anchor="middle">Base case net per month</text>';
+  document.getElementById('cs-torn').innerHTML='<svg class="cs-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Sensitivity of monthly net benefit to each assumption">'+sv+'</svg>';
+}
+function caseInit(){
+  var root=document.getElementById('case'), res=document.getElementById('cs-res'), tip=document.getElementById('cs-tip');
+  root.addEventListener('input',function(e){
+    var t=e.target,k=t.dataset&&t.dataset.k; if(!k) return; var v=parseFloat(t.value); if(isNaN(v)) return;
+    CS[k]=v; Array.prototype.forEach.call(root.querySelectorAll('[data-k="'+k+'"]'),function(o){if(o!==t)o.value=v;}); caseUpdate();
+  });
+  root.addEventListener('click',function(e){
+    var b=e.target.closest('[data-scn]');
+    if(b){var sc=CASE_SCN[b.dataset.scn];Object.keys(sc).forEach(function(k){CS[k]=sc[k];Array.prototype.forEach.call(root.querySelectorAll('[data-k="'+k+'"]'),function(o){o.value=sc[k];});});caseUpdate();return;}
+    if(e.target.id==='case-reset'){Object.keys(CASE_DEF).forEach(function(k){CS[k]=CASE_DEF[k];Array.prototype.forEach.call(root.querySelectorAll('[data-k="'+k+'"]'),function(o){o.value=CASE_DEF[k];});});caseUpdate();}
+  });
+  res.addEventListener('mousemove',function(e){
+    var t=e.target.closest&&e.target.closest('[data-tip]'); if(!t){ if(!e.target.closest||!e.target.closest('#cs-lsvg')) tip.hidden=true; return; }
+    var rb=res.getBoundingClientRect(); tip.hidden=false; tip.textContent=t.getAttribute('data-tip'); tip.style.left=(e.clientX-rb.left)+'px'; tip.style.top=(e.clientY-rb.top-4)+'px';
+  });
+  res.addEventListener('mouseleave',function(){tip.hidden=true;});
+  caseUpdate();
+}
+
 /* ---------- Rendering ---------- */
 var view=document.getElementById('view'), tabs=document.getElementById('tabs');
-var state={id:'overview',step:0,tags:false,today:false};
+var state={id:'overview',step:0,tags:false,today:false,path:'tap'};
 
+function cur(s){return (state.path==='talk'&&s.talk)?s.talk:s;}
 function scrFor(s,i){
-  var st=s.steps[i], o=Object.assign({},st.site||{});
-  var fn=st.scr?{pay:pay,confirm:confirm}[st.scr]:s.screen;
+  var st=cur(s).steps[i], o=Object.assign({},st.site||{});
+  var fn=st.scr?{pay:pay,confirm:confirm,travellers:travellers}[st.scr]:s.screen;
   if(state.today){o.before=true;}
   if(s.id==='hold'||s.id==='bank'){o.plainHelp=true;}
   return fn(o);
@@ -891,6 +1247,7 @@ function scrFor(s,i){
 
 function msgHTML(m,fresh,chat){
   if(m.kind==='chip') return '<div class="chip'+(fresh?' fresh':'')+'">'+m.text+'</div>';
+  if(m.kind==='carousel') return '<div class="mg in'+(fresh?' fresh':'')+'" style="max-width:100%;width:100%"><div class="car">'+m.cards.map(function(c){return '<div class="cc"><img src="'+c.img+'" alt=""><div class="ct"><b>'+c.title+'</b><span>'+c.desc+'</span><em>'+c.price+'</em></div><div class="cb">'+c.btn+'</div></div>';}).join('')+'</div>'+(m.tag?'<div class="tag">'+m.tag+'</div>':'')+'</div>';
   if(m.kind==='sys') return '<div class="sysmsg'+(fresh?' fresh':'')+'">'+m.text+'</div>';
   var out=m.from==='me', inner='';
   if(m.sender) inner+='<div class="snd" style="color:'+m.color+'">'+m.sender+'</div>';
@@ -906,7 +1263,7 @@ function msgHTML(m,fresh,chat){
 }
 
 function phoneHTML(s,i){
-  var st=s.steps[i], ph=st.ph, sc=ph.scene||'';
+  var st=cur(s).steps[i], ph=st.ph, sc=ph.scene||'';
   var c=(sc&&s.chats&&s.chats[sc])||s.chat;
   if(ph.view==='channel') c={name:'TravelTank Deals',sub:'Channel \u00B7 weekly fares',biz:true};
   var head='<div class="st"><span>9:41</span><span>&#9679;&#9679;&#9679;&nbsp;&#9646;</span></div>';
@@ -914,7 +1271,7 @@ function phoneHTML(s,i){
   var h=head+'<div class="wh"><span class="back">&#8249;</span>'+avatar+'<div><div class="nm">'+c.name+(c.biz?TICK:'')+'</div><div class="sb">'+c.sub+'</div></div><div class="ic"><span>&#9742;</span><span>&#8942;</span></div></div>';
   var body='';
   function chat(){
-    var parts=s.msgs.filter(function(m){return m.at<=i&&(m.scene||'')===sc;}).map(function(m){return msgHTML(m,m.at===i);}).join('');
+    var parts=cur(s).msgs.filter(function(m){return m.at<=i&&(m.scene||'')===sc;}).map(function(m){return msgHTML(m,m.at===i);}).join('');
     return '<div class="wbody" id="wbody">'+parts+'</div>';
   }
   if(ph.view==='idle'){
@@ -931,9 +1288,12 @@ function phoneHTML(s,i){
      '<div style="padding:9px 11px 4px;font-size:13.8px;line-height:1.55">\u2708\uFE0F <b>Dubai</b> from '+NAIRA+'752,060<br>\u2708\uFE0F <b>Istanbul</b> from '+NAIRA+'870,943<br>\u2708\uFE0F <b>Jeddah</b> from '+NAIRA+'896,298<br>\u2708\uFE0F <b>Guangzhou</b> from '+NAIRA+'1,009,800<br><span style="font-size:12px;color:#667781">Fares can change. Not guaranteed until booked.</span><span class="tm">09:00</span></div></div>'+
      '<div class="btns"><div class="wbtn">\u2197 See all fares</div></div><div class="tag">Channel update \u00B7 one-way broadcast, no template cost</div></div>'+
      '<div class="chip" style="margin-top:8px">\uD83D\uDD14 You are following this channel</div></div>';
-  } else if(ph.view==='chat'||ph.view==='flow'){
+  } else if(ph.view==='chat'||ph.view==='flow'||ph.view==='callback'){
     body=chat();
     if(ph.view==='chat') body+='<div class="wi"><div>Message</div><i>&#9658;</i></div>';
+    if(ph.view==='callback') body+='<div class="flowov"><div class="dim"></div><div class="sheet"><h5>Call me back</h5><p>A Travel Shark will ring you. This is a normal phone call.</p>'+
+      '<div class="f"><small>Phone number (from your WhatsApp)</small>+234 803 555 0142</div><div class="f"><small>When?</small>As soon as possible, about 10 minutes</div>'+
+      '<div class="f"><small>Anything we should know? (optional)</small>&nbsp;</div><div class="sub">Request a call</div></div></div>';
     if(ph.view==='flow') body+='<div class="flowov"><div class="dim"></div><div class="sheet"><h5>Your details</h5><p>Enter your name exactly as on your passport.</p>'+
       '<div class="f2"><div class="f"><small>First name</small>Ada</div><div class="f"><small>Surname</small>Bakare</div></div>'+
       '<div class="f"><small>Date of birth</small>14 / 03 / 1991</div><div class="f"><small>Frequent flyer number (optional)</small>&nbsp;</div><div class="sub">Submit</div></div></div>';
@@ -946,14 +1306,15 @@ function scenarioHTML(s){
   var tg=s.tag;
   return '<section aria-labelledby="h-'+s.id+'">'+
    '<div class="scn-head"><div class="kicker">Touchpoint '+s.n+' of '+SCN.length+' \u00B7 '+s.kicker+'</div><h2 id="h-'+s.id+'">'+s.title+'</h2><p class="lede">'+s.lede+'</p></div>'+
+   (s.talk?'<div class="paths" role="group" aria-label="Conversation path"><div class="seg"><button data-path="tap" aria-pressed="'+(state.path!=='talk')+'">Tap the questions</button><button data-path="talk" aria-pressed="'+(state.path==='talk')+'">Type in your own words</button></div><small>'+(state.path==='talk'?'The assistant reads free text, confirms it, and hands over when unsure.':'Three taps, no typing.')+'</small></div>':'')+
    '<div class="stage"><div><div class="frame-bar"><span class="pill '+tg[0]+'">'+tg[1]+'</span><span class="pill">Dashed outlines mark what is new or changed</span></div>'+
-   '<div class="browser"><div class="b-bar"><i></i><i></i><i></i><div class="url">'+s.url+'</div></div><div class="viewport" id="vp"><div class="tt" id="tt"></div></div></div></div>'+
+   '<div class="browser"><div class="b-bar"><i></i><i></i><i></i><div class="url" id="burl">'+s.url+'</div></div><div class="viewport" id="vp"><div class="tt" id="tt"></div></div></div></div>'+
    '<div class="phone-col" id="pcol"><div id="ph"></div></div></div>'+
    '<div class="ctl"><div class="nav"><button class="nb" id="bk">&larr; Back</button><button class="nb pri" id="nx">Next &rarr;</button></div>'+
    '<div class="cap"><div class="n" id="dots"></div><p id="cap" aria-live="polite"></p></div>'+
    '<div class="tog"><label class="sw"><input type="checkbox" id="tg-today"><i></i>Show today\'s site</label><label class="sw"><input type="checkbox" id="tg-tags"><i></i>Show build tags</label></div></div>'+
    '<div class="notes">'+
-    noteCard('For design','layout and states',s.notes.design)+noteCard('For the business','value and measures',s.notes.biz)+noteCard('For the build','what it takes',s.notes.build)+'</div>'+
+    noteCard('For design','layout and states',cur(s).notes.design)+noteCard('For the business','value and measures',cur(s).notes.biz)+noteCard('For the build','what it takes',cur(s).notes.build)+'</div>'+
    '<div class="next-up">'+(prev?'<button class="nb" data-go="'+prev.id+'">&larr; '+prev.n+'. '+prev.title+'</button>':'<button class="nb" data-go="overview">&larr; Overview</button>')+(next?'<button class="nb pri" data-go="'+next.id+'">'+next.n+'. '+next.title+' &rarr;</button>':'<button class="nb pri" data-go="overview">Back to overview</button>')+'</div></section>';
 }
 function noteCard(t,sm,arr){return '<div class="card"><h3>'+t+' <small>'+sm+'</small></h3><ul>'+arr.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul></div>';}
@@ -964,27 +1325,28 @@ function fit(){
 }
 function draw(){
   var s=SCN.filter(function(x){return x.id===state.id;})[0]; if(!s) return;
-  var i=state.step, st=s.steps[i];
+  var C=cur(s), i=state.step, st=C.steps[i];
   var tt=document.getElementById('tt'); tt.innerHTML=scrFor(s,i);
   document.getElementById('ph').innerHTML=phoneHTML(s,i);
   document.getElementById('pcol').classList.toggle('show-tags',state.tags);
   document.getElementById('cap').textContent=st.cap;
-  document.getElementById('dots').innerHTML=s.steps.map(function(_,k){return '<button class="'+(k===i?'on':'')+'" aria-label="Step '+(k+1)+'" data-step="'+k+'"></button>';}).join('')+'<span>Step '+(i+1)+' of '+s.steps.length+'</span>';
+  var bu=document.getElementById('burl'); if(bu) bu.textContent=(i>0&&st.url)||s.url;
+  document.getElementById('dots').innerHTML=C.steps.map(function(_,k){return '<button class="'+(k===i?'on':'')+'" aria-label="Step '+(k+1)+'" data-step="'+k+'"></button>';}).join('')+'<span>Step '+(i+1)+' of '+C.steps.length+'</span>';
   document.getElementById('bk').disabled=(i===0);
-  document.getElementById('nx').disabled=(i===s.steps.length-1);
+  document.getElementById('nx').disabled=(i===C.steps.length-1);
   var wb=document.getElementById('wbody'); if(wb){wb.scrollTop=wb.scrollHeight;}
   tt.classList.toggle('noanim',state.today);
   fit();
 }
 function overview(){
   var stages=[
-   ['Discover and search',[1,2,3],''],
-   ['Traveller info',[4,5],''],
-   ['Extras',[],'Protocol and baggage offers, asked in chat (see 8 and 9)'],
-   ['Payment',[6,7],''],
-   ['Confirmation',[8],''],
-   ['Before the trip',[9],''],
-   ['After booking',[10],'']
+   ['Discover and search',[1,2,3,4],''],
+   ['Traveller info',[5,6],''],
+   ['Extras',[],'Protocol and baggage offers, asked in chat (see 9 and 10)'],
+   ['Payment',[7,8],''],
+   ['Confirmation',[9],''],
+   ['Before the trip',[10],''],
+   ['After booking',[11],'']
   ];
   var jm=stages.map(function(st){
     var tp=st[1].map(function(n){var s=SCN[n-1];return '<button data-go="'+s.id+'"><b>'+n+'</b><span>'+s.title+'</span></button>';}).join('');
@@ -992,6 +1354,7 @@ function overview(){
     return '<div class="jm-st"><h4>'+st[0]+'</h4><div class="jm-line"><i></i></div><div class="jm-tp">'+tp+'</div></div>';}).join('');
   var obs=[
    ['The homepage promises Sharks 24/7 and a refund tracker','Homepage cards','home'],
+   ['The search box assumes you know where you are going, and inspiration is a weekly deals list','Homepage search and deals','ideas'],
    ['Hotel and flight pages offer help as a phone number only','Need help? panel','hotel'],
    ['Track price and Share are buttons, and the site promises to notify you of price changes','Flight details','track'],
    ['The SMS option costs '+NAIRA+'3,000 at checkout','Traveller info page','opt-in'],
@@ -1002,20 +1365,21 @@ function overview(){
   ].map(function(o){return '<div class="ob"><q>'+o[1]+'</q><strong>'+o[0]+'</strong><button data-go="'+o[2]+'">See the idea &rarr;</button></div>';}).join('');
   var eff=[
    ['1. Homepage chat, refunds, deals','Cheap first contact, fewer repeat refund calls','wa.me links, auto-reply menu, case lookup, Channel','m','Chats started, resolved without an agent'],
-   ['2. Ask a Shark with context','Answers at the moment of doubt','Prefilled link, agent inbox','l','Conversion of chat against non-chat sessions'],
-   ['3. Track price and share','Return visits and new visitors','Alert subscriptions, marketing templates, share links','m','Alert-to-booking rate, shares per fare'],
-   ['4. Opt in at checkout','Consented contact for everything else','Cloud API, consent log, first template','m','Opt-in rate'],
-   ['5. Traveller details by link','Faster group bookings, fewer name errors','Tokenised link, WhatsApp Flow','m','Completion by link'],
-   ['6. Hold reminders','Holds that turn into payments','Templates, scheduler, payment links','m','Hold-to-paid rate'],
-   ['7. Bank transfer and receipts','Faster, calmer confirmation','Media handling, agent inbox, finance event','h','Receipt-to-confirmed time'],
-   ['8. Tickets and a Shark','Fewer calls, more extras sold','Document template, inbox, handoff rules','h','Calls per booking, extras attach'],
-   ['9. Pre-trip care','Trust and add-on sales','Triggers, preference store, marketing consent','h','Opt-out rate, add-on attach'],
-   ['10. Cancel and refund tracker','Fewer repeat contacts','Case management, status events','h','Contacts per refund case']
+   ['2. Trip ideas, then traveller details','Reaches the undecided, and lands on a high-intent step','wa.me entry, fare search, cards, deep link with token. Typing in own words adds text understanding and a Shark handover queue, which is higher effort','m','Chat-to-traveller-page rate, hold or paid, handover rate'],
+   ['3. Ask a Shark with context','Answers at the moment of doubt','Prefilled link, agent inbox','l','Conversion of chat against non-chat sessions'],
+   ['4. Track price and share','Return visits and new visitors','Alert subscriptions, marketing templates, share links','m','Alert-to-booking rate, shares per fare'],
+   ['5. Opt in at checkout','Consented contact for everything else','Cloud API, consent log, first template','m','Opt-in rate'],
+   ['6. Traveller details by link','Faster group bookings, fewer name errors','Tokenised link, WhatsApp Flow','m','Completion by link'],
+   ['7. Hold reminders','Holds that turn into payments','Templates, scheduler, payment links','m','Hold-to-paid rate'],
+   ['8. Bank transfer and receipts','Faster, calmer confirmation','Media handling, agent inbox, finance event','h','Receipt-to-confirmed time'],
+   ['9. Tickets and a Shark','Fewer calls, more extras sold','Document template, inbox, handoff rules','h','Calls per booking, extras attach'],
+   ['10. Pre-trip care','Trust and add-on sales','Triggers, preference store, marketing consent','h','Opt-out rate, add-on attach'],
+   ['11. Cancel and refund tracker','Fewer repeat contacts','Case management, status events','h','Contacts per refund case']
   ];
   var lvl={l:'Low',m:'Medium',h:'Higher'};
   var rows=eff.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td><span class="lv '+r[3]+'">'+lvl[r[3]]+'</span></td><td>'+r[4]+'</td></tr>';}).join('');
   return '<div class="hero"><div class="kicker">Concept prototype</div><h1>WhatsApp, woven into the TravelTank booking journey</h1>'+
-   '<p>Ten touchpoints, designed on the real site from homepage to refund. Each one pairs a TravelTank screen with the WhatsApp conversation it triggers, and can be stepped through. Use the toggles to see today\'s site, or the build tags.</p></div>'+
+   '<p>Eleven touchpoints, designed on the real site from homepage to refund. Each one pairs a TravelTank screen with the WhatsApp conversation it triggers, and can be stepped through. Use the toggles to see today\'s site, or the build tags.</p>'+(SHOW_CASE?'<p style="margin-top:16px"><button class="nb pri" data-go="case">Open the business case &rarr;</button></p>':'')+'</div>'+
    '<div class="sec"><h2>What the current site tells us</h2><p class="sub">Each touchpoint starts from something the site already does or promises.</p><div class="obs">'+obs+'</div></div>'+
    '<div class="sec"><h2>The journey</h2><p class="sub">Numbers follow the customer\'s order. Select one to open it.</p><div class="jm"><div class="jm-grid">'+jm+'</div></div></div>'+
    '<div class="sec"><h2>At a glance</h2><p class="sub">Effort is indicative and needs to be confirmed with the tech partner.</p><div class="tbl"><table><thead><tr><th>Touchpoint</th><th>What it buys</th><th>What it needs</th><th>Effort</th><th>Measure</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>'+
@@ -1028,23 +1392,25 @@ function overview(){
 function render(){
   var s=SCN.filter(function(x){return x.id===state.id;})[0];
   Array.prototype.forEach.call(tabs.children,function(b){b.setAttribute('aria-current',String(b.dataset.go===state.id));});
+  if(state.id==='case'){ view.innerHTML=caseHTML(); caseInit(); return; }
   if(!s){ view.innerHTML=overview(); return; }
   view.innerHTML=scenarioHTML(s);
   document.getElementById('tg-tags').checked=state.tags; document.getElementById('tg-today').checked=state.today;
   draw();
 }
 function go(id,step){
-  state.id=id; state.step=step||0;
+  state.id=id; state.step=step||0; state.path='tap';
   try{ history.replaceState(null,'','#'+id); }catch(e){ try{location.hash=id;}catch(_){} }
   render(); window.scrollTo(0,0);
 }
 tabs.innerHTML='<button class="tab" data-go="overview">Overview</button>'+SCN.map(function(s){
-  var short={'home':'Homepage','hotel':'Ask a Shark','track':'Track and share','opt-in':'Opt in','travellers':'Traveller details','hold':'Hold reminders','bank':'Bank transfer','confirm':'Tickets and a Shark','pretrip':'Pre-trip care','refund':'Cancel and refund'}[s.id];
-  return '<button class="tab" data-go="'+s.id+'"><b>'+s.n+'</b>'+short+'</button>';}).join('');
+  var short={'home':'Homepage','ideas':'Trip ideas','hotel':'Ask a Shark','track':'Track and share','opt-in':'Opt in','travellers':'Traveller details','hold':'Hold reminders','bank':'Bank transfer','confirm':'Tickets and a Shark','pretrip':'Pre-trip care','refund':'Cancel and refund'}[s.id];
+  return '<button class="tab" data-go="'+s.id+'"><b>'+s.n+'</b>'+short+'</button>';}).join('')+(SHOW_CASE?'<button class="tab" data-go="case"><b>&#8358;</b>Business case</button>':'');
 document.addEventListener('click',function(e){
   var g=e.target.closest('[data-go]'); if(g){go(g.dataset.go);return;}
+  var pb=e.target.closest('[data-path]'); if(pb){state.path=pb.dataset.path;state.step=0;render();return;}
   var d=e.target.closest('[data-step]'); if(d){state.step=+d.dataset.step;draw();return;}
-  if(e.target.id==='nx'){var s=SCN.filter(function(x){return x.id===state.id;})[0]; if(state.step<s.steps.length-1){state.step++;draw();}}
+  if(e.target.id==='nx'){var s=SCN.filter(function(x){return x.id===state.id;})[0]; if(state.step<cur(s).steps.length-1){state.step++;draw();}}
   if(e.target.id==='bk'){ if(state.step>0){state.step--;draw();}}
 });
 document.addEventListener('change',function(e){
@@ -1054,14 +1420,14 @@ document.addEventListener('change',function(e){
 document.addEventListener('keydown',function(e){
   if(/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
   var s=SCN.filter(function(x){return x.id===state.id;})[0]; if(!s) return;
-  if(e.key==='ArrowRight'&&state.step<s.steps.length-1){state.step++;draw();}
+  if(e.key==='ArrowRight'&&state.step<cur(s).steps.length-1){state.step++;draw();}
   if(e.key==='ArrowLeft'&&state.step>0){state.step--;draw();}
 });
 window.addEventListener('resize',fit);
 if(window.ResizeObserver){ new ResizeObserver(fit).observe(document.body); }
 if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);}
 var h=(location.hash||'').replace('#','');
-if(h&&(h==='overview'||SCN.some(function(x){return x.id===h;}))) state.id=h;
+if(h&&(h==='overview'||h==='case'||SCN.some(function(x){return x.id===h;}))) state.id=h;
 render();
 })();
 </script>

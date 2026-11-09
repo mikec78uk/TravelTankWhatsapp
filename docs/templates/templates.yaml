@@ -1,0 +1,108 @@
+# WhatsApp message template catalogue
+#
+# One entry per template. This file is the single source of truth: use it to submit templates for
+# approval, to generate send payloads and to drive tests.
+#
+# Status: draft. Only the templates for flow 07 (hold reminders) are written so far.
+# `category` is the category we are requesting. Meta decides the final category. [confirm]
+# Variables use positional placeholders ({{1}}, {{2}}) for broad compatibility.
+# Check Meta's current template rules (length limits, variable placement, button limits) before submitting. [confirm]
+
+version: 1
+language_default: en
+
+variable_formats:
+  destination_city: "City name as shown on the site, for example London"
+  booking_ref: "TravelTank reference, 8 characters, for example TT7K2QPD"
+  route_summary: "Built by the backend. Return: 'LOS → LHR · Fri 21 Aug (return Mon 21 Sep)'. One-way: 'LOS → LHR · Fri 21 Aug'."
+  money: "Naira symbol, thousands separators, no decimals, for example ₦5,673,507"
+  party: "'1 traveller' or 'N travellers'"
+  datetime_lagos: "Africa/Lagos, format 'Mon 24 Aug, 14:30'"
+
+templates:
+
+  - name: hold_created_v1
+    flow: 07-hold-reminders
+    status: draft
+    category: utility
+    language: en
+    trigger: hold.created
+    send_when: "Immediately after a hold is placed and the customer has WhatsApp consent"
+    body: |
+      *Your trip to {{1}} is on hold* ✈️
+      Ref *{{2}}*
+      {{3}}
+      Total {{4}} for {{5}}
+
+      We'll keep this fare until *{{6}}*. No payment has been taken. Prices are not guaranteed until you pay.
+    variables:
+      - { index: 1, name: destination_city, source: "booking.destination.city", format: destination_city, example: "London" }
+      - { index: 2, name: booking_ref,      source: "booking.reference",        format: booking_ref,      example: "TT7K2QPD" }
+      - { index: 3, name: route_summary,    source: "derived from booking.legs", format: route_summary,    example: "LOS → LHR · Fri 21 Aug (return Mon 21 Sep)" }
+      - { index: 4, name: total,            source: "booking.total",            format: money,            example: "₦5,673,507" }
+      - { index: 5, name: party,            source: "booking.passengers.count", format: party,            example: "2 travellers" }
+      - { index: 6, name: hold_expires_at,  source: "hold.expires_at",          format: datetime_lagos,   example: "Mon 24 Aug, 14:30" }
+    buttons:
+      - { type: quick_reply, text: "Pay by card",          payload: "HOLD_PAY_CARD:{booking_ref}" }
+      - { type: quick_reply, text: "Bank transfer details", payload: "HOLD_BANK:{booking_ref}" }
+      - { type: quick_reply, text: "Talk to a Shark",       payload: "HOLD_SHARK:{booking_ref}" }
+    notes: "Matches prototype message 1. Hold booking applies to flights only."
+
+  - name: hold_reminder_24h_v1
+    flow: 07-hold-reminders
+    status: draft
+    category: utility
+    language: en
+    trigger: "scheduled: hold.expires_at minus 24h"
+    send_when: "Hold is still placed, and at least 2 hours after the previous hold message"
+    body: |
+      *24 hours left* on your {{1}} hold (ref {{2}}). ⏳
+      Pay by {{3}} to keep this fare. Fares can change once the hold ends.
+    variables:
+      - { index: 1, name: destination_city, source: "booking.destination.city", format: destination_city, example: "London" }
+      - { index: 2, name: booking_ref,      source: "booking.reference",        format: booking_ref,      example: "TT7K2QPD" }
+      - { index: 3, name: hold_expires_at,  source: "hold.expires_at",          format: datetime_lagos,   example: "Mon 24 Aug, 14:30" }
+    buttons:
+      - { type: quick_reply, text: "Pay by card",          payload: "HOLD_PAY_CARD:{booking_ref}" }
+      - { type: quick_reply, text: "Bank transfer details", payload: "HOLD_BANK:{booking_ref}" }
+    notes: "Prototype message 2. Added the reference so the message stands alone."
+
+  - name: hold_reminder_6h_v1
+    flow: 07-hold-reminders
+    status: draft
+    category: utility
+    language: en
+    trigger: "scheduled: hold.expires_at minus 6h"
+    send_when: "Hold is still placed, and at least 2 hours after the previous hold message"
+    body: |
+      *6 hours left* on your {{1}} hold (ref {{2}}). Want a hand finishing up? Reply here and a Travel Shark will help right away.
+      The hold ends at {{3}}.
+    variables:
+      - { index: 1, name: destination_city, source: "booking.destination.city", format: destination_city, example: "London" }
+      - { index: 2, name: booking_ref,      source: "booking.reference",        format: booking_ref,      example: "TT7K2QPD" }
+      - { index: 3, name: hold_expires_at,  source: "hold.expires_at",          format: datetime_lagos,   example: "Mon 24 Aug, 14:30" }
+    buttons:
+      - { type: quick_reply, text: "Pay now",      payload: "HOLD_PAY_NOW:{booking_ref}" }
+      - { type: quick_reply, text: "Ask a Shark",  payload: "HOLD_SHARK:{booking_ref}" }
+    notes: "Prototype message 3. Wording expanded with destination, reference and expiry so it stands alone."
+
+  - name: hold_expired_v1
+    flow: 07-hold-reminders
+    status: proposed   # not in the prototype
+    category: utility
+    language: en
+    trigger: hold.expired
+    send_when: "Hold released unpaid, a short delay after hold.expires_at"
+    body: |
+      Your {{1}} hold (ref {{2}}) has ended and the fare has been released. Fares may have changed since you held it. Want us to check the price again?
+    variables:
+      - { index: 1, name: destination_city, source: "booking.destination.city", format: destination_city, example: "London" }
+      - { index: 2, name: booking_ref,      source: "booking.reference",        format: booking_ref,      example: "TT7K2QPD" }
+    buttons:
+      - { type: quick_reply, text: "Check price again", payload: "HOLD_RECHECK:{booking_ref}" }
+      - { type: quick_reply, text: "Talk to a Shark",   payload: "HOLD_SHARK:{booking_ref}" }
+    notes: "Open question 3 in the flow spec: do we send this at all?"
+
+# Referenced by flow 07 but defined in other flows (not yet drafted):
+#   optin_welcome_v1      flow 05  (first message after checkout opt-in)
+#   payment_confirmed_v1  flow 08  (sent when finance confirms a payment)

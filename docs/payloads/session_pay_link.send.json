@@ -1,0 +1,20 @@
+{
+  "_note": "Example only. Free-form interactive message with a link button. Only valid inside the 24-hour window opened by the customer's button tap. Remove _note before sending. Check current API fields. [confirm]",
+  "messaging_product": "whatsapp",
+  "recipient_type": "individual",
+  "to": "2348012345678",
+  "type": "interactive",
+  "interactive": {
+    "type": "cta_url",
+    "body": {
+      "text": "Your card payment is *₦5,798,324*, which includes the ₦124,817 card fee. Tap below to pay securely."
+    },
+    "action": {
+      "name": "cta_url",
+      "parameters": {
+        "display_text": "Pay ₦5,798,324",
+        "url": "https://www.traveltank.com/pay/ONE_TIME_TOKEN"
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # TravelTank on WhatsApp
 
-A clickable concept prototype showing ten ways WhatsApp could fit into the TravelTank journey, from the homepage to refunds. Each touchpoint pairs a TravelTank screen with the WhatsApp conversation it triggers, with notes for design, the business and the build.
+A clickable concept prototype showing eleven ways WhatsApp could fit into the TravelTank journey, from the homepage to refunds. Each touchpoint pairs a TravelTank screen with the WhatsApp conversation it triggers, with notes for design, the business and the build.
 
 ## View it
 
@@ -17,15 +17,20 @@ then visit `http://localhost:8000/TravelTank-WhatsApp-Prototype.html`.
 ## Touchpoints
 
 1. Homepage: help, refund status and weekly fares
-2. Ask a Shark about a hotel, with the details attached
-3. Track the price, or share the trip
-4. Opt in at checkout
-5. Let each traveller add their own details
-6. A 72-hour hold with reminders
-7. Bank transfer, with proof of payment in the chat
-8. Tickets, and a Shark on tap
-9. Pre-trip care and notification settings
-10. Cancel, change and refund tracker
+2. Trip ideas on WhatsApp, then a link to traveller details (tap the questions, or type in your own words, with a handover to a Shark or a call when the assistant is unsure)
+3. Ask a Shark about a hotel, with the details attached
+4. Track the price, or share the trip
+5. Opt in at checkout
+6. Let each traveller add their own details
+7. A 72-hour hold with reminders
+8. Bank transfer, with proof of payment in the chat
+9. Tickets, and a Shark on tap
+10. Pre-trip care and notification settings
+11. Cancel, change and refund tracker
+
+## Developer specs
+
+The `docs/` folder holds draft interaction specs for developers, starting with one fully written flow (hold reminders), a template catalogue, an event map and example payloads. Start at [docs/README.md](docs/README.md).
 
 ## Rebuilding
 

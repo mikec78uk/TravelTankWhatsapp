@@ -1,0 +1,35 @@
+{
+  "_note": "Example only. Inbound status webhook for a message that could not be delivered. The error code and wording are illustrative. Check current Meta error codes before mapping them. [confirm]",
+  "object": "whatsapp_business_account",
+  "entry": [
+    {
+      "id": "WHATSAPP_BUSINESS_ACCOUNT_ID",
+      "changes": [
+        {
+          "field": "messages",
+          "value": {
+            "messaging_product": "whatsapp",
+            "metadata": {
+              "display_phone_number": "2347000000000",
+              "phone_number_id": "PHONE_NUMBER_ID"
+            },
+            "statuses": [
+              {
+                "id": "wamid.OUTBOUND_MESSAGE_ID",
+                "status": "failed",
+                "timestamp": "1787585460",
+                "recipient_id": "2348012345678",
+                "errors": [
+                  {
+                    "code": 131026,
+                    "title": "Message undeliverable"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

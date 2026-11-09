@@ -1,0 +1,42 @@
+{
+  "_note": "Example only. Request to POST /{phone-number-id}/messages on the WhatsApp Cloud API. Remove _note before sending. Check current API version and field rules. [confirm]",
+  "messaging_product": "whatsapp",
+  "recipient_type": "individual",
+  "to": "2348012345678",
+  "type": "template",
+  "template": {
+    "name": "hold_created_v1",
+    "language": { "code": "en" },
+    "components": [
+      {
+        "type": "body",
+        "parameters": [
+          { "type": "text", "text": "London" },
+          { "type": "text", "text": "TT7K2QPD" },
+          { "type": "text", "text": "LOS → LHR · Fri 21 Aug (return Mon 21 Sep)" },
+          { "type": "text", "text": "₦5,673,507" },
+          { "type": "text", "text": "2 travellers" },
+          { "type": "text", "text": "Mon 24 Aug, 14:30" }
+        ]
+      },
+      {
+        "type": "button",
+        "sub_type": "quick_reply",
+        "index": "0",
+        "parameters": [{ "type": "payload", "payload": "HOLD_PAY_CARD:TT7K2QPD" }]
+      },
+      {
+        "type": "button",
+        "sub_type": "quick_reply",
+        "index": "1",
+        "parameters": [{ "type": "payload", "payload": "HOLD_BANK:TT7K2QPD" }]
+      },
+      {
+        "type": "button",
+        "sub_type": "quick_reply",
+        "index": "2",
+        "parameters": [{ "type": "payload", "payload": "HOLD_SHARK:TT7K2QPD" }]
+      }
+    ]
+  }
+}

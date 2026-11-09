@@ -1,0 +1,40 @@
+{
+  "_note": "Example only. Inbound webhook when a customer taps a quick-reply button on a template. Remove _note when using as a fixture. Check current webhook format. [confirm]",
+  "object": "whatsapp_business_account",
+  "entry": [
+    {
+      "id": "WHATSAPP_BUSINESS_ACCOUNT_ID",
+      "changes": [
+        {
+          "field": "messages",
+          "value": {
+            "messaging_product": "whatsapp",
+            "metadata": {
+              "display_phone_number": "2347000000000",
+              "phone_number_id": "PHONE_NUMBER_ID"
+            },
+            "contacts": [
+              { "profile": { "name": "Tunde Bakare" }, "wa_id": "2348012345678" }
+            ],
+            "messages": [
+              {
+                "from": "2348012345678",
+                "id": "wamid.INBOUND_MESSAGE_ID",
+                "timestamp": "1787585400",
+                "type": "button",
+                "button": {
+                  "payload": "HOLD_BANK:TT7K2QPD",
+                  "text": "Bank transfer details"
+                },
+                "context": {
+                  "from": "2347000000000",
+                  "id": "wamid.ORIGINAL_TEMPLATE_MESSAGE_ID"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
