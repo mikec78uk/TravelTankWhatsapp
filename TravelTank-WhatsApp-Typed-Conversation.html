@@ -188,7 +188,7 @@ body.solo .cap{order:-1}
 .cap .n button{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:var(--line)}
 .cap .n button.on{background:var(--accent);width:22px;border-radius:6px}
 .cap .n span{font-size:12px;color:var(--muted);margin-left:6px}
-.cap p{font-size:16px;line-height:1.4;font-weight:500}
+.cap p{font-size:20px;line-height:1.3;font-weight:600}
 .tog{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 .sw{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;user-select:none}
 .sw input{position:absolute;opacity:0}
@@ -418,6 +418,10 @@ body.solo .cap{order:-1}
 .wcta{background:#fff;border-top:1px solid #E5E7E8;padding:8px 12px 12px;text-align:center}
 .wbtnp{display:block;background:#FE5C61;color:#fff;font-weight:700;font-size:14px;border-radius:10px;padding:11px}
 .wcta small{display:block;font-size:10.5px;color:#667781;margin-top:5px}
+.flowov .lrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid #EEF0F1}
+.flowov .lrow b{display:block;font-size:13.5px;font-weight:600}.flowov .lrow small{display:block;font-size:11.5px;color:#667781;line-height:1.3;margin-top:1px}
+.flowov .lrow i{flex:0 0 auto;width:17px;height:17px;border-radius:50%;border:2px solid #C5CED1}
+.flowov .lrow.on i{border-color:#00A884;background:radial-gradient(#00A884 45%,transparent 50%)}
 .flowov .sub{background:#00A884;color:#fff;border-radius:22px;text-align:center;padding:11px;margin-top:14px;font-weight:600;font-size:14px}
 
 
@@ -764,6 +768,7 @@ function tile(a,b,t){
   return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
 }
 /* ---------- Illustrative picture placeholders and the in-app web pages ---------- */
+var FLIGHTS=[['Turkish Airlines · 23:30','Direct · 6h 40m · lands 08:10 · this price'],['Turkish Airlines · 10:15','Direct · 6h 40m · lands 18:55 · +'+NAIRA+'95,000'],['Ethiopian · 08:50','1 stop, Addis · 10h 30m · lands 22:20 · −'+NAIRA+'180,000'],['Royal Air Maroc · 13:15','1 stop, Casablanca · 12h 25m · lands 06:40 · −'+NAIRA+'290,000']];
 var SCN_CACHE={};
 function scene(k){
   if(SCN_CACHE[k]) return SCN_CACHE[k];
@@ -844,10 +849,10 @@ var SCN=[
  lede:'The homepage already promises Travel Sharks 24/7, a refund tracker and "the lowest fares we\'ve found this week". WhatsApp gives each of those a place to happen, with no app to install.',
  screen:home,chat:{name:'TravelTank',sub:'Business account',biz:true},
  steps:[
-  {cap:'Today the help card shows a phone number, the refund tracker is a form, and the weekly fares are a web page and an email list.',site:{before:true},ph:{view:'idle',note:'No WhatsApp channel yet.'}},
-  {cap:'New: the Need help? card offers WhatsApp. The chat opens with a message already typed, and a menu answers straight away.',site:{show:{help:1}},ph:{view:'chat'}},
-  {cap:'The Track your refund card works the same way. The customer sends a reference and gets the live status back.',site:{show:{help:1,refund:1}},ph:{view:'chat'}},
-  {cap:'The weekly fares get a Follow button for a WhatsApp Channel, and the sign-up box offers WhatsApp beside email.',site:{show:{help:1,refund:1,deals:1,news:1}},ph:{view:'channel'}}
+  {cap:'Today: a phone number, a refund form, a weekly web page.',site:{before:true},ph:{view:'idle',note:'No WhatsApp channel yet.'}},
+  {cap:'New: WhatsApp on the help card. The chat opens ready.',site:{show:{help:1}},ph:{view:'chat'}},
+  {cap:'Refund check: send a reference, get the status.',site:{show:{help:1,refund:1}},ph:{view:'chat'}},
+  {cap:'New: follow the weekly fares on WhatsApp.',site:{show:{help:1,refund:1,deals:1,news:1}},ph:{view:'channel'}}
  ],
  msgs:[
   B(1,'chip',{text:'Today'}),
@@ -868,13 +873,13 @@ var SCN=[
  lede:'Not everyone arrives knowing where to go, and the site is built for people who do. WhatsApp can play the well-travelled friend: three taps to get ideas that fit, then a link that opens TravelTank at traveller details with the trip already chosen. Prefer to type? The assistant can read a request in the customer\'s own words, help them settle on a flight and hotel, and hand over to a Shark or a call when it is not sure.',
  screen:inspHome,chat:{name:'TravelTank',sub:'Business account',biz:true},
  steps:[
-  {cap:'Today the search box assumes you know where you are going. Everyone else browses the weekly deals, or leaves.',site:{before:true},ph:{view:'idle',note:'No way to ask for ideas.'}},
-  {cap:'New: a line beside the search offers ideas on WhatsApp. The same link can sit in Channel posts and social ads.',site:{},ph:{view:'idle',note:'Nothing starts until Tunde taps the button.'}},
-  {cap:'The chat opens with a message ready. Three questions, one tap each: the mood, who is coming, and when.',site:{},ph:{view:'chat'}},
-  {cap:'Three ideas for two people arrive as cards, with the lowest fare found today. London is first.',site:{},ph:{view:'chat'}},
-  {cap:'He taps Plan this trip. TravelTank re-checks the fare and sends one link button to traveller details.',site:{},ph:{view:'chat'}},
-  {cap:'The link opens traveller details with the trip, the two adults and the fare already in. Names are left blank, because they must match passports.',site:{arrive:true},scr:'travellers',url:'traveltank.com/booking/traveller-info?src=wa-ideas',ph:{view:'chat'}},
-  {cap:'If he leaves without finishing, one follow-up inside the 24-hour window offers to watch the fare, and asks about weekly ideas separately.',site:{arrive:true},scr:'travellers',url:'traveltank.com/booking/traveller-info?src=wa-ideas',ph:{view:'chat'}}
+  {cap:'Today: search assumes you know where to go.',site:{before:true},ph:{view:'idle',note:'No way to ask for ideas.'}},
+  {cap:'New: ask for trip ideas on WhatsApp.',site:{},ph:{view:'idle',note:'Nothing starts until Tunde taps the button.'}},
+  {cap:'Three questions, one tap each.',site:{},ph:{view:'chat'}},
+  {cap:'Three ideas arrive as cards, with prices.',site:{},ph:{view:'chat'}},
+  {cap:'He taps Plan this trip. One link opens traveller details.',site:{},ph:{view:'chat'}},
+  {cap:'Traveller details open with the trip already in.',site:{arrive:true},scr:'travellers',url:'traveltank.com/booking/traveller-info?src=wa-ideas',ph:{view:'chat'}},
+  {cap:'One follow-up offers to watch the fare.',site:{arrive:true},scr:'travellers',url:'traveltank.com/booking/traveller-info?src=wa-ideas',ph:{view:'chat'}}
  ],
  msgs:[
   B(2,'chip',{text:'Today'}),
@@ -902,13 +907,13 @@ var SCN=[
   build:['The entry is a wa.me link with prefilled text and a source tag. The same link works from the homepage, Channel posts and social ads.','Ideas come from a live fare search on the mood, party size and dates, limited to destinations TravelTank sells. The mood-to-destination list is maintained by people, not generated.','Cards may be a carousel or three separate messages. Confirm what the provider and current API allow inside a session, and which category applies. [confirm]','The link carries a fare or itinerary key, party size, source tag and a short-lived one-time token. No names, phone numbers or other personal data go in the URL.','On open, the site re-prices the fare. If it changed, show the new price first. If it is gone, offer the nearest alternative and keep the trip in context.','The site knows the chat number, so the contact step can offer WhatsApp updates for it, still unticked. Starting a chat is not consent to booking updates after the 24-hour window.','The follow-up is one message, only if no booking has started, and never after a reply. Outside the window, only opted-in people and approved templates.']},
  help:{
   steps:[
-   {cap:'The homepage button opens the chat with a message already typed. The assistant invites a request in the customer\'s own words, and keeps the quick questions one tap away.',site:{},showSite:true,ph:{view:'chat'}},
-   {cap:'Tunde types it the way he would say it. The assistant picks out mood, party size, dates and budget, and says back what it understood before it searches.',site:{},ph:{view:'chat'}},
-   {cap:'One tap to confirm. Ideas arrive as before, within budget. From here, Plan this trip opens traveller details on the TravelTank site with the trip already chosen.',site:{},ph:{view:'chat'}},
-   {cap:'Then he types something the assistant cannot pin down. It does not guess. It says so, asks one specific question, and offers a way out.',site:{},ph:{view:'chat'}},
-   {cap:'A second unclear reply ends the guessing. The assistant hands over and offers a chat or a call. Asking for a person at any point skips straight to this.',site:{},ph:{view:'chat'}},
-   {cap:'Call me back opens a short form inside the chat. The number is prefilled from WhatsApp, and he picks when.',site:{},ph:{view:'callback'}},
-   {cap:'A Travel Shark joins the same thread with the history and the understood request in front of them. Nothing is repeated.',site:{},ph:{view:'chat'}}
+   {cap:'The chat opens. He can type in his own words.',site:{},showSite:true,ph:{view:'chat'}},
+   {cap:'He types. The assistant says back what it understood.',site:{},ph:{view:'chat'}},
+   {cap:'One tap to confirm. Ideas arrive.',site:{},ph:{view:'chat'}},
+   {cap:'It cannot read this. It says so and asks once.',site:{},ph:{view:'chat'}},
+   {cap:'Still unclear. It hands over to a Shark.',site:{},ph:{view:'chat'}},
+   {cap:'He asks for a call back. A short form opens.',site:{},ph:{view:'callback'}},
+   {cap:'A Shark joins the same chat, with the history.',site:{},ph:{view:'chat'}}
   ],
   msgs:[
    B(0,'chip',{text:'Today'}),
@@ -942,11 +947,11 @@ var SCN=[
  lede:'On hotel pages, and in the Need help? panel of flight results, the offer is a phone number. Someone mid-search needs a quick question answered, not a call. WhatsApp carries the hotel, dates and guests across, so nobody repeats themselves.',
  screen:hotel,chat:{name:'Kemi \u00B7 TravelTank',sub:'Travel Shark',biz:true},
  steps:[
-  {cap:'Today the panel offers a phone number, and the Shark starts from nothing.',site:{before:true},ph:{view:'idle',note:'Help is a phone call.'}},
-  {cap:'New: Ask about this hotel on WhatsApp. The hotel, dates, guests and price travel with the message.',site:{},ph:{view:'idle',note:'The chat has not started yet.'}},
-  {cap:'One tap and the chat opens with the question already written, plus a card for the hotel.',site:{},ph:{view:'chat'}},
-  {cap:'A Shark joins with the page context in front of them and asks what matters.',site:{},ph:{view:'chat'}},
-  {cap:'Kemi answers from the rate details. This rate is non-refundable, so she offers a refundable option from the same search.',site:{},ph:{view:'chat'}}
+  {cap:'Today: help means a phone call.',site:{before:true},ph:{view:'idle',note:'Help is a phone call.'}},
+  {cap:'New: ask about this hotel on WhatsApp.',site:{},ph:{view:'idle',note:'The chat has not started yet.'}},
+  {cap:'The chat opens with the hotel and the question.',site:{},ph:{view:'chat'}},
+  {cap:'A Shark joins with the page details.',site:{},ph:{view:'chat'}},
+  {cap:'Kemi answers from the rate and offers a refundable option.',site:{},ph:{view:'chat'}}
  ],
  msgs:[
   B(2,'chip',{text:'Today'}),
@@ -967,12 +972,12 @@ var SCN=[
  lede:'The flight details panel already has Track price and Share, and the homepage promises to "notify you when the prices change". WhatsApp is where those alerts and shares get seen and acted on.',
  screen:drawer,chat:{name:'TravelTank',sub:'Business account',biz:true},chats:{group:{name:'London 2026 \u2708\uFE0F',sub:'Ada, Chidi, You',biz:false}},
  steps:[
-  {cap:'Today, Track price and Share sit beside Book flight. Alerts go to email.',site:{before:true},ph:{view:'idle',note:'Alerts arrive by email.'}},
-  {cap:'New: Track price asks how to be told. WhatsApp is offered first, with the consent wording in view.',site:{pop:'track'},ph:{view:'idle',note:'Nothing is sent until he taps Start tracking.'}},
-  {cap:'The first message confirms what is being watched and how to stop.',site:{},ph:{view:'chat'}},
-  {cap:'Two days later the fare drops. The alert shows the old and new price in a card that carries the whole trip.',site:{dropped:true},ph:{view:'chat'}},
-  {cap:'Share now lists WhatsApp first. He picks the group.',site:{pop:'share',dropped:true},ph:{view:'picker'}},
-  {cap:'The trip card lands in the group with the price and the usual warning. Anyone can tap through to the same itinerary.',site:{dropped:true},ph:{view:'chat',scene:'group'}}
+  {cap:'Today: Track price sends email alerts.',site:{before:true},ph:{view:'idle',note:'Alerts arrive by email.'}},
+  {cap:'New: Track price offers WhatsApp, with consent.',site:{pop:'track'},ph:{view:'idle',note:'Nothing is sent until he taps Start tracking.'}},
+  {cap:'The first message confirms what is watched.',site:{},ph:{view:'chat'}},
+  {cap:'Two days later the fare drops. A card shows the trip.',site:{dropped:true},ph:{view:'chat'}},
+  {cap:'Share lists WhatsApp first.',site:{pop:'share',dropped:true},ph:{view:'picker'}},
+  {cap:'The trip card lands in the group.',site:{dropped:true},ph:{view:'chat',scene:'group'}}
  ],
  msgs:[
   B(2,'chip',{text:'Today'}),
@@ -996,11 +1001,11 @@ var SCN=[
  lede:'This page already asks for a mobile number and sells SMS booking details for '+NAIRA+'3,000. Offer WhatsApp beside it, free, and make that tick the consent record for every message that follows.',
  screen:contact,chat:{name:'TravelTank',sub:'Business account',biz:true},
  steps:[
-  {cap:'Today the only way to get booking details on your phone is SMS, at '+NAIRA+'3,000.',site:{before:true,wa:'',cont:false},ph:{view:'idle',note:'There is no WhatsApp channel yet.'}},
-  {cap:'New: a WhatsApp option sits above SMS. It is unticked, so consent is a deliberate choice.',site:{wa:'show'},ph:{view:'idle',note:'Nothing is sent until Tunde ticks the box.'}},
-  {cap:'Tunde ticks it. The wording names his number, what he will get and how to stop.',site:{wa:'ticked'},ph:{view:'idle',note:'Consent is recorded with the wording shown and a timestamp.'}},
-  {cap:'On Continue, TravelTank sends a first message. The chat now exists on his phone.',site:{wa:'ticked',cont:true},ph:{view:'chat'}},
-  {cap:'Tunde replies. That opens a 24-hour window in which a Shark can answer freely.',site:{wa:'ticked',cont:true},ph:{view:'chat'}}
+  {cap:'Today: SMS is the only way, at '+NAIRA+'3,000.',site:{before:true,wa:'',cont:false},ph:{view:'idle',note:'There is no WhatsApp channel yet.'}},
+  {cap:'New: a WhatsApp option, unticked.',site:{wa:'show'},ph:{view:'idle',note:'Nothing is sent until Tunde ticks the box.'}},
+  {cap:'He ticks it. The wording names his number.',site:{wa:'ticked'},ph:{view:'idle',note:'Consent is recorded with the wording shown and a timestamp.'}},
+  {cap:'The first message arrives on Continue.',site:{wa:'ticked',cont:true},ph:{view:'chat'}},
+  {cap:'He replies. A 24-hour window opens.',site:{wa:'ticked',cont:true},ph:{view:'chat'}}
  ],
  msgs:[
   B(3,'chip',{text:'Today'}),
@@ -1019,12 +1024,12 @@ var SCN=[
  lede:'Checkout says every name must match government ID, and the booker types them for everyone. Instead, send each traveller a link. They fill in their own details from their own passport, without leaving WhatsApp.',
  screen:travellers,chat:{name:'TravelTank',sub:'Business account',biz:true},chats:{tunde:{name:'Ada',sub:'online',biz:false},ada:{name:'TravelTank',sub:'Business account',biz:true}},
  steps:[
-  {cap:'Today the booker types every passenger\'s name and date of birth, and has to chase friends for them.',site:{before:true},ph:{view:'idle',note:'Details are collected by messaging people separately.'}},
-  {cap:'New: inside each extra passenger, an option to ask them to add their own details.',site:{},ph:{view:'idle',note:'Nothing is sent from TravelTank. The booker sends the link.'}},
-  {cap:'Tunde taps Send link. WhatsApp opens with the message ready, addressed to Ada.',site:{sent:true},ph:{view:'chat',scene:'tunde',who:'Tunde\'s phone'}},
-  {cap:'Ada taps the link and the chat with TravelTank opens. She started it, so TravelTank can reply straight away.',site:{sent:true},ph:{view:'chat',scene:'ada',who:'Ada\'s phone'}},
-  {cap:'The button opens a short WhatsApp form. She enters her name as it appears on her passport.',site:{sent:true},ph:{view:'flow',scene:'ada',who:'Ada\'s phone'}},
-  {cap:'Her details land in Tunde\'s booking, and Ada is asked, separately, whether she wants updates here.',site:{filled:true},ph:{view:'chat',scene:'ada',who:'Ada\'s phone'}}
+  {cap:'Today: the booker types every passenger\'s details.',site:{before:true},ph:{view:'idle',note:'Details are collected by messaging people separately.'}},
+  {cap:'New: ask each traveller to add their own.',site:{},ph:{view:'idle',note:'Nothing is sent from TravelTank. The booker sends the link.'}},
+  {cap:'He taps Send link. The message is ready.',site:{sent:true},ph:{view:'chat',scene:'tunde',who:'Tunde\'s phone'}},
+  {cap:'Ada taps the link. The chat opens.',site:{sent:true},ph:{view:'chat',scene:'ada',who:'Ada\'s phone'}},
+  {cap:'A short form opens. She enters her passport name.',site:{sent:true},ph:{view:'flow',scene:'ada',who:'Ada\'s phone'}},
+  {cap:'Her details land in the booking.',site:{filled:true},ph:{view:'chat',scene:'ada',who:'Ada\'s phone'}}
  ],
  msgs:[
   B(2,'chip',{scene:'tunde',text:'Today'}),
@@ -1045,11 +1050,11 @@ var SCN=[
  lede:'Hold booking is a strong feature: no payment, 72 hours. But the hold is easy to forget, and the site only mentions the deadline once. WhatsApp reminds people while there is still time to act.',
  screen:null,chat:{name:'TravelTank',sub:'Business account',biz:true},
  steps:[
-  {cap:'Today Tunde picks Hold booking. The only promise is that the booking will be released in 72 hours.',scr:'pay',site:{method:'hold',before:true,wa:true},ph:{view:'idle',note:'No reminder is scheduled.'}},
-  {cap:'New: a reminder opt-in under Hold booking, pre-filled from touchpoint 4. He can change the number.',scr:'pay',site:{method:'hold',wa:true},ph:{view:'idle',note:'If he skipped touchpoint 1, this tick is where he opts in.'}},
-  {cap:'The hold is placed. The confirmation page shows the deadline and that WhatsApp reminders are on. A message arrives with the same facts.',scr:'confirm',site:{status:'hold',chip:{text:'Hold ends Mon 24 Aug, 14:30 · 72h left. Reminders on WhatsApp.'}},ph:{view:'chat'}},
-  {cap:'Two days later. 24 hours left. The message offers both ways to pay.',scr:'confirm',site:{status:'hold',chip:{text:'24h left · pay by Mon 24 Aug, 14:30',level:''}},ph:{view:'chat'}},
-  {cap:'Six hours left. The tone shifts from reminder to help, with a human option.',scr:'confirm',site:{status:'hold',chip:{text:'6h left · fare may change after 14:30',level:'red'}},ph:{view:'chat'}}
+  {cap:'Today: Hold booking only promises a 72-hour release.',scr:'pay',site:{method:'hold',before:true,wa:true},ph:{view:'idle',note:'No reminder is scheduled.'}},
+  {cap:'New: opt in to hold reminders.',scr:'pay',site:{method:'hold',wa:true},ph:{view:'idle',note:'If he skipped touchpoint 1, this tick is where he opts in.'}},
+  {cap:'Hold placed. The confirmation shows the deadline.',scr:'confirm',site:{status:'hold',chip:{text:'Hold ends Mon 24 Aug, 14:30 · 72h left. Reminders on WhatsApp.'}},ph:{view:'chat'}},
+  {cap:'24 hours left. Two ways to pay.',scr:'confirm',site:{status:'hold',chip:{text:'24h left · pay by Mon 24 Aug, 14:30',level:''}},ph:{view:'chat'}},
+  {cap:'Six hours left. The reminder becomes help.',scr:'confirm',site:{status:'hold',chip:{text:'6h left · fare may change after 14:30',level:'red'}},ph:{view:'chat'}}
  ],
  msgs:[
   B(2,'chip',{text:'Day 0 · Fri, 14:30'}),
@@ -1069,11 +1074,11 @@ var SCN=[
  lede:'Bank transfer is a core payment method here, and today it is manual: details are shown on screen and emailed, then the customer waits. WhatsApp can hold the details, take the receipt and confirm the payment in one place.',
  screen:null,chat:{name:'TravelTank',sub:'Business account',biz:true},
  steps:[
-  {cap:'Today the account details sit on screen and in an email. After paying, the customer has nowhere obvious to say so.',scr:'pay',site:{method:'bank',before:true},ph:{view:'idle',note:'Details by email only.'}},
-  {cap:'New: Send to WhatsApp, plus a prompt for people who have already paid. Tunde taps it and the details arrive in the chat.',scr:'pay',site:{method:'bank'},ph:{view:'chat'}},
-  {cap:'He pays in his banking app and sends a photo of the receipt back in the same chat.',scr:'confirm',site:{status:'pending',chip:{text:'Waiting for your receipt on WhatsApp'}},ph:{view:'chat'}},
-  {cap:'An instant reply tells him what happens next. The site status changes too.',scr:'confirm',site:{status:'pending',chip:{text:'Receipt received · confirming with the bank'}},ph:{view:'chat'}},
-  {cap:'A Shark confirms the money. The chat and the booking page both say so.',scr:'confirm',site:{status:'paid',chip:{text:'Payment confirmed on WhatsApp',level:'ok'}},ph:{view:'chat'}}
+  {cap:'Today: details on screen, nowhere to confirm payment.',scr:'pay',site:{method:'bank',before:true},ph:{view:'idle',note:'Details by email only.'}},
+  {cap:'New: Send to WhatsApp. The details arrive in the chat.',scr:'pay',site:{method:'bank'},ph:{view:'chat'}},
+  {cap:'He pays, then sends a photo of the receipt.',scr:'confirm',site:{status:'pending',chip:{text:'Waiting for your receipt on WhatsApp'}},ph:{view:'chat'}},
+  {cap:'An instant reply says what happens next.',scr:'confirm',site:{status:'pending',chip:{text:'Receipt received · confirming with the bank'}},ph:{view:'chat'}},
+  {cap:'A Shark confirms the money.',scr:'confirm',site:{status:'paid',chip:{text:'Payment confirmed on WhatsApp',level:'ok'}},ph:{view:'chat'}}
  ],
  msgs:[
   B(1,'text',{from:'me',text:'Send me the bank details',time:'14:35',tag:'Opened by the site button · prefilled message starts the 24h window'}),
@@ -1094,11 +1099,11 @@ var SCN=[
  lede:'After booking, the page offers a phone number and Resend itinerary. WhatsApp delivers the e-ticket where people already look for it and puts a person one tap away, with the booking already attached.',
  screen:confirm,chat:{name:'Kemi · TravelTank',sub:'Travel Shark',biz:true},
  steps:[
-  {cap:'Today the confirmation page offers email and a phone number for help.',site:{status:'paid',before:true},ph:{view:'idle',note:'Help is a phone call.'}},
-  {cap:'New: Send to WhatsApp beside Resend, and a WhatsApp button in the help panel. On desktop, a QR code carries the booking across to the phone.',site:{status:'paid'},ph:{view:'idle',note:'The e-ticket has not been sent yet.'}},
-  {cap:'The e-ticket arrives as a PDF in the chat, with the next useful actions.',site:{status:'paid'},ph:{view:'chat'}},
-  {cap:'Tunde asks about a bag. A named Shark joins and already has the booking.',site:{status:'paid'},ph:{view:'chat'}},
-  {cap:'Kemi quotes it and sends a secure payment link. The extra goes on the same ticket.',site:{status:'paid'},ph:{view:'chat'}}
+  {cap:'Today: email and a phone number.',site:{status:'paid',before:true},ph:{view:'idle',note:'Help is a phone call.'}},
+  {cap:'New: Send to WhatsApp, and a QR code on desktop.',site:{status:'paid'},ph:{view:'idle',note:'The e-ticket has not been sent yet.'}},
+  {cap:'The e-ticket arrives in the chat.',site:{status:'paid'},ph:{view:'chat'}},
+  {cap:'He asks about a bag. A Shark joins.',site:{status:'paid'},ph:{view:'chat'}},
+  {cap:'Kemi quotes it. A secure link takes payment.',site:{status:'paid'},ph:{view:'chat'}}
  ],
  msgs:[
   B(2,'chip',{text:'Today'}),
@@ -1118,11 +1123,11 @@ var SCN=[
  lede:'The days before a trip are where most travel anxiety lives. Timely messages cut the worry, and a notifications screen keeps the customer in control, which also keeps the channel healthy.',
  screen:prefs,chat:{name:'TravelTank',sub:'Business account',biz:true},
  steps:[
-  {cap:'New screen in My Account. Today there is no place to choose channels. WhatsApp joins email and SMS, one row per message type.',site:{before:true},ph:{view:'idle',note:'Nothing yet.'}},
-  {cap:'With WhatsApp on: seven days out, a short checklist, with a link to visa help.',site:{row:2},ph:{view:'chat'}},
-  {cap:'The day before: check-in is open, and a protocol offer for the airport. It is a marketing message, so it needs its own consent row.',site:{row:4},ph:{view:'chat'}},
-  {cap:'Tunde taps Add. The service is confirmed and payment is one tap away.',site:{row:4},ph:{view:'chat'}},
-  {cap:'Later, the airline moves the return flight. He hears first, with a way to react.',site:{row:3},ph:{view:'chat'}}
+  {cap:'New: choose channels in My Account.',site:{before:true},ph:{view:'idle',note:'Nothing yet.'}},
+  {cap:'Seven days out: a short checklist.',site:{row:2},ph:{view:'chat'}},
+  {cap:'The day before: check-in and an offer.',site:{row:4},ph:{view:'chat'}},
+  {cap:'He taps Add. Payment is one tap.',site:{row:4},ph:{view:'chat'}},
+  {cap:'The airline moves his flight. He hears first.',site:{row:3},ph:{view:'chat'}}
  ],
  msgs:[
   B(1,'chip',{text:'7 days before · Fri 14 Aug'}),
@@ -1144,12 +1149,12 @@ var SCN=[
  lede:'Non-refundable fares make cancellation emotional. A clear, honest conversation and a status that moves on its own is the most valuable thing support can offer, and the cheapest to deliver.',
  screen:confirm,chat:{name:'TravelTank',sub:'Business account',biz:true},
  steps:[
-  {cap:'Today there is a single Cancel booking button on a non-refundable fare.',site:{status:'paid',before:true,manage:true,noHelp:true},ph:{view:'idle',note:'Cancelling is a form, a call or an email.'}},
-  {cap:'New: Cancel or change in chat. Tunde asks, and the reply starts from the fare rules for his booking.',site:{status:'paid',manage:true,noHelp:true},ph:{view:'chat'}},
-  {cap:'He picks Request cancellation. A case is opened, and the tracker appears on the booking page.',site:{status:'paid',manage:true,noHelp:true,stage:0,times:['Today 14:42']},ph:{view:'chat'}},
-  {cap:'A Shark submits it to the airline. Both places update.',site:{status:'paid',manage:true,noHelp:true,stage:1,times:['Today 14:42','Today 15:20']},ph:{view:'chat'}},
-  {cap:'The airline answers. Even on a non-refundable fare, unused taxes may come back.',site:{status:'paid',manage:true,noHelp:true,stage:2,times:['Today 14:42','Today 15:20','2 days later'],amount:NAIRA+'186,400'},ph:{view:'chat'}},
-  {cap:'Refund paid. The tracker closes and the chat has a clear last line.',site:{status:'paid',manage:true,noHelp:true,stage:3,times:['Today 14:42','Today 15:20','2 days later','5 days later'],amount:NAIRA+'186,400'},ph:{view:'chat'}}
+  {cap:'Today: one Cancel button.',site:{status:'paid',before:true,manage:true,noHelp:true},ph:{view:'idle',note:'Cancelling is a form, a call or an email.'}},
+  {cap:'New: cancel or change in chat.',site:{status:'paid',manage:true,noHelp:true},ph:{view:'chat'}},
+  {cap:'He requests cancellation. A case opens.',site:{status:'paid',manage:true,noHelp:true,stage:0,times:['Today 14:42']},ph:{view:'chat'}},
+  {cap:'A Shark submits it. Both places update.',site:{status:'paid',manage:true,noHelp:true,stage:1,times:['Today 14:42','Today 15:20']},ph:{view:'chat'}},
+  {cap:'The airline answers. Taxes may come back.',site:{status:'paid',manage:true,noHelp:true,stage:2,times:['Today 14:42','Today 15:20','2 days later'],amount:NAIRA+'186,400'},ph:{view:'chat'}},
+  {cap:'Refund paid. The tracker closes.',site:{status:'paid',manage:true,noHelp:true,stage:3,times:['Today 14:42','Today 15:20','2 days later','5 days later'],amount:NAIRA+'186,400'},ph:{view:'chat'}}
  ],
  msgs:[
   B(1,'text',{from:'me',text:'I need to cancel my London trip',time:'14:40',tag:'Customer message · 24h window opens'}),
@@ -1169,38 +1174,47 @@ var SCN=[
 /* Typed path that carries on to an agreed holiday. Its first three steps are shared with the help path. */
 (function(){
   var s=SCN.filter(function(x){return x.id==='ideas';})[0], H=s.help;
-  var open=H.steps.slice(0,2).concat([{cap:'One tap to confirm. Three ideas arrive within his budget, from a live fare search. Each card has See details beside Plan this trip.',site:{},ph:{view:'chat'}}]);
+  var open=H.steps.slice(0,2).concat([{cap:'One tap to confirm. Ideas arrive within budget.',site:{},ph:{view:'chat'}}]);
   var DET_STEPS=[
-   {cap:'He taps See details on the Istanbul card. The destination opens as a mobile page inside WhatsApp, with room for photography: a big hero, the price, why it fits.',site:{},ph:{view:'web',page:'dest',scroll:0}},
-   {cap:'He scrolls: a photo strip, the food, the weather and the entry rules. The Plan this trip button stays on screen.',site:{},ph:{view:'web',page:'dest',scroll:1}},
-   {cap:'Plan this trip takes him back to the chat with a message already sent, and the assistant asks what he would like to change.',site:{},ph:{view:'chat'}}
+   {cap:'He taps See details. A page opens in WhatsApp.',site:{},ph:{view:'web',page:'dest',scroll:0}},
+   {cap:'He scrolls the photos, food and weather.',site:{},ph:{view:'web',page:'dest',scroll:1}},
+   {cap:'Plan this trip returns him to the chat.',site:{},ph:{view:'chat'}}
   ];
   var DET_MSGS=[
    B(5,'text',{from:'me',text:'Plan this trip · Istanbul',time:'14:02',tag:'Sent by the page button · a wa.me link with prefilled text and the trip token · returns the customer to this chat'}),
    B(5,'text',{text:T('Istanbul it is. 🙂 Anything you would like to change before I look for flights and hotels? The dates, how long, or the kind of hotel.'),time:'14:02',tag:'Session message · free text invited'})
   ];
+  var FLIGHT_STEPS=[
+   {cap:'Several flights fit the date. The assistant compares them.',site:{},ph:{view:'chat'}},
+   {cap:'He sees all four in a list and chooses.',site:{},ph:{view:'list'}}
+  ];
+  var FLIGHT_MSGS=[
+   B(7,'text',{text:T('I found *4 flights* on Fri 21 Aug, with returns on Mon 31 Aug. Here is how they compare:\n\n*Fastest:* Turkish Airlines, direct, 6h 40m\n*Daytime:* Turkish Airlines, direct, leaves 10:15, '+NAIRA+'95,000 more\n*Cheapest:* Royal Air Maroc, 1 stop, '+NAIRA+'290,000 less, nearly 6 hours longer\n\nPrices are for two, return. Tap below to see them all and choose one.'),btns:['☰ See all 4 flights'],time:'14:02',tag:'Interactive list message · up to 10 rows, each with a title of up to 24 characters and a description of up to 72'}),
+   B(9,'text',{from:'me',text:'Turkish Airlines · 23:30',time:'14:03',tag:'List selection'}),
+   B(9,'text',{text:T('Good choice: Turkish Airlines, direct, leaving Fri 21 Aug at 23:30 and back on Mon 31 Aug at 09:20. ✅'),time:'14:03',tag:'The chosen flight is saved against the basket'})
+  ];
   var FARE_MSGS=[
-   B(10,'text',{from:'me',text:'Choose this one · Galata Courtyard',time:'14:04',tag:'Sent by the hotel page button · a wa.me link with prefilled text and the trip token'}),
-   B(10,'text',{text:T('Good choice. One more thing: which fare? It decides what is included on the flights.\n\n*Light*  '+NAIRA+'3,764,300\nHand bag only. No changes or refunds.\n\n*Standard*  '+NAIRA+'4,004,300\nA 23kg checked bag each, seat choice, changes for a fee.\n\n*Flex*  '+NAIRA+'4,354,300\nA 23kg bag each, seat choice, free changes and a refund minus a fee.\n\nTotals are for two, with flights and 9 nights.'),btns:['↩ Light','↩ Standard','↩ Flex'],time:'14:04',tag:'Session message · three reply buttons, one per fare · names, prices and inclusions come from the airline fare data'})
+   B(12,'text',{from:'me',text:'Choose this one · Galata Courtyard',time:'14:04',tag:'Sent by the hotel page button · a wa.me link with prefilled text and the trip token'}),
+   B(12,'text',{text:T('Good choice. One more thing: which fare? It decides what is included on the flights.\n\n*Light*  '+NAIRA+'3,764,300\nHand bag only. No changes or refunds.\n\n*Standard*  '+NAIRA+'4,004,300\nA 23kg checked bag each, seat choice, changes for a fee.\n\n*Flex*  '+NAIRA+'4,354,300\nA 23kg bag each, seat choice, free changes and a refund minus a fee.\n\nTotals are for two, with flights and 9 nights.'),btns:['↩ Light','↩ Standard','↩ Flex'],time:'14:04',tag:'Session message · three reply buttons, one per fare · names, prices and inclusions come from the airline fare data'})
   ];
   s.talk={
    steps:open.concat([
-    {cap:'He picks Istanbul and changes two things in his own words: ten days, and a hotel near the food streets. The assistant says back what it will look for.',site:{},ph:{view:'chat'}},
-    {cap:'It searches flights and hotels together and offers two packages, each with one total for two. Each card has See hotel beside Choose this one.',site:{},ph:{view:'chat'}},
-    {cap:'He taps See hotel on the first package. The hotel opens as a mobile page: gallery, rooms, location and what is included.',site:{},ph:{view:'web',page:'hotel',scroll:0}},
-    {cap:'He scrolls to the location, the cancellation terms and the total. Choose this hotel stays on screen.',site:{},ph:{view:'web',page:'hotel',scroll:1}},
-    {cap:'Choose this hotel takes him back to the chat. The assistant asks which fare he wants, because the fare decides what is included on the flights.',site:{},ph:{view:'chat'}},
-    {cap:'He picks Light, the cheapest. The assistant sums up the whole trip and asks for a clear yes before anything moves on.',site:{},ph:{view:'chat'}},
-    {cap:'Before saying yes he asks about checked bags and insurance. The assistant gives the bag price, then points out that Standard costs less than adding bags to Light, and includes seat choice. Insurance is explained and added on the site.',site:{},ph:{view:'chat'}},
-    {cap:'He switches to Standard. The summary updates, and the assistant asks for a yes again because the total has changed.',site:{},ph:{view:'chat'}},
-    {cap:'He agrees. The fare and room are re-checked just now, and one link button opens traveller details, with the Standard fare saved to his trip.',site:{},ph:{view:'chat'}},
-    {cap:'TravelTank opens at traveller details with the flights, fare, hotel and total already in. Names are left blank, because they must match passports.',site:{arrive:true,holiday:true,fare:true},scr:'travellers',showSite:true,url:'traveltank.com/booking/traveller-info?src=wa-ideas',ph:{view:'chat'}},
-    {cap:'Next comes Extras. The Standard fare already includes a checked bag each, so there is nothing more to pay for baggage. Insurance is offered here, with the cover shown before he chooses. He can change anything.',site:{holiday:true,fare:true},scr:'extras',showSite:true,url:'traveltank.com/booking/extras',ph:{view:'chat'}}
+    {cap:'He picks Istanbul and changes the dates.',site:{},ph:{view:'chat'}},
+    {cap:'Two hotel packages arrive, one total each.',site:{},ph:{view:'chat'}},
+    {cap:'He taps See hotel. A page opens.',site:{},ph:{view:'web',page:'hotel',scroll:0}},
+    {cap:'He scrolls to the location and cancellation.',site:{},ph:{view:'web',page:'hotel',scroll:1}},
+    {cap:'He chooses the hotel. The assistant asks which fare.',site:{},ph:{view:'chat'}},
+    {cap:'He picks Light. The assistant sums up the trip.',site:{},ph:{view:'chat'}},
+    {cap:'He asks about bags. Standard costs less than adding them.',site:{},ph:{view:'chat'}},
+    {cap:'He switches to Standard. The total updates.',site:{},ph:{view:'chat'}},
+    {cap:'He agrees. One link opens traveller details.',site:{},ph:{view:'chat'}},
+    {cap:'Traveller details open with the trip already in.',site:{arrive:true,holiday:true,fare:true},scr:'travellers',showSite:true,url:'traveltank.com/booking/traveller-info?src=wa-ideas',ph:{view:'chat'}},
+    {cap:'Extras: bags are included. Insurance is offered.',site:{holiday:true,fare:true},scr:'extras',showSite:true,url:'traveltank.com/booking/extras',ph:{view:'chat'}}
    ]),
    msgs:H.msgs.filter(function(m){return m.at<=2;}).concat([
     B(3,'text',{from:'me',text:'Istanbul looks great! A month is too long though. Can we do 10 days, and a hotel near the food streets with breakfast?',time:'14:01',tag:'Free text · picks a place and changes two details'}),
-    B(3,'text',{text:T('Istanbul it is. Let me look for:\n\n• *Istanbul*, 2 adults\n• *21 to 31 Aug* (10 days)\n• A hotel near the *Karaköy and Galata* food streets, *breakfast included*\n\nSearching flights and hotels together…'),time:'14:01',tag:'Changes read from free text and said back · the search starts at once, because nothing is held or paid yet'}),
-    B(4,'text',{text:T('Two packages for *two people*, 21 to 31 Aug. Turkish Airlines, direct, plus 9 nights in a hotel. Prices are the total for both of you on the Light fare, and both fit your budget. You choose the fare next. ✈️'),time:'14:02',tag:'Session message · flights and hotel priced together from one live search'}),
+    B(3,'text',{text:T('Istanbul it is. Let me look for:\n\n• *Istanbul*, 2 adults\n• *21 to 31 Aug* (10 days)\n• A hotel near the *Karaköy and Galata* food streets, *breakfast included*\n\nFlights first, then hotels. Searching…'),time:'14:01',tag:'Changes read from free text and said back · the search starts at once, because nothing is held or paid yet'}),
+    B(4,'text',{text:T('Two packages for *two people*, 21 to 31 Aug, with that flight and 9 nights in a hotel. Prices are the total for both of you on the Light fare, and both fit your budget. You choose the fare next. ✈️'),time:'14:03',tag:'Session message · flights and hotel priced together from one live search'}),
     B(4,'carousel',{cards:[
      {img:scene('hotel'),title:'Galata Courtyard · 4★',desc:'Flights and 9 nights with breakfast',price:'from '+NAIRA+'3,764,300 total',btns:['↗ See hotel','Choose this one']},
      {img:scene('room'),title:'Karaköy Loft · 3★',desc:'Flights and 9 nights, no breakfast',price:'from '+NAIRA+'3,210,000 total',btns:['↗ See hotel','Choose this one']}
@@ -1215,17 +1229,18 @@ var SCN=[
     B(9,'text',{text:T('Great. I\'ve re-checked the fare and the room just now. Everything is still available at *'+NAIRA+'4,004,300*, on the Standard fare.\n\nNext, add who is travelling. You can hold this for 72 hours without paying. Prices are not guaranteed until booked.'),btns:['↗ Add traveller details'],time:'14:07',tag:'Session message · one link button · basket key, party size, source and a one-time token in the URL · the saved fare travels with the basket'})
    ]),
    notes:{
-    design:['The trip stays on one card as it changes: place, dates, hotel and total. Each change is said back in plain words, so nobody has to trust a figure they cannot see.','Two options, not ten. Each package says what is in it and gives one total for two.','Questions are answered from the rate details, in plain words such as "free until 14 Aug". Anything the assistant cannot answer from data goes to a Shark.','Agreement is explicit: a summary, a total and a Looks good button. Nothing is held or sent to the site before that tap.','The link lands on the existing traveller details page with flights, hotel and total already in.','Extras questions are answered where they are asked: what the fare includes, an indicative price, and the choice saved. The site then adds it to the booking and shows the live price.','The customer chooses the airline\'s own fare brand (here Light, Standard or Flex) as part of the selection. Each is shown with its total for two and what it includes, so the choice is about value, not jargon.','The chat can do the arithmetic that helps: adding bags to Light costs more than Standard, which already includes them. The saving is worked out from the data, not claimed.','Insurance is explained but never added in chat. The customer sees the cover and policy summary on the site before choosing.','Destinations and hotels open as a mobile page inside WhatsApp, where there is room for photography. The chat keeps the short version and the page carries the inspiration.','A button stays on screen on every page (Plan this trip, Choose this hotel). It takes the customer straight back to the chat with a message already sent, so the conversation carries on where it left off.'],
-    biz:['Customers want to see a place before they commit, and photography sells a holiday better than text. A page can hold a gallery, a map and the detail, which a chat message cannot.','These are TravelTank pages. The same destination and hotel content can serve the site, ads and search, and every view can be measured.','An undecided customer becomes a ready-to-book basket inside one chat. Search, results and hotel pages are skipped.','Flight and hotel together is the package the site already names as Holidays. Confirm which packages can be priced and sold as one.','Agreeing in chat means traveller details starts from high intent, which is the step the other touchpoints aim at.','Which two packages are offered first is a business rule: price, margin, availability or editorial.','Fare brands are an upsell the airline already prices. Showing the difference at the moment a bag question comes up moves customers up a fare when it is the better deal, and lifts the value of each booking.','Baggage and insurance are add-on revenue. Catching the intent in chat and carrying it over means the customer reaches the extras page with a choice already made, instead of meeting it cold.','Measure chats reaching a package, packages agreed, extras chosen in chat, link taps, traveller page reached, hold or paid, and questions passed to a Shark.'],
-    build:['Each page is a mobile-first TravelTank page opened by a link button. It reads the trip from a signed token (place, dates, party), so prices and dates match the chat. No personal data goes in the URL.','Content for each destination and hotel is maintained: highlights, typical weather, entry notes and photos, plus live fare data. Entry rules need a maintained source with a last-checked date. [confirm]','Weather is typical conditions, not a forecast, and hotel prices say "from". The assistant never states a fact the data does not hold.','Whether a link opens inside WhatsApp or in the phone\'s browser varies by phone and version. Design for either and test on common Android and iOS devices. [confirm]','Pages must be light: compressed images, lazy loading and a fast first view, with mobile data costs in mind.','The page button is a wa.me link with prefilled text and the trip token, so the chat resumes with context and the assistant knows what was chosen.','Link buttons on carousel cards depend on carousel support in a session. [confirm] The fallback is one image message with a single link button.','Changes such as dates, nights and hotel wishes fill the same fields as before and run a live search for flight and hotel together. [confirm]','Every price and rule on screen comes from the rate data, never from generated text.','Answers about cancellation or airport distance come from rate and property fields. If a field is missing, the assistant says it is not sure and offers a Shark.','On the agree tap, the system re-checks price and availability and creates a basket. The link button carries a basket key, party size, source and a one-time token. No personal data goes in the URL.','If the price has changed when the site opens, the site shows the new price first and keeps the trip.','The chosen extras are stored against the basket, not in the URL. On the extras step the site reads them, pre-selects them and prices them from the live engine. If one cannot be applied, for example the airline does not sell that bag, the site says so and offers the nearest option.','Baggage belongs to a named passenger, so it is only bought once names are in. Insurance also needs the traveller details, a policy summary and explicit consent on the site, and may need a licensed insurer or intermediary. [confirm]','Fare brands, prices and inclusions come from the airline fare data for the chosen flight, which differs by airline. Names such as Light, Standard and Flex are examples. Three reply buttons is the most a message can carry, so more than three fares need a list or a page. The chosen fare is saved against the basket and the site re-prices it on open. [confirm]','Session messages only. Reminders after the 24-hour window need opt-in and approved templates, as in touchpoint 7.']}
+    design:['The trip stays on one card as it changes: place, dates, hotel and total. Each change is said back in plain words, so nobody has to trust a figure they cannot see.','Two options, not ten. Each package says what is in it and gives one total for two.','Questions are answered from the rate details, in plain words such as "free until 14 Aug". Anything the assistant cannot answer from data goes to a Shark.','Agreement is explicit: a summary, a total and a Looks good button. Nothing is held or sent to the site before that tap.','The link lands on the existing traveller details page with flights, hotel and total already in.','Extras questions are answered where they are asked: what the fare includes, an indicative price, and the choice saved. The site then adds it to the booking and shows the live price.','When several flights fit the same date, the assistant says how they compare in plain words (fastest, cheapest, daytime) and shows all of them in a list. It explains the trade-off, such as a lower price for a stop and nearly six more hours, but does not choose for the customer.','The customer chooses the airline\'s own fare brand (here Light, Standard or Flex) as part of the selection. Each is shown with its total for two and what it includes, so the choice is about value, not jargon.','The chat can do the arithmetic that helps: adding bags to Light costs more than Standard, which already includes them. The saving is worked out from the data, not claimed.','Insurance is explained but never added in chat. The customer sees the cover and policy summary on the site before choosing.','Destinations and hotels open as a mobile page inside WhatsApp, where there is room for photography. The chat keeps the short version and the page carries the inspiration.','A button stays on screen on every page (Plan this trip, Choose this hotel). It takes the customer straight back to the chat with a message already sent, so the conversation carries on where it left off.'],
+    biz:['Customers want to see a place before they commit, and photography sells a holiday better than text. A page can hold a gallery, a map and the detail, which a chat message cannot.','These are TravelTank pages. The same destination and hotel content can serve the site, ads and search, and every view can be measured.','An undecided customer becomes a ready-to-book basket inside one chat. Search, results and hotel pages are skipped.','Flight and hotel together is the package the site already names as Holidays. Confirm which packages can be priced and sold as one.','Agreeing in chat means traveller details starts from high intent, which is the step the other touchpoints aim at.','Which two packages are offered first is a business rule: price, margin, availability or editorial.','Flight choice is where price-led customers compare. Showing the real trade-off keeps them in the chat instead of sending them to a comparison site. Which flights are labelled first is a business rule: margin, availability or airline deals.','Fare brands are an upsell the airline already prices. Showing the difference at the moment a bag question comes up moves customers up a fare when it is the better deal, and lifts the value of each booking.','Baggage and insurance are add-on revenue. Catching the intent in chat and carrying it over means the customer reaches the extras page with a choice already made, instead of meeting it cold.','Measure chats reaching a package, packages agreed, extras chosen in chat, link taps, traveller page reached, hold or paid, and questions passed to a Shark.'],
+    build:['Each page is a mobile-first TravelTank page opened by a link button. It reads the trip from a signed token (place, dates, party), so prices and dates match the chat. No personal data goes in the URL.','Content for each destination and hotel is maintained: highlights, typical weather, entry notes and photos, plus live fare data. Entry rules need a maintained source with a last-checked date. [confirm]','Weather is typical conditions, not a forecast, and hotel prices say "from". The assistant never states a fact the data does not hold.','Whether a link opens inside WhatsApp or in the phone\'s browser varies by phone and version. Design for either and test on common Android and iOS devices. [confirm]','Pages must be light: compressed images, lazy loading and a fast first view, with mobile data costs in mind.','The page button is a wa.me link with prefilled text and the trip token, so the chat resumes with context and the assistant knows what was chosen.','Link buttons on carousel cards depend on carousel support in a session. [confirm] The fallback is one image message with a single link button.','Changes such as dates, nights and hotel wishes fill the same fields as before and run a live search for flight and hotel together. [confirm]','Every price and rule on screen comes from the rate data, never from generated text.','Answers about cancellation or airport distance come from rate and property fields. If a field is missing, the assistant says it is not sure and offers a Shark.','On the agree tap, the system re-checks price and availability and creates a basket. The link button carries a basket key, party size, source and a one-time token. No personal data goes in the URL.','If the price has changed when the site opens, the site shows the new price first and keeps the trip.','The chosen extras are stored against the basket, not in the URL. On the extras step the site reads them, pre-selects them and prices them from the live engine. If one cannot be applied, for example the airline does not sell that bag, the site says so and offers the nearest option.','Baggage belongs to a named passenger, so it is only bought once names are in. Insurance also needs the traveller details, a policy summary and explicit consent on the site, and may need a licensed insurer or intermediary. [confirm]','Flight options come from the live search for the date. The assistant names a few by what matters (fastest, cheapest, daytime) and puts all of them in an interactive list: up to 10 rows, titles up to 24 characters, descriptions up to 72. More than ten flights need filtering by time or stops, or a page. Return flights can be chosen the same way, or offered as whole itineraries. The chosen flight is saved against the basket.','Fare brands, prices and inclusions come from the airline fare data for the chosen flight, which differs by airline. Names such as Light, Standard and Flex are examples. Three reply buttons is the most a message can carry, so more than three fares need a list or a page. The chosen fare is saved against the basket and the site re-prices it on open. [confirm]','Session messages only. Reminders after the 24-hour window need opt-in and approved templates, as in touchpoint 7.']}
   };
   /* splice the details exchange in after the ideas step, and move the later messages along */
   var tk=s.talk;
   tk.steps=tk.steps.slice(0,3).concat(DET_STEPS,tk.steps.slice(3));
+  tk.steps=tk.steps.slice(0,7).concat(FLIGHT_STEPS,tk.steps.slice(7));
   var early=tk.msgs.filter(function(m){return m.at<=2;}), late=tk.msgs.filter(function(m){return m.at>2;});
-  var lateA=late.filter(function(m){return m.at<6;}), lateB=late.filter(function(m){return m.at>=6;});
-  lateA.forEach(function(m){m.at+=3;}); lateB.forEach(function(m){m.at+=5;});
-  tk.msgs=early.concat(DET_MSGS,lateA,FARE_MSGS,lateB);
+  var lateR=late.filter(function(m){return m.at===3;}), lateP=late.filter(function(m){return m.at===4;}), lateB=late.filter(function(m){return m.at>=6;});
+  lateR.forEach(function(m){m.at+=3;}); lateP.forEach(function(m){m.at+=5;}); lateB.forEach(function(m){m.at+=7;});
+  tk.msgs=early.concat(DET_MSGS,lateR,FLIGHT_MSGS,lateP,FARE_MSGS,lateB);
 })();
 
 SCN.forEach(function(s,i){s.n=i+1;});
@@ -1477,9 +1492,10 @@ function phoneHTML(s,i){
      '<div style="padding:9px 11px 4px;font-size:13.8px;line-height:1.55">\u2708\uFE0F <b>Dubai</b> from '+NAIRA+'752,060<br>\u2708\uFE0F <b>Istanbul</b> from '+NAIRA+'870,943<br>\u2708\uFE0F <b>Jeddah</b> from '+NAIRA+'896,298<br>\u2708\uFE0F <b>Guangzhou</b> from '+NAIRA+'1,009,800<br><span style="font-size:12px;color:#667781">Fares can change. Not guaranteed until booked.</span><span class="tm">09:00</span></div></div>'+
      '<div class="btns"><div class="wbtn">\u2197 See all fares</div></div><div class="tag">Channel update \u00B7 one-way broadcast, no template cost</div></div>'+
      '<div class="chip" style="margin-top:8px">\uD83D\uDD14 You are following this channel</div></div>';
-  } else if(ph.view==='chat'||ph.view==='flow'||ph.view==='callback'){
+  } else if(ph.view==='chat'||ph.view==='flow'||ph.view==='callback'||ph.view==='list'){
     body=chat();
     if(ph.view==='chat') body+='<div class="wi"><div>Message</div><i>&#9658;</i></div>';
+    if(ph.view==='list') body+='<div class="flowov"><div class="dim"></div><div class="sheet"><h5>Flights on Fri 21 Aug</h5><p>Return Mon 31 Aug &middot; prices for 2, against your first choice</p>'+FLIGHTS.map(function(f,n){return '<div class="lrow'+(n===0?' on':'')+'"><div><b>'+f[0]+'</b><small>'+f[1]+'</small></div><i></i></div>';}).join('')+'</div></div>';
     if(ph.view==='callback') body+='<div class="flowov"><div class="dim"></div><div class="sheet"><h5>Call me back</h5><p>A Travel Shark will ring you. This is a normal phone call.</p>'+
       '<div class="f"><small>Phone number (from your WhatsApp)</small>+234 803 555 0142</div><div class="f"><small>When?</small>As soon as possible, about 10 minutes</div>'+
       '<div class="f"><small>Anything we should know? (optional)</small>&nbsp;</div><div class="sub">Request a call</div></div></div>';
