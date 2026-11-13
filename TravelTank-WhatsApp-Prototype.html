@@ -394,6 +394,30 @@ body.solo .cap{order:-1}
 .flowov h5{margin:0;font:700 16px var(--display)}.flowov p{margin:2px 0 0;font-size:12px;color:#667781}
 .flowov .f{border:1px solid #D1D7DB;border-radius:8px;padding:6px 10px;margin-top:9px;font-size:13.5px}.flowov .f small{display:block;color:#667781;font-size:10.5px}
 .flowov .f2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.st.wst{background:#fff;color:#111B21}
+.wbar{display:flex;align-items:center;gap:10px;padding:6px 12px 8px;background:#fff;color:#111B21;border-bottom:1px solid #E5E7E8}
+.wbar .wx{font-size:17px;color:#54656F}.wbar .wmo{margin-left:auto;font-size:17px;color:#54656F}
+.wbar .wtt b{display:block;font-size:13.5px;font-weight:600;line-height:1.15}.wbar .wtt small{display:block;font-size:11px;color:#667781}
+.wpage{flex:1;overflow-y:auto;background:#fff;color:#111B21;scroll-behavior:smooth}.wpage::-webkit-scrollbar{width:0}
+@media (prefers-reduced-motion:reduce){.wpage{scroll-behavior:auto}}
+.w-hero{position:relative}.w-hero img{display:block;width:100%;height:200px;object-fit:cover}
+.w-ov{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff}
+.w-ov h1{font:800 26px var(--display);margin:0;letter-spacing:-.01em}.w-ov p{margin:2px 0 0;font-size:13px;opacity:.95}
+.w-b{padding:12px 14px 22px}
+.w-b h3{font:700 15px var(--display);margin:18px 0 6px;color:#0F2A2E}
+.w-b p{font-size:13px;line-height:1.45;color:#44575B;margin:0}
+.w-price{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#E9F6F6;border-radius:10px;padding:10px 12px}
+.w-price small{display:block;font-size:11px;color:#456}.w-price b{display:block;font:800 18px var(--display);color:#01747F}.w-price span{font-size:11.5px;color:#456;text-align:right}
+.w-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.w-chips span{border:1px solid #D5E2E3;border-radius:14px;padding:3px 10px;font-size:11.5px;color:#34484C}
+.w-strip{display:flex;gap:6px;overflow:hidden;margin:12px -14px 0;padding:0 14px}.w-strip img{flex:0 0 132px;height:92px;object-fit:cover;border-radius:8px}
+.w-row{display:flex;gap:10px;margin-top:8px;align-items:center}.w-row img{flex:0 0 84px;height:64px;object-fit:cover;border-radius:8px}
+.w-row b{display:block;font-size:13px}.w-row small{display:block;font-size:11.5px;color:#667781;line-height:1.35;margin-top:1px}
+.w-wx{display:flex;align-items:baseline;gap:4px}.w-wx b{font:800 22px var(--display)}.w-wx span{font-size:12px;color:#667781;margin-right:10px}
+.w-note{background:#FFF5DD;border:1px solid #F1DDA5;border-radius:8px;padding:8px 10px;font-size:12.5px;line-height:1.4;color:#6a4b00}
+.w-map{display:block;width:100%;height:120px;object-fit:cover;border-radius:8px}
+.wcta{background:#fff;border-top:1px solid #E5E7E8;padding:8px 12px 12px;text-align:center}
+.wbtnp{display:block;background:#FE5C61;color:#fff;font-weight:700;font-size:14px;border-radius:10px;padding:11px}
+.wcta small{display:block;font-size:10.5px;color:#667781;margin-top:5px}
 .flowov .sub{background:#00A884;color:#fff;border-radius:22px;text-align:center;padding:11px;margin-top:14px;font-weight:600;font-size:14px}
 
 
@@ -495,7 +519,7 @@ var LOGO_W="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAsUAAAB1CAMAAACRQGx2AA
 
 /* ---------- Site screens ---------- */
 function holidayRail(o){
-  return '<aside><div class="t-card"><img class="t-hero" src="'+tile('#8A3B5E','#E58C9E','Istanbul')+'" alt="">'+
+  return '<aside><div class="t-card"><img class="t-hero" src="'+scene('skyline')+'" alt="">'+
     '<div class="t-pad"><div style="display:flex;justify-content:space-between;align-items:baseline"><h4>Trip Summary</h4><span style="color:#FE5C61;font-size:10.5px">Full itinerary</span></div>'+
     '<div class="t-leg"><div class="r"><b>Outbound</b><span class="ba">TURKISH AIRLINES</span></div><div class="r"><span>Lagos (LOS) &rarr; Istanbul (IST)</span><span>6h 40m</span></div><div class="r tm"><span>Fri, 21 Aug 23:30</span><span>Sat, 22 Aug 08:10 +1</span></div><hr>'+
     '<div class="r"><b>Inbound</b><span class="ba">TURKISH AIRLINES</span></div><div class="r"><span>Istanbul (IST) &rarr; Lagos (LOS)</span><span>6h 50m</span></div><div class="r tm"><span>Mon, 31 Aug 09:20</span><span>Mon, 31 Aug 14:10</span></div></div>'+
@@ -739,6 +763,77 @@ function tile(a,b,t){
   var svg='<svg xmlns="http://www.w3.org/2000/svg" width="300" height="172" viewBox="0 0 300 172"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+a+'"/><stop offset="1" stop-color="'+b+'"/></linearGradient></defs><rect width="300" height="172" fill="url(#g)"/><text x="16" y="152" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#fff" fill-opacity=".92">'+t+'</text></svg>';
   return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
 }
+/* ---------- Illustrative picture placeholders and the in-app web pages ---------- */
+var SCN_CACHE={};
+function scene(k){
+  if(SCN_CACHE[k]) return SCN_CACHE[k];
+  function lg(id,a,b,v){return '<linearGradient id="'+id+'" x1="0" y1="0" x2="'+(v?0:1)+'" y2="'+(v?1:0)+'"><stop offset="0" stop-color="'+a+'"/><stop offset="1" stop-color="'+b+'"/></linearGradient>';}
+  var d='',b='';
+  if(k==='skyline'){
+    d=lg('s','#F9C784','#C4568B',1)+lg('w','#6B5B95','#2B3A67',1);
+    b='<rect width="360" height="220" fill="url(#s)"/><circle cx="250" cy="108" r="36" fill="#FFE9B0" opacity=".92"/><rect y="152" width="360" height="68" fill="url(#w)"/>'+
+      '<g fill="#2A2347"><path d="M70 152Q70 100 120 100Q170 100 170 152Z"/><rect x="58" y="84" width="8" height="68"/><rect x="174" y="88" width="8" height="64"/><path d="M58 84l4-18 4 18z"/><path d="M174 88l4-18 4 18z"/><path d="M192 152Q192 122 222 122Q252 122 252 152Z"/><rect x="258" y="104" width="6" height="48"/><path d="M258 104l3-13 3 13z"/><rect x="26" y="132" width="26" height="20"/><rect x="290" y="128" width="40" height="24"/></g>'+
+      '<g stroke="#F9C784" stroke-opacity=".35" stroke-width="2"><path d="M20 172h130M70 188h210M190 204h150"/></g>';
+  } else if(k==='bosphorus'){
+    d=lg('s','#8EC5E8','#F6D5B0',1)+lg('w','#2F6F9F','#1C3F66',1);
+    b='<rect width="360" height="220" fill="url(#s)"/><rect y="140" width="360" height="80" fill="url(#w)"/><path d="M0 140Q90 40 180 140Q270 40 360 140" fill="none" stroke="#1E2A44" stroke-width="5"/><g stroke="#1E2A44" stroke-width="1.4"><path d="M45 140V98M90 140V70M135 140V92M225 140V92M270 140V70M315 140V98"/></g><rect y="138" width="360" height="6" fill="#1E2A44"/><g stroke="#fff" stroke-opacity=".3" stroke-width="2"><path d="M20 168h110M180 182h150M60 200h200"/></g>';
+  } else if(k==='market'){
+    d=lg('a','#F4E3C8','#E7B77E',1);
+    var aw='';for(var i=0;i<9;i++){aw+='<rect x="'+(i*40)+'" y="0" width="40" height="46" fill="'+(i%2?'#fff':'#D9534F')+'"/>';}
+    var cr='';[['#D9534F',60],['#E8A33D',150],['#7C9A3E',240],['#B5562E',320]].forEach(function(c,n){cr+='<rect x="'+(c[1]-42)+'" y="136" width="84" height="54" rx="6" fill="#8A5A34"/><ellipse cx="'+c[1]+'" cy="136" rx="40" ry="16" fill="'+c[0]+'"/>';});
+    b='<rect width="360" height="220" fill="url(#a)"/>'+aw+'<path d="M0 46q20 14 40 0t40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0" fill="#D9534F" opacity=".0"/>'+cr;
+  } else if(k==='ferry'){
+    d=lg('s','#BFE3F2','#F7EBD6',1)+lg('w','#2C7DA0','#1B4F72',1);
+    b='<rect width="360" height="220" fill="url(#s)"/><rect y="124" width="360" height="96" fill="url(#w)"/><g><rect x="96" y="96" width="170" height="30" rx="6" fill="#fff"/><rect x="120" y="76" width="110" height="22" rx="4" fill="#F2F5F7"/><rect x="164" y="56" width="22" height="22" fill="#D9534F"/><path d="M84 126h200l-18 14H100z" fill="#C9D3D8"/></g><g fill="none" stroke="#fff" stroke-width="2" opacity=".9"><path d="M40 50q8-8 16 0M62 36q8-8 16 0M300 60q8-8 16 0"/></g><g stroke="#fff" stroke-opacity=".35" stroke-width="2"><path d="M20 160h120M200 172h140M60 192h220"/></g>';
+  } else if(k==='food'){
+    d=lg('a','#E9D5B5','#C9A777',0);
+    b='<rect width="360" height="220" fill="url(#a)"/><circle cx="95" cy="110" r="64" fill="#fff"/><circle cx="95" cy="110" r="50" fill="#F4EFE6"/><circle cx="78" cy="100" r="14" fill="#E8A33D"/><circle cx="108" cy="96" r="12" fill="#7C9A3E"/><circle cx="96" cy="128" r="14" fill="#B5562E"/><circle cx="215" cy="92" r="52" fill="#fff"/><circle cx="215" cy="92" r="40" fill="#F4EFE6"/><path d="M190 100q25-34 50 0z" fill="#D9A25C"/><path d="M262 130h46l-6 52h-34z" fill="#C0392B" opacity=".85"/><path d="M266 140h38l-4 16h-30z" fill="#fff" opacity=".35"/><ellipse cx="285" cy="186" rx="26" ry="6" fill="#fff"/>';
+  } else if(k==='hotel'){
+    d=lg('s','#CFE6F3','#F8EAD3',1);
+    var wn='';[60,130,200,270].forEach(function(x){wn+='<path d="M'+x+' 120v-34q16-22 32 0v34z" fill="#4C5F78"/><path d="M'+x+' 190v-34q16-22 32 0v34z" fill="#4C5F78"/>';});
+    b='<rect width="360" height="220" fill="url(#s)"/><rect x="30" y="50" width="300" height="150" fill="#E9D3B4"/><rect x="30" y="40" width="300" height="14" fill="#B5855A"/>'+wn+'<rect x="164" y="156" width="34" height="44" rx="17" fill="#6B4A2E"/><circle cx="46" cy="190" r="18" fill="#5E8E4F"/><circle cx="314" cy="190" r="18" fill="#5E8E4F"/><rect y="200" width="360" height="20" fill="#B9A58A"/>';
+  } else if(k==='room'){
+    d=lg('a','#F5EBDD','#E8D7C0',1);
+    b='<rect width="360" height="220" fill="url(#a)"/><rect x="250" y="30" width="80" height="100" rx="4" fill="#CFE6F3"/><path d="M290 30v100M250 80h80" stroke="#fff" stroke-width="4"/><rect x="40" y="110" width="200" height="70" rx="8" fill="#fff"/><rect x="40" y="132" width="200" height="48" rx="8" fill="#2E8B93"/><rect x="52" y="96" width="70" height="30" rx="10" fill="#F4F0E8"/><rect x="132" y="96" width="70" height="30" rx="10" fill="#F4F0E8"/><rect x="40" y="180" width="200" height="10" fill="#8A5A34"/><rect x="262" y="150" width="8" height="40" fill="#8A5A34"/><path d="M252 150l28-4-6-26z" fill="#F3C969"/>';
+  } else if(k==='terrace'){
+    d=lg('s','#FBD6A0','#E9A0A0',1);
+    b='<rect width="360" height="220" fill="url(#s)"/><g fill="#7A5C86" opacity=".7"><path d="M20 120Q20 84 56 84Q92 84 92 120Z"/><rect x="96" y="70" width="6" height="50"/><path d="M96 70l3-12 3 12z"/><path d="M110 120Q110 96 136 96Q162 96 162 120Z"/></g><rect y="120" width="360" height="100" fill="#8A6B4E"/><rect x="40" y="150" width="280" height="14" rx="4" fill="#fff"/><circle cx="110" cy="146" r="22" fill="#fff"/><circle cx="110" cy="146" r="14" fill="#F2C26B"/><circle cx="190" cy="148" r="20" fill="#fff"/><circle cx="190" cy="148" r="12" fill="#7C9A3E"/><path d="M250 120h34l-4 34h-26z" fill="#C0392B" opacity=".85"/>';
+  } else if(k==='map'){
+    d='';
+    b='<rect width="360" height="220" fill="#EAF0EA"/><path d="M0 150Q120 110 240 150T360 130V220H0z" fill="#BFDDF0"/><g stroke="#fff" stroke-width="8"><path d="M0 60h360M80 0v150M200 0v140M300 0v140"/></g><g fill="#D6E3D2"><rect x="96" y="76" width="92" height="50"/><rect x="216" y="76" width="70" height="50"/><rect x="10" y="76" width="60" height="50"/></g><circle cx="150" cy="96" r="14" fill="#FE5C61"/><circle cx="150" cy="96" r="5" fill="#fff"/><circle cx="262" cy="30" r="9" fill="#2E8B93"/>';
+  }
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" width="360" height="220" viewBox="0 0 360 220"><defs>'+d+'</defs>'+b+'</svg>';
+  return SCN_CACHE[k]='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+function destPage(){
+  return '<div class="w-hero"><img src="'+scene('skyline')+'" alt=""><div class="w-ov"><h1>Istanbul</h1><p>Food, ferries and old quarters</p></div></div>'+
+   '<div class="w-b"><div class="w-price"><div><small>Flights for 2, return</small><b>from '+NAIRA+'1,741,886</b></div><span>21 Aug to 21 Sep</span></div>'+
+   '<div class="w-chips"><span>City and food</span><span>Culture</span><span>Direct, 6h 40m</span></div>'+
+   '<h3>Why it fits</h3><p>Markets, ferries and old quarters you can cover on foot, with something good to eat at every turn.</p>'+
+   '<div class="w-strip"><img src="'+scene('bosphorus')+'" alt=""><img src="'+scene('market')+'" alt=""><img src="'+scene('ferry')+'" alt=""></div>'+
+   '<h3>Eat</h3><div class="w-row"><img src="'+scene('food')+'" alt=""><div><b>Breakfast, the Turkish way</b><small>Simit, cheese, olives and tea, served by most hotels</small></div></div>'+
+   '<div class="w-row"><img src="'+scene('market')+'" alt=""><div><b>Kadıköy market</b><small>A short ferry ride away, with street food and spice stalls</small></div></div>'+
+   '<h3>Weather in late August</h3><div class="w-wx"><b>29&deg;</b><span>days</span><b>22&deg;</b><span>nights</span></div><p style="margin-top:4px">Warm and mostly dry. Typical conditions, not a forecast.</p>'+
+   '<h3>Entry</h3><div class="w-note">Check the entry rules for your passport before you book. We will guide you through them.</div>'+
+   '<h3>Where to stay</h3><p>Hotels from about '+NAIRA+'175,000 a night. A base near Karaköy and Galata puts the food streets on your doorstep.</p></div>';
+}
+function hotelPage(){
+  return '<div class="w-hero"><img src="'+scene('hotel')+'" alt=""><div class="w-ov"><h1>Galata Courtyard</h1><p>4&#9733; &middot; Karaköy and Galata, Istanbul</p></div></div>'+
+   '<div class="w-b"><div class="w-price"><div><small>Your package for 2</small><b>'+NAIRA+'3,764,300</b></div><span>Flights and 9 nights<br>21 to 31 Aug</span></div>'+
+   '<div class="w-strip"><img src="'+scene('room')+'" alt=""><img src="'+scene('terrace')+'" alt=""><img src="'+scene('food')+'" alt=""></div>'+
+   '<h3>About</h3><p>A quiet courtyard hotel a short walk from the Karaköy food streets. Breakfast is served on the terrace.</p>'+
+   '<div class="w-chips"><span>Breakfast included</span><span>Wi-Fi</span><span>Air conditioning</span><span>4 min walk to Karaköy</span></div>'+
+   '<h3>Location</h3><img class="w-map" src="'+scene('map')+'" alt=""><p style="margin-top:6px">About 50 minutes by taxi from Istanbul Airport.</p>'+
+   '<h3>Cancellation</h3><div class="w-note">Free hotel cancellation until 14 Aug, then non-refundable. Flights are non-refundable once booked. You can hold the trip for 72 hours without paying.</div>'+
+   '<h3>In your package</h3><p>Return flights, Turkish Airlines, direct, and 9 nights with breakfast for 2 adults.</p></div>';
+}
+function webHTML(pg){
+  var d=pg==='dest';
+  return '<div class="st wst"><span>9:41</span><span>&#9679;&#9679;&#9679;&nbsp;&#9646;</span></div>'+
+   '<div class="wbar"><span class="wx">&#10005;</span><div class="wtt"><b>traveltank.com</b><small>'+(d?'Istanbul':'Galata Courtyard')+'</small></div><span class="wmo">&#8942;</span></div>'+
+   '<div class="wpage" id="wpage" data-page="'+pg+'">'+(d?destPage():hotelPage())+'</div>'+
+   '<div class="wcta"><span class="wbtnp">'+(d?'Plan this trip':'Choose this hotel')+'</span><small>Takes you back to the chat</small></div>';
+}
 function T(s){return s.replace(/\*([^*\n]+)\*/g,'<b>$1</b>').replace(/\n/g,'<br>');}
 function B(at,kind,o){o.at=at;o.kind=kind;o.from=o.from||'biz';return o;}
 var prevCard={img:LONDON,title:'Lagos ⇄ London · 21 Aug to 21 Sep',desc:'British Airways · 2 travellers · '+NAIRA+'5,673,507 total. Price not guaranteed until booked.',dom:'traveltank.com'};
@@ -793,7 +888,7 @@ var SCN=[
   B(3,'text',{text:T('Here are three ideas for *two people*, leaving around *21 Aug* for about a month. These are the lowest fares we found today. ✈️'),time:'14:00',tag:'Session message · built from a live fare search'}),
   B(3,'carousel',{cards:[
     {img:LONDON,title:'London',desc:'Return for 2 · 21 Aug to 21 Sep · direct',price:'from '+NAIRA+'5,673,507',btn:'Plan this trip'},
-    {img:tile('#8A3B5E','#E58C9E','Istanbul'),title:'Istanbul',desc:'Return for 2 · 21 Aug to 21 Sep',price:'from '+NAIRA+'1,741,886',btn:'Plan this trip'},
+    {img:scene('skyline'),title:'Istanbul',desc:'Return for 2 · 21 Aug to 21 Sep',price:'from '+NAIRA+'1,741,886',btn:'Plan this trip'},
     {img:tile('#0B7D84','#6FC2C6','Dubai'),title:'Dubai',desc:'Return for 2 · 21 Aug to 21 Sep',price:'from '+NAIRA+'1,504,120',btn:'Plan this trip'}
    ],tag:'Image cards · one carousel or three messages, to confirm with the provider · fares not guaranteed until booked'}),
   B(4,'text',{from:'me',text:'Plan this trip',time:'14:01',tag:'Button reply from the London card'}),
@@ -824,9 +919,9 @@ var SCN=[
    B(2,'text',{from:'me',text:'Yes, show ideas',time:'14:00',tag:'Button reply'}),
    B(2,'text',{text:T('Three ideas within your budget, leaving around *21 Aug* for about a month. These are the lowest fares we found today. ✈️'),time:'14:00',tag:'Session message · built from a live fare search, not from the assistant\'s own wording'}),
    B(2,'carousel',{cards:[
-    {img:LONDON,title:'London',desc:'Return for 2 · 21 Aug to 21 Sep · direct',price:'from '+NAIRA+'5,673,507',btn:'Plan this trip'},
-    {img:tile('#8A3B5E','#E58C9E','Istanbul'),title:'Istanbul',desc:'Return for 2 · 21 Aug to 21 Sep',price:'from '+NAIRA+'1,741,886',btn:'Plan this trip'},
-    {img:tile('#0B7D84','#6FC2C6','Dubai'),title:'Dubai',desc:'Return for 2 · 21 Aug to 21 Sep',price:'from '+NAIRA+'1,504,120',btn:'Plan this trip'}
+    {img:LONDON,title:'London',desc:'Return for 2 · 21 Aug to 21 Sep · direct',price:'from '+NAIRA+'5,673,507',btns:['↗ See details','Plan this trip']},
+    {img:scene('skyline'),title:'Istanbul',desc:'Return for 2 · 21 Aug to 21 Sep',price:'from '+NAIRA+'1,741,886',btns:['↗ See details','Plan this trip']},
+    {img:tile('#0B7D84','#6FC2C6','Dubai'),title:'Dubai',desc:'Return for 2 · 21 Aug to 21 Sep',price:'from '+NAIRA+'1,504,120',btns:['↗ See details','Plan this trip']}
    ],tag:'Image cards · fares not guaranteed until booked'}),
    B(3,'text',{from:'me',text:'Actually something like what my brother did last year, you know the one',time:'14:02',tag:'Free text · no mood, place, date or budget can be read from it'}),
    B(3,'text',{text:T('Sorry, I\'m not sure I\'ve understood. Could you give me a place, or tell me what you\'d like to do there?\n\nOr pick a shortcut.'),btns:['↩ Quick questions','↩ Talk to a Shark'],time:'14:02',tag:'First unclear reply · rephrase once, ask one specific thing, offer a way out'}),
@@ -1074,13 +1169,23 @@ var SCN=[
 /* Typed path that carries on to an agreed holiday. Its first three steps are shared with the help path. */
 (function(){
   var s=SCN.filter(function(x){return x.id==='ideas';})[0], H=s.help;
-  var open=H.steps.slice(0,2).concat([{cap:'One tap to confirm. Three ideas arrive within his budget, from a live fare search.',site:{},ph:{view:'chat'}}]);
+  var open=H.steps.slice(0,2).concat([{cap:'One tap to confirm. Three ideas arrive within his budget, from a live fare search. Each card has See details beside Plan this trip.',site:{},ph:{view:'chat'}}]);
+  var DET_STEPS=[
+   {cap:'He taps See details on the Istanbul card. The destination opens as a mobile page inside WhatsApp, with room for photography: a big hero, the price, why it fits.',site:{},ph:{view:'web',page:'dest',scroll:0}},
+   {cap:'He scrolls: a photo strip, the food, the weather and the entry rules. The Plan this trip button stays on screen.',site:{},ph:{view:'web',page:'dest',scroll:1}},
+   {cap:'Plan this trip takes him back to the chat with a message already sent, and the assistant asks what he would like to change.',site:{},ph:{view:'chat'}}
+  ];
+  var DET_MSGS=[
+   B(5,'text',{from:'me',text:'Plan this trip · Istanbul',time:'14:02',tag:'Sent by the page button · a wa.me link with prefilled text and the trip token · returns the customer to this chat'}),
+   B(5,'text',{text:T('Istanbul it is. 🙂 Anything you would like to change before I look for flights and hotels? The dates, how long, or the kind of hotel.'),time:'14:02',tag:'Session message · free text invited'})
+  ];
   s.talk={
    steps:open.concat([
     {cap:'He picks Istanbul and changes two things in his own words: ten days, and a hotel near the food streets. The assistant says back what it will look for.',site:{},ph:{view:'chat'}},
-    {cap:'It searches flights and hotels together and offers two packages, each with one total for two.',site:{},ph:{view:'chat'}},
-    {cap:'He asks a question in his own words. The answer comes from the rate details, not from memory.',site:{},ph:{view:'chat'}},
-    {cap:'He chooses. The assistant sums up the whole trip and asks for a clear yes before anything moves on.',site:{},ph:{view:'chat'}},
+    {cap:'It searches flights and hotels together and offers two packages, each with one total for two. Each card has See hotel beside Choose this one.',site:{},ph:{view:'chat'}},
+    {cap:'He taps See hotel on the first package. The hotel opens as a mobile page: gallery, rooms, location and what is included.',site:{},ph:{view:'web',page:'hotel',scroll:0}},
+    {cap:'He scrolls to the location, the cancellation terms and the total. Choose this hotel stays on screen.',site:{},ph:{view:'web',page:'hotel',scroll:1}},
+    {cap:'Choose this hotel takes him back to the chat. The assistant sums up the whole trip and asks for a clear yes before anything moves on.',site:{},ph:{view:'chat'}},
     {cap:'Before saying yes he asks about baggage and insurance. The assistant answers from the fare data, gives an indicative price, and says insurance is added on the site once names are in.',site:{},ph:{view:'chat'}},
     {cap:'He asks for a checked bag each. The summary updates, and the assistant asks for a yes again because the total has changed.',site:{},ph:{view:'chat'}},
     {cap:'He agrees. The fare and room are re-checked just now, and one link button opens traveller details, with the bags saved to his trip.',site:{},ph:{view:'chat'}},
@@ -1092,12 +1197,10 @@ var SCN=[
     B(3,'text',{text:T('Istanbul it is. Let me look for:\n\n• *Istanbul*, 2 adults\n• *21 to 31 Aug* (10 days)\n• A hotel near the *Karaköy and Galata* food streets, *breakfast included*\n\nSearching flights and hotels together…'),time:'14:01',tag:'Changes read from free text and said back · the search starts at once, because nothing is held or paid yet'}),
     B(4,'text',{text:T('Two packages for *two people*, 21 to 31 Aug. Turkish Airlines, direct, plus 9 nights in a hotel. Prices are the total for both of you, and both fit your budget. ✈️'),time:'14:02',tag:'Session message · flights and hotel priced together from one live search'}),
     B(4,'carousel',{cards:[
-     {img:tile('#8A3B5E','#E58C9E','Galata'),title:'Galata Courtyard · 4★',desc:'Flights and 9 nights with breakfast',price:NAIRA+'3,764,300 total',btn:'Choose this one'},
-     {img:tile('#0B7D84','#6FC2C6','Karaköy'),title:'Karaköy Loft · 3★',desc:'Flights and 9 nights, no breakfast',price:NAIRA+'3,210,000 total',btn:'Choose this one'}
+     {img:scene('hotel'),title:'Galata Courtyard · 4★',desc:'Flights and 9 nights with breakfast',price:NAIRA+'3,764,300 total',btns:['↗ See hotel','Choose this one']},
+     {img:scene('room'),title:'Karaköy Loft · 3★',desc:'Flights and 9 nights, no breakfast',price:NAIRA+'3,210,000 total',btns:['↗ See hotel','Choose this one']}
     ],tag:'Image cards · fares not guaranteed until booked'}),
-    B(5,'text',{from:'me',text:'Does the first one have free cancellation? And how far is it from the airport?',time:'14:03',tag:'Free text question'}),
-    B(5,'text',{text:T('*Galata Courtyard*\n• Hotel cancellation: *free until 14 Aug*, then non-refundable\n• Airport: about *50 minutes* by taxi\n• The flights are *non-refundable* once booked. You can hold the trip for 72 hours without paying.\n\nWould you like to go with this one?'),btns:['↩ Go with this one','↩ Show the other','↩ Talk to a Shark'],time:'14:03',tag:'Answers come from the rate and property data · if a field is missing it says so and offers a Shark'}),
-    B(6,'text',{from:'me',text:'Go with this one',time:'14:04',tag:'Button reply'}),
+    B(6,'text',{from:'me',text:'Choose this one · Galata Courtyard',time:'14:04',tag:'Sent by the hotel page button · a wa.me link with prefilled text and the trip token'}),
     B(6,'text',{text:T('Here\'s your trip:\n\n*Lagos ⇄ Istanbul*\nFri 21 Aug to Mon 31 Aug · Turkish Airlines, direct\n*Galata Courtyard, 4★* · 9 nights · breakfast\n2 adults\n\nFlights '+NAIRA+'1,624,300\nHotel '+NAIRA+'2,140,000\n*Total '+NAIRA+'3,764,300*\n\nFree hotel cancellation until 14 Aug. Prices are not guaranteed until booked.\n\nShall I take you to add who is travelling?'),btns:['↩ Looks good','↩ Change something','↩ Talk to a Shark'],time:'14:04',tag:'Agreement step · nothing is held or sent to the site until the customer says yes'}),
     B(7,'text',{from:'me',text:'Does that include checked bags? And can I add travel insurance?',time:'14:05',tag:'Free text question · answered from the fare data'}),
     B(7,'text',{text:T('Each of you has *1 x 7kg hand bag*. No checked bag is included on this fare.\n\nA *23kg checked bag* is about *'+NAIRA+'150,000* per person, return. That is a guide, and the final price is shown at checkout.\n\nTravel insurance can be added on the booking pages, once your names are in. You will see the cover and the policy summary before you choose.\n\nShall I have a checked bag ready for each of you?'),btns:['↩ Yes, a bag each','↩ No, thanks','↩ Talk to a Shark'],time:'14:05',tag:'Baggage read from the fare data, price indicative · insurance is only pointed to, never added from chat'}),
@@ -1107,10 +1210,16 @@ var SCN=[
     B(9,'text',{text:T('Great. I\'ve re-checked the fare and the room just now. Everything is still available at *'+NAIRA+'4,064,300*, with a checked bag each.\n\nNext, add who is travelling. You can hold this for 72 hours without paying. Prices are not guaranteed until booked.'),btns:['↗ Add traveller details'],time:'14:06',tag:'Session message · one link button · basket key, party size, source and a one-time token in the URL · the saved bags travel with the basket'})
    ]),
    notes:{
-    design:['The trip stays on one card as it changes: place, dates, hotel and total. Each change is said back in plain words, so nobody has to trust a figure they cannot see.','Two options, not ten. Each package says what is in it and gives one total for two.','Questions are answered from the rate details, in plain words such as "free until 14 Aug". Anything the assistant cannot answer from data goes to a Shark.','Agreement is explicit: a summary, a total and a Looks good button. Nothing is held or sent to the site before that tap.','The link lands on the existing traveller details page with flights, hotel and total already in.','Extras questions are answered where they are asked: what the fare includes, an indicative price, and the choice saved. The site then adds it to the booking and shows the live price.','Insurance is explained but never added in chat. The customer sees the cover and policy summary on the site before choosing.'],
-    biz:['An undecided customer becomes a ready-to-book basket inside one chat. Search, results and hotel pages are skipped.','Flight and hotel together is the package the site already names as Holidays. Confirm which packages can be priced and sold as one.','Agreeing in chat means traveller details starts from high intent, which is the step the other touchpoints aim at.','Which two packages are offered first is a business rule: price, margin, availability or editorial.','Baggage and insurance are add-on revenue. Catching the intent in chat and carrying it over means the customer reaches the extras page with a choice already made, instead of meeting it cold.','Measure chats reaching a package, packages agreed, extras chosen in chat, link taps, traveller page reached, hold or paid, and questions passed to a Shark.'],
-    build:['Changes such as dates, nights and hotel wishes fill the same fields as before and run a live search for flight and hotel together. [confirm]','Every price and rule on screen comes from the rate data, never from generated text.','Answers about cancellation or airport distance come from rate and property fields. If a field is missing, the assistant says it is not sure and offers a Shark.','On the agree tap, the system re-checks price and availability and creates a basket. The link button carries a basket key, party size, source and a one-time token. No personal data goes in the URL.','If the price has changed when the site opens, the site shows the new price first and keeps the trip.','The chosen extras are stored against the basket, not in the URL. On the extras step the site reads them, pre-selects them and prices them from the live engine. If one cannot be applied, for example the airline does not sell that bag, the site says so and offers the nearest option.','Baggage belongs to a named passenger, so it is only bought once names are in. Insurance also needs the traveller details, a policy summary and explicit consent on the site, and may need a licensed insurer or intermediary. [confirm]','Session messages only. Reminders after the 24-hour window need opt-in and approved templates, as in touchpoint 7.']}
+    design:['The trip stays on one card as it changes: place, dates, hotel and total. Each change is said back in plain words, so nobody has to trust a figure they cannot see.','Two options, not ten. Each package says what is in it and gives one total for two.','Questions are answered from the rate details, in plain words such as "free until 14 Aug". Anything the assistant cannot answer from data goes to a Shark.','Agreement is explicit: a summary, a total and a Looks good button. Nothing is held or sent to the site before that tap.','The link lands on the existing traveller details page with flights, hotel and total already in.','Extras questions are answered where they are asked: what the fare includes, an indicative price, and the choice saved. The site then adds it to the booking and shows the live price.','Insurance is explained but never added in chat. The customer sees the cover and policy summary on the site before choosing.','Destinations and hotels open as a mobile page inside WhatsApp, where there is room for photography. The chat keeps the short version and the page carries the inspiration.','A button stays on screen on every page (Plan this trip, Choose this hotel). It takes the customer straight back to the chat with a message already sent, so the conversation carries on where it left off.'],
+    biz:['Customers want to see a place before they commit, and photography sells a holiday better than text. A page can hold a gallery, a map and the detail, which a chat message cannot.','These are TravelTank pages. The same destination and hotel content can serve the site, ads and search, and every view can be measured.','An undecided customer becomes a ready-to-book basket inside one chat. Search, results and hotel pages are skipped.','Flight and hotel together is the package the site already names as Holidays. Confirm which packages can be priced and sold as one.','Agreeing in chat means traveller details starts from high intent, which is the step the other touchpoints aim at.','Which two packages are offered first is a business rule: price, margin, availability or editorial.','Baggage and insurance are add-on revenue. Catching the intent in chat and carrying it over means the customer reaches the extras page with a choice already made, instead of meeting it cold.','Measure chats reaching a package, packages agreed, extras chosen in chat, link taps, traveller page reached, hold or paid, and questions passed to a Shark.'],
+    build:['Each page is a mobile-first TravelTank page opened by a link button. It reads the trip from a signed token (place, dates, party), so prices and dates match the chat. No personal data goes in the URL.','Content for each destination and hotel is maintained: highlights, typical weather, entry notes and photos, plus live fare data. Entry rules need a maintained source with a last-checked date. [confirm]','Weather is typical conditions, not a forecast, and hotel prices say "from". The assistant never states a fact the data does not hold.','Whether a link opens inside WhatsApp or in the phone\'s browser varies by phone and version. Design for either and test on common Android and iOS devices. [confirm]','Pages must be light: compressed images, lazy loading and a fast first view, with mobile data costs in mind.','The page button is a wa.me link with prefilled text and the trip token, so the chat resumes with context and the assistant knows what was chosen.','Link buttons on carousel cards depend on carousel support in a session. [confirm] The fallback is one image message with a single link button.','Changes such as dates, nights and hotel wishes fill the same fields as before and run a live search for flight and hotel together. [confirm]','Every price and rule on screen comes from the rate data, never from generated text.','Answers about cancellation or airport distance come from rate and property fields. If a field is missing, the assistant says it is not sure and offers a Shark.','On the agree tap, the system re-checks price and availability and creates a basket. The link button carries a basket key, party size, source and a one-time token. No personal data goes in the URL.','If the price has changed when the site opens, the site shows the new price first and keeps the trip.','The chosen extras are stored against the basket, not in the URL. On the extras step the site reads them, pre-selects them and prices them from the live engine. If one cannot be applied, for example the airline does not sell that bag, the site says so and offers the nearest option.','Baggage belongs to a named passenger, so it is only bought once names are in. Insurance also needs the traveller details, a policy summary and explicit consent on the site, and may need a licensed insurer or intermediary. [confirm]','Session messages only. Reminders after the 24-hour window need opt-in and approved templates, as in touchpoint 7.']}
   };
+  /* splice the details exchange in after the ideas step, and move the later messages along */
+  var tk=s.talk;
+  tk.steps=tk.steps.slice(0,3).concat(DET_STEPS,tk.steps.slice(3));
+  var early=tk.msgs.filter(function(m){return m.at<=2;}), late=tk.msgs.filter(function(m){return m.at>2;});
+  late.forEach(function(m){m.at+=(m.at>=6?4:3);});
+  tk.msgs=early.concat(DET_MSGS,late);
 })();
 
 SCN.forEach(function(s,i){s.n=i+1;});
@@ -1320,7 +1429,7 @@ function scrFor(s,i){
 
 function msgHTML(m,fresh,chat){
   if(m.kind==='chip') return '<div class="chip'+(fresh?' fresh':'')+'">'+m.text+'</div>';
-  if(m.kind==='carousel') return '<div class="mg in'+(fresh?' fresh':'')+'" style="max-width:100%;width:100%"><div class="car">'+m.cards.map(function(c){return '<div class="cc"><img src="'+c.img+'" alt=""><div class="ct"><b>'+c.title+'</b><span>'+c.desc+'</span><em>'+c.price+'</em></div><div class="cb">'+c.btn+'</div></div>';}).join('')+'</div>'+(m.tag?'<div class="tag">'+m.tag+'</div>':'')+'</div>';
+  if(m.kind==='carousel') return '<div class="mg in'+(fresh?' fresh':'')+'" style="max-width:100%;width:100%"><div class="car">'+m.cards.map(function(c){return '<div class="cc"><img src="'+c.img+'" alt=""><div class="ct"><b>'+c.title+'</b><span>'+c.desc+'</span><em>'+c.price+'</em></div>'+(c.btns||[c.btn]).map(function(b){return '<div class="cb">'+b+'</div>';}).join('')+'</div>';}).join('')+'</div>'+(m.tag?'<div class="tag">'+m.tag+'</div>':'')+'</div>';
   if(m.kind==='sys') return '<div class="sysmsg'+(fresh?' fresh':'')+'">'+m.text+'</div>';
   var out=m.from==='me', inner='';
   if(m.sender) inner+='<div class="snd" style="color:'+m.color+'">'+m.sender+'</div>';
@@ -1337,6 +1446,7 @@ function msgHTML(m,fresh,chat){
 
 function phoneHTML(s,i){
   var st=cur(s).steps[i], ph=st.ph, sc=ph.scene||'';
+  if(ph.view==='web') return '<div class="phone"><div class="scr">'+webHTML(ph.page)+'</div></div>';
   var c=(sc&&s.chats&&s.chats[sc])||s.chat;
   if(ph.view==='channel') c={name:'TravelTank Deals',sub:'Channel \u00B7 weekly fares',biz:true};
   var head='<div class="st"><span>9:41</span><span>&#9679;&#9679;&#9679;&nbsp;&#9646;</span></div>';
@@ -1403,6 +1513,7 @@ function draw(){
   var C=cur(s), i=state.step, st=C.steps[i];
   var tt=document.getElementById('tt'); tt.innerHTML=scrFor(s,i);
   var oldWb=document.getElementById('wbody'), keep=oldWb?oldWb.scrollTop:null;
+  var oldWp=document.getElementById('wpage'), keepWp=oldWp?{p:oldWp.dataset.page,t:oldWp.scrollTop}:null;
   document.getElementById('ph').innerHTML=phoneHTML(s,i);
   document.getElementById('pcol').classList.toggle('show-tags',state.tags);
   document.body.classList.toggle('solo-site',!!(SOLO&&st.showSite));
@@ -1413,6 +1524,15 @@ function draw(){
   document.getElementById('nx').disabled=(i===C.steps.length-1);
   /* The chat is redrawn on every step. Put it back where it was, then glide down to the new message,
      so it never snaps to the top first. A fresh chat (first draw, or a new path) goes straight to the bottom. */
+  var wp=document.getElementById('wpage');
+  if(wp){
+    var tgt=Math.round((wp.scrollHeight-wp.clientHeight)*(st.ph.scroll||0));
+    wp.style.scrollBehavior='auto';
+    wp.scrollTop=(keepWp&&keepWp.p===wp.dataset.page)?keepWp.t:tgt;
+    void wp.offsetHeight;
+    wp.style.scrollBehavior='';
+    wp.scrollTop=tgt;
+  }
   var wb=document.getElementById('wbody');
   if(wb){
     wb.style.scrollBehavior='auto';
