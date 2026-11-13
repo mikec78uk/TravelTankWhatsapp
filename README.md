@@ -17,7 +17,7 @@ then visit `http://localhost:8000/TravelTank-WhatsApp-Prototype.html`.
 ## Touchpoints
 
 1. Homepage: help, refund status and weekly fares
-2. Trip ideas on WhatsApp, then a link to traveller details (tap the questions, or type in your own words and agree a flight and hotel in chat, with a handover to a Shark or a call when the assistant is unsure)
+2. Trip ideas on WhatsApp, then a link to traveller details (tap the questions, or type in your own words and agree a flight and hotel in chat, with baggage choices carried over, and a handover to a Shark or a call when the assistant is unsure)
 3. Ask a Shark about a hotel, with the details attached
 4. Track the price, or share the trip
 5. Opt in at checkout
