@@ -28,6 +28,10 @@ then visit `http://localhost:8000/TravelTank-WhatsApp-Prototype.html`.
 10. Pre-trip care and notification settings
 11. Cancel, change and refund tracker
 
+## Team inbox
+
+The **Team inbox** tab mocks the admin screen TravelTank's Travel Sharks would use to manage chats: waiting time, chats underway, an assistant-written summary of each chat, and assigning a chat to yourself or a colleague. It runs on example chats.
+
 ## Developer specs
 
 The `docs/` folder holds draft interaction specs for developers, starting with one fully written flow (hold reminders), a template catalogue, an event map and example payloads. Start at [docs/README.md](docs/README.md).
