@@ -498,79 +498,74 @@ body.solo .cap{order:-1}
 
 /* ===== Team inbox (admin) ===== */
 .ib{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.ib-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line);background:var(--surface-2)}
-.ib-top b{font:800 16px var(--display)}.ib-top span{margin-left:10px;font-size:12px;color:var(--muted)}
-.ib-me{font-size:13px;font-weight:500;display:flex;align-items:center;gap:7px}.ib-me span{margin:0}
-.ib-dot{width:9px;height:9px;border-radius:50%;background:var(--wa)!important;display:inline-block}
-.ib-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-bottom:1px solid var(--line)}
-.ib-k{padding:12px 16px;border-right:1px solid var(--line);display:flex;flex-direction:column}.ib-k:last-child{border-right:0}
-.ib-k b{font:800 26px/1.1 var(--display);font-variant-numeric:tabular-nums}.ib-k span{font-size:12.5px;font-weight:500;margin-top:2px}.ib-k small{font-size:11px;color:var(--muted)}
+.ib-top{display:flex;align-items:center;gap:20px;padding:12px 18px;border-bottom:1px solid var(--line)}
+.ib-top>b{font:800 16px var(--display)}
+.ib-ks{display:flex;gap:22px;flex:1;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.ib-k b{font:800 16px var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
 .ib-k.warn b{color:#B26B00}.ib-k.bad b{color:var(--neg)}
-.ib-app{display:grid;grid-template-columns:320px minmax(0,1fr) 270px;height:720px}
-.ib-q,.ib-side{display:flex;flex-direction:column;min-height:0;border-right:1px solid var(--line)}.ib-side{border-right:0;border-left:1px solid var(--line);overflow:auto}
-.ib-f{display:flex;gap:4px;padding:10px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.ib-f button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 10px;font-size:12.5px}
-.ib-f button b{font-weight:700;margin-left:3px}.ib-f button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.ib-list{overflow:auto;flex:1}
-.ib-row{display:flex;gap:10px;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:var(--surface);padding:11px 12px}
-.ib-row:hover{background:var(--surface-2)}.ib-row.on{background:var(--surface-2);box-shadow:inset 3px 0 0 var(--accent)}
+.ib-me{font-size:13px;display:flex;align-items:center;gap:7px;color:var(--muted)}.ib-dot{width:8px;height:8px;border-radius:50%;background:var(--wa);display:inline-block}
+.ib-app{display:grid;grid-template-columns:300px minmax(0,1fr);height:640px}
+.ib-q{display:flex;flex-direction:column;min-height:0;border-right:1px solid var(--line)}
+.ib-f{display:flex;gap:4px;padding:10px 12px 6px}
+.ib-f button{border:0;background:none;border-radius:999px;padding:4px 12px;font-size:13px;color:var(--muted)}
+.ib-f button b{font-weight:700;margin-left:2px}.ib-f button.on{background:var(--surface-2);color:var(--ink);font-weight:600}
+.ib-list{overflow:auto;flex:1;padding-bottom:8px}
+.ib-gl{font:700 11px var(--body);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:12px 16px 4px}.ib-gl span{font-weight:500;margin-left:3px}
+.ib-row{display:flex;gap:10px;width:100%;text-align:left;border:0;background:none;padding:9px 12px 9px 13px;border-left:3px solid transparent}
+.ib-row:hover{background:var(--surface-2)}.ib-row.on{background:var(--surface-2);border-left-color:var(--accent)}.ib-row.dim{opacity:.7}
 .ib-av{flex:0 0 auto;width:34px;height:34px;border-radius:50%;color:#fff;display:inline-grid;place-items:center;font:700 13px var(--display)}
-.ib-rm{min-width:0;display:flex;flex-direction:column;gap:2px;flex:1}
-.ib-r1{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.ib-r1 b{font-size:14px}
-.ib-r2{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ib-r3{display:flex;gap:6px;align-items:center;margin-top:3px;flex-wrap:wrap}
-.ib-t{font:500 13px var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
-.ib-t.ok{color:var(--pos)}.ib-t.warn{color:#B26B00;font-weight:700}.ib-t.bad{color:var(--neg);font-weight:700}.ib-t.mute{color:var(--muted)}
-.ib-t.big{font-size:30px;font-weight:700;line-height:1}
-.ib-chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:1px 8px;font-size:11.5px;font-weight:500;background:var(--surface);color:var(--ink)}
-.ib-chip.q{background:#FFF1D6;border-color:#F1D79C;color:#6a4b00}.ib-chip.me{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.ib-chip.bot{background:var(--wa-soft);border-color:var(--wa-line)}.ib-chip.mute{color:var(--muted)}
-.ib-tag{font-size:11.5px;color:var(--muted)}
+.ib-rm{min-width:0;display:flex;flex-direction:column;gap:1px;flex:1}
+.ib-r1{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.ib-r1 b{font-size:14px;font-weight:600}
+.ib-r2,.ib-r3{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ib-r3{font-size:11.5px}.ib-r3.me{color:var(--accent);font-weight:600}
+.ib-t{font:500 12.5px var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ib-t.ok{color:var(--muted)}.ib-t.warn{color:#B26B00;font-weight:700}.ib-t.bad{color:var(--neg);font-weight:700}.ib-t.mute{color:var(--muted)}
+.ib-t.big{font-size:26px;font-weight:700;line-height:1;color:var(--ink)}.ib-t.big.warn{color:#B26B00}.ib-t.big.bad{color:var(--neg)}
 .ib-empty{padding:24px;color:var(--muted);text-align:center}
 .ib-main{display:flex;flex-direction:column;min-width:0;min-height:0}
-.ib-ch{display:flex;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.ib-who{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1 1 220px}.ib-who b{font:800 17px var(--display)}.ib-who>span{font-size:13px;color:var(--muted)}
-.ib-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:3px}
+.ib-ch{display:flex;gap:12px;align-items:center;padding:12px 18px;border-bottom:1px solid var(--line)}
+.ib-who{display:flex;flex-direction:column;min-width:0;flex:1}.ib-who b{font:800 16px var(--display)}
+.ib-who span{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ib-hw{display:flex;flex-direction:column;align-items:flex-end}.ib-hw small{font-size:11px;color:var(--muted)}
-.ib-act{display:flex;gap:8px;flex-wrap:wrap;width:100%}
-.ib-act .nb{padding:7px 13px;font-size:13px}.ib-sel{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:7px 10px;font:inherit;font-size:13px}
-.ib-body{flex:1;overflow:auto;padding:14px 16px;background:var(--bg);scroll-behavior:smooth}
-.ib-sum{background:var(--surface);border:1px solid var(--accent);border-radius:12px;padding:12px 14px;box-shadow:0 0 0 3px rgba(1,116,127,.08)}
-.ib-sh{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}.ib-sh b{font:800 14px var(--display)}.ib-sh small{font-size:11.5px;color:var(--muted);flex:1}
-.ib-spark{color:var(--accent);font-size:15px}
-.ib-link{background:none;border:0;padding:0;color:var(--accent);font-weight:600;font-size:13px;text-decoration:underline;text-underline-offset:3px}
-.ib-head{font:700 15.5px/1.35 var(--display);margin:8px 0 10px}
-.ib-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.ib-sum h5,.ib-ctx h5{font:700 11px var(--body);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 5px}
-.ib-sum ul{margin:0;padding-left:17px;font-size:13.5px;display:flex;flex-direction:column;gap:4px}.ib-sum li::marker{color:var(--accent)}
-.ib-next{margin-top:10px;background:var(--surface-2);border-radius:8px;padding:8px 10px}.ib-next p{font-size:13.5px}
-.ib-sf{display:flex;gap:10px;align-items:center;margin-top:10px;font-size:11.5px;color:var(--muted);flex-wrap:wrap}
-.ib-more{display:block;margin:12px 0 4px}
-.ib-th{display:flex;flex-direction:column;gap:6px;margin-top:10px}
-.ib-m{max-width:78%;padding:6px 10px 5px;border-radius:10px;font-size:13.5px;line-height:1.35;background:var(--surface);border:1px solid var(--line)}
-.ib-m small{display:block;font-size:11px;font-weight:700;color:var(--muted)}.ib-m span{display:block;font-size:10.5px;color:var(--muted);text-align:right;margin-top:1px}
-.ib-m.in{align-self:flex-start}.ib-m.out{align-self:flex-end;background:var(--wa-soft);border-color:var(--wa-line)}.ib-m.bot{background:var(--surface-2);border-color:var(--line)}
-.ib-sys{align-self:center;font-size:11.5px;color:var(--muted);background:var(--surface-2);border-radius:999px;padding:3px 12px;text-align:center}
-.ib-note{align-self:stretch;background:#FFF5DD;border:1px solid #F1DDA5;border-radius:8px;padding:6px 10px;font-size:13px;color:#6a4b00}.ib-note b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em}.ib-note small{display:block;font-size:11px;opacity:.8}
-.ib-cp{border-top:1px solid var(--line);padding:10px 14px;background:var(--surface);position:relative}
-.ib-cp.off{background:var(--surface-2)}.ib-lock{font-size:12.5px;color:var(--muted);margin-bottom:6px}
-.ib-md{display:flex;gap:4px;margin-bottom:6px}.ib-md button{border:0;background:none;font-size:12.5px;font-weight:600;color:var(--muted);padding:3px 8px;border-radius:6px}.ib-md button.on{background:var(--surface-2);color:var(--ink)}
-.ib-cp textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit;font-size:13.5px;background:var(--surface);color:var(--ink);resize:none}
-.ib-cp textarea:disabled{opacity:.6}
-.ib-qr{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;align-items:center}.ib-qr button:not(.nb){border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px;font-size:12px}
-.ib-qr button:disabled{opacity:.5;cursor:default}.ib-send{margin-left:auto;padding:6px 16px!important}
-.ib-ctx{padding:14px}.ib-ctx h5{margin-top:16px}.ib-ctx h5:first-child{margin-top:0}
-.ib-cust{display:flex;gap:10px;align-items:center}.ib-cust b{display:block;font-size:14px}.ib-cust small{color:var(--muted);font-size:12px}
-.ib-ctx dl{margin:10px 0 0;font-size:12.5px;display:grid;grid-template-columns:auto 1fr;gap:3px 10px}.ib-ctx dt{color:var(--muted)}.ib-ctx dd{margin:0}
-.ib-bk{border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:4px;font-size:12.5px}.ib-bk b{font-size:13.5px}.ib-bk span:not(.ib-chip){color:var(--muted)}
-.ib-bk ul{margin:2px 0;padding-left:16px}.ib-tot{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:5px}
-.ib-bk .ib-chip{align-self:flex-start}
-.ib-ctx .ib-link{margin-top:8px;display:inline-block}
-.ib-log{list-style:none;margin:0;padding:0;font-size:12.5px;display:flex;flex-direction:column;gap:5px}.ib-log span{display:inline-block;min-width:42px;font-family:var(--mono);color:var(--muted)}
-@media (max-width:1100px){
-  .ib-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.ib-k{border-bottom:1px solid var(--line)}
-  .ib-app{grid-template-columns:minmax(0,1fr);height:auto}.ib-q{border-right:0;border-bottom:1px solid var(--line)}.ib-list{max-height:340px}
-  .ib-body{max-height:520px}.ib-side{border-left:0;border-top:1px solid var(--line)}.ib-two{grid-template-columns:minmax(0,1fr)}
+.ib-act{display:flex;gap:6px;align-items:center}.ib-act .nb{padding:7px 14px;font-size:13px;white-space:nowrap}
+.ib-menu{position:relative}.ib-menu summary{list-style:none;cursor:pointer;width:32px;height:32px;display:grid;place-items:center;border-radius:8px;color:var(--muted);font-size:18px}
+.ib-menu summary::-webkit-details-marker{display:none}.ib-menu summary:hover,.ib-menu[open] summary{background:var(--surface-2)}
+.ib-menu>div{position:absolute;right:0;top:36px;z-index:3;min-width:210px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px;box-shadow:0 6px 20px rgba(0,0,0,.12);display:flex;flex-direction:column;gap:2px}
+.ib-menu button{border:0;background:none;text-align:left;padding:7px 10px;border-radius:6px;font-size:13px}.ib-menu button:hover{background:var(--surface-2)}
+.ib-sel{border:0;background:var(--surface);color:var(--ink);padding:7px 8px;font:inherit;font-size:13px;border-radius:6px}
+.ib-body{flex:1;overflow:auto;padding:16px 18px;scroll-behavior:smooth}
+.ib-sum{border-left:3px solid var(--accent);padding:2px 0 2px 14px}
+.ib-sh{display:flex;gap:8px;align-items:baseline}.ib-sp{font:700 12px var(--body);text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
+.ib-sh small{font-size:11.5px;color:var(--muted);flex:1}
+.ib-link{background:none;border:0;padding:0;color:var(--accent);font-weight:600;font-size:12.5px}.ib-link:hover{text-decoration:underline}
+.ib-head{font:700 17px/1.35 var(--display);margin:6px 0 10px}
+.ib-next{background:var(--surface-2);border-radius:10px;padding:9px 12px;font-size:14px;display:flex;flex-direction:column;gap:2px}.ib-next b{font:700 11px var(--body);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.ib-dt{margin-top:10px;font-size:13px}.ib-dt>summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:12.5px;list-style:none}.ib-dt>summary::-webkit-details-marker{display:none}
+.ib-dt>summary::before{content:"+ ";font-weight:700}.ib-dt[open]>summary::before{content:"– "}
+.ib-two,.ib-three{display:grid;gap:16px;margin-top:10px}.ib-two{grid-template-columns:repeat(2,minmax(0,1fr))}.ib-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ib-dt h5{font:700 11px var(--body);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 4px}
+.ib-dt ul{margin:0;padding-left:16px;display:flex;flex-direction:column;gap:3px}.ib-dt p{margin:0 0 6px}
+.ib-mood{color:var(--muted)}.ib-fine{font-size:11.5px;color:var(--muted);margin-top:8px}
+.ib-more{display:block;margin:18px 0 6px}
+.ib-th{display:flex;flex-direction:column;gap:6px;margin-top:14px}.ib-more+.ib-th{margin-top:0}
+.ib-m{max-width:80%;padding:7px 11px;border-radius:12px;font-size:13.5px;line-height:1.4;background:var(--surface-2)}
+.ib-m small{display:block;font-size:11px;color:var(--muted);margin-bottom:1px}
+.ib-m.in{align-self:flex-start}.ib-m.out{align-self:flex-end;background:var(--wa-soft)}.ib-m.bot{background:var(--surface-2)}
+.ib-sys{align-self:center;font-size:11.5px;color:var(--muted);text-align:center;padding:2px 0}
+.ib-note{background:#FFF5DD;border-radius:8px;padding:6px 10px;font-size:13px;color:#6a4b00}.ib-note b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em}.ib-note small{display:block;font-size:11px;opacity:.8}
+.ib-all{margin-top:20px;padding-top:12px;border-top:1px solid var(--line)}
+.ib-log{list-style:none;padding:0!important}.ib-log span{display:inline-block;min-width:42px;font-family:var(--mono);color:var(--muted);font-size:12px}
+.ib-cp{border-top:1px solid var(--line);padding:10px 18px}
+.ib-cp.off{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px;color:var(--muted);padding:14px 18px}
+.ib-win{font-size:11.5px;color:var(--muted);margin-left:auto;white-space:nowrap}
+.ib-cp textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;font-size:13.5px;background:var(--surface);color:var(--ink);resize:none}
+.ib-qr{display:flex;gap:6px;margin-top:8px;align-items:center;flex-wrap:wrap}
+.ib-md{display:inline-flex;background:var(--surface-2);border-radius:8px;padding:2px}.ib-md button{border:0;background:none;font-size:12.5px;font-weight:600;color:var(--muted);padding:3px 10px;border-radius:6px}.ib-md button.on{background:var(--surface);color:var(--ink)}
+.ib-qb{border:1px solid var(--line);background:none;border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted)}.ib-qb:hover{color:var(--ink)}
+.ib-send{padding:6px 18px!important}
+@media (max-width:900px){
+  .ib-top{flex-wrap:wrap;gap:8px 16px}.ib-ks{gap:12px;flex-basis:100%;order:3}
+  .ib-app{grid-template-columns:minmax(0,1fr);height:auto}.ib-q{border-right:0;border-bottom:1px solid var(--line)}.ib-list{max-height:300px}
+  .ib-body{max-height:520px}.ib-two,.ib-three{grid-template-columns:minmax(0,1fr)}.ib-ch{flex-wrap:wrap}.ib-act{width:100%}
 }
 </style>
 
@@ -1820,90 +1815,99 @@ function inbCounts(){
   return {open:o.length,wait:o.filter(function(c){return c.st==='wait';}).length,longest:ws.length?Math.max.apply(null,ws):0,close:o.filter(function(c){return c.win<120;}).length,
    all:o.length,mine:o.filter(function(c){return c.who===INB.me&&c.st!=='bot';}).length,bot:o.filter(function(c){return c.st==='bot';}).length};
 }
+function inbSt(c){
+  if(c.st==='mine') return 'With you';
+  if(c.st==='other') return 'With '+c.who;
+  if(c.st==='cust') return 'Waiting for the customer';
+  if(c.st==='bot') return 'Assistant replying';
+  return '';
+}
 function inbKpis(){
   var k=inbCounts();
-  function t(id,v,l,x,cl){return '<div class="ib-k '+(cl||'')+'"><b id="'+id+'">'+v+'</b><span>'+l+'</span>'+(x?'<small>'+x+'</small>':'')+'</div>';}
-  return t('ik-open',k.open,'Chats underway','12 resolved today')+
-   t('ik-wait',k.wait,'Waiting for a Shark','Needs a person now',k.wait?'warn':'')+
-   t('ik-long',k.longest?inbMs(k.longest):'—','Longest wait','Target: 5 minutes',k.longest>=300000?'bad':'')+
-   t('ik-avg','1m 48s','First reply today','Shark chats only')+
-   t('ik-bot','68%','Handled by the assistant','No person needed')+
-   t('ik-close',k.close,'Windows closing soon','Under 2 hours',k.close?'warn':'');
+  function t(id,v,l,cl){return '<span class="ib-k '+(cl||'')+'"><b id="'+id+'">'+v+'</b> '+l+'</span>';}
+  return t('ik-open',k.open,'underway')+t('ik-wait',k.wait,'waiting',k.wait?'warn':'')+t('ik-long',k.longest?inbMs(k.longest):'—','longest wait',k.longest>=300000?'bad':'')+t('ik-close',k.close,'windows closing',k.close?'warn':'');
 }
 function inbVisible(){
   var f=INB.filter, rank={wait:0,mine:1,other:1,cust:2,bot:3};
-  var list=INB.chats.filter(inbOpen).filter(function(c){return f==='all'||(f==='wait'&&c.st==='wait')||(f==='mine'&&c.who===INB.me&&c.st!=='bot')||(f==='bot'&&c.st==='bot');});
+  var list=INB.chats.filter(inbOpen).filter(function(c){return f==='all'||(f==='mine'&&c.who===INB.me&&c.st!=='bot');});
   list.sort(function(a,b){return rank[a.st]-rank[b.st]||(a.w0||Infinity)-(b.w0||Infinity);});
   return list;
+}
+function inbRow(c){
+  var st=inbSt(c);
+  return '<button class="ib-row'+(c.id===INB.sel?' on':'')+(c.st==='bot'?' dim':'')+'" data-ib="sel" data-id="'+c.id+'">'+inbAv(c)+
+   '<span class="ib-rm"><span class="ib-r1"><b>'+c.nm+'</b>'+inbTimer(c)+'</span><span class="ib-r2">'+c.topic+'</span>'+(st?'<span class="ib-r3'+(c.st==='mine'?' me':'')+'">'+st+'</span>':'')+'</span></button>';
 }
 function inbRows(){
   var list=inbVisible();
   if(!list.length) return '<div class="ib-empty">Nothing here. Good.</div>';
-  return list.map(function(c){
-    var last=c.msgs[c.msgs.length-1];
-    return '<button class="ib-row'+(c.id===INB.sel?' on':'')+'" data-ib="sel" data-id="'+c.id+'">'+inbAv(c)+
-     '<span class="ib-rm"><span class="ib-r1"><b>'+c.nm+'</b>'+inbTimer(c)+'</span><span class="ib-r2">'+c.topic+'</span>'+
-     '<span class="ib-r3">'+inbStat(c)+'<span class="ib-tag">'+c.tag+'</span></span></span></button>';
-  }).join('');
+  var groups=[['Needs a person',['wait']],['With the team',['mine','other','cust']],['Assistant is handling',['bot']]], out='';
+  groups.forEach(function(g){
+    var items=list.filter(function(c){return g[1].indexOf(c.st)>-1;});
+    if(items.length) out+='<div class="ib-gl">'+g[0]+' <span>'+items.length+'</span></div>'+items.map(inbRow).join('');
+  });
+  return out;
 }
 function inbSummary(c){
-  var s=c.sum, at=INB.summaryAt[c.id]||'14:08';
-  return '<section class="ib-sum"><div class="ib-sh"><span class="ib-spark">&#10022;</span><b>Summary</b><small>Written by the assistant from '+c.msgs.filter(function(x){return x[0]!=='sys'&&x[0]!=='note';}).length+' messages · updated '+at+'</small><button class="ib-link" data-ib="sum">Refresh</button></div>'+
+  var s=c.sum, at=INB.summaryAt[c.id]||'14:08', n=c.msgs.filter(function(x){return x[0]!=='sys'&&x[0]!=='note';}).length;
+  return '<section class="ib-sum"><div class="ib-sh"><span class="ib-sp">&#10022; Summary</span><small>from '+n+' messages · '+at+'</small><button class="ib-link" data-ib="sum">Refresh</button></div>'+
    '<p class="ib-head">'+s.head+'</p>'+
-   '<div class="ib-two"><div><h5>What happened</h5><ul>'+s.pts.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul></div><div><h5>What is needed</h5><ul>'+s.need.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul></div></div>'+
-   '<div class="ib-next"><h5>Suggested next step</h5><p>'+s.next+'</p></div>'+
-   '<div class="ib-sf"><span class="ib-chip">Mood: '+s.mood+'</span><span>Machine-written. Check before you act. The customer never sees this.</span></div></section>';
+   '<div class="ib-next"><b>Next step</b><span>'+s.next+'</span></div>'+
+   '<details class="ib-dt"><summary>What happened, and what is needed</summary><div class="ib-two"><div><h5>What happened</h5><ul>'+s.pts.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul></div><div><h5>What is needed</h5><ul>'+s.need.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul><p class="ib-mood">Mood: '+s.mood+'</p></div></div></details>'+
+   '<p class="ib-fine">Machine-written. Check before you act. The customer never sees this.</p></section>';
 }
 function inbMsgs(c){
   var m=c.msgs, show=INB.full?m:m.slice(-3), hid=m.length-show.length;
-  return (hid>0?'<button class="ib-link ib-more" data-ib="full">Show the full chat ('+hid+' earlier messages)</button>':(m.length>3?'<button class="ib-link ib-more" data-ib="full">Hide earlier messages</button>':''))+
+  return (hid>0?'<button class="ib-link ib-more" data-ib="full">Show the full chat ('+hid+' earlier)</button>':(m.length>3?'<button class="ib-link ib-more" data-ib="full">Hide earlier messages</button>':''))+
    '<div class="ib-th">'+show.map(function(x){
      if(x[0]==='sys') return '<div class="ib-sys">'+x[1]+' · '+x[2]+'</div>';
      if(x[0]==='note') return '<div class="ib-note"><b>Internal note</b>'+x[1]+'<small>'+x[2]+' · only the team sees this</small></div>';
      var who=x[0]==='c'?c.nm.split(' ')[0]:x[0]==='a'?'Assistant':'Shark';
-     return '<div class="ib-m '+(x[0]==='c'?'in':'out')+(x[0]==='a'?' bot':'')+'"><small>'+who+'</small>'+x[1]+'<span>'+x[2]+'</span></div>';
+     return '<div class="ib-m '+(x[0]==='c'?'in':'out')+(x[0]==='a'?' bot':'')+'"><small>'+who+' · '+x[2]+'</small>'+x[1]+'</div>';
    }).join('')+'</div>';
 }
+function inbDetails(c){
+  var x=c.ctx;
+  return '<details class="ib-dt ib-all"><summary>Customer, booking and activity</summary><div class="ib-three">'+
+   '<div><h5>Customer</h5><p><b>'+c.nm+'</b><br>'+x.phone+'</p><p>Came from: '+x.src+'<br>'+x.consent+'</p></div>'+
+   '<div><h5>Booking</h5><p><b>'+x.ref+'</b><br>'+x.trip+'</p><ul>'+x.lines.map(function(l){return '<li>'+l+'</li>';}).join('')+'</ul><p><b>'+x.total+'</b> · '+x.status+'</p></div>'+
+   '<div><h5>Activity</h5><ul class="ib-log">'+(c.log.length?c.log.slice().reverse().map(function(l){return '<li><span>'+l[1]+'</span>'+l[0]+'</li>';}).join(''):'<li>No activity yet</li>')+'</ul></div></div></details>';
+}
 function inbHead(c){
-  var mine=c.who===INB.me&&c.st!=='bot', other=c.st==='other', act='';
-  if(c.st==='wait') act='<button class="nb pri" data-ib="me">Assign to me</button><select class="ib-sel" data-ib="to" aria-label="Assign to a colleague"><option value="">Assign to…</option>'+INB.team.map(function(t){return '<option>'+t+'</option>';}).join('')+'</select>';
-  else if(mine) act='<button class="nb" data-ib="un">Unassign</button><button class="nb" data-ib="bot">Hand back to assistant</button><button class="nb pri" data-ib="res">Resolve</button>';
-  else if(other) act='<button class="nb pri" data-ib="me">Take over</button>';
-  else if(c.st==='bot') act='<button class="nb pri" data-ib="me">Join this chat</button>';
-  else act='<button class="nb" data-ib="un">Unassign</button><button class="nb pri" data-ib="res">Resolve</button>';
-  var w=c.w0?'<div class="ib-hw"><span class="ib-t big '+inbLvl(Date.now()-c.w0)+'" id="ib-hw" data-w="'+c.id+'">'+inbMs(Date.now()-c.w0)+'</span><small>waiting for a first reply · target 5:00</small></div>':'<div class="ib-hw"><small>'+(c.st==='bot'?'The assistant is replying':c.st==='cust'?'Waiting for the customer':'Replied')+'</small></div>';
-  return '<header class="ib-ch">'+inbAv(c,40)+'<div class="ib-who"><b>'+c.nm+'</b><span>'+c.topic+'</span><span class="ib-chips">'+inbStat(c)+'<span class="ib-chip mute">24-hour window: '+inbWin(c.win)+' left</span></span></div>'+w+'<div class="ib-act">'+act+'</div></header>';
+  var mine=c.who===INB.me&&c.st!=='bot', menu='', prim='';
+  if(c.st==='wait'){prim='<button class="nb pri" data-ib="me">Assign to me</button>';menu='<select class="ib-sel" data-ib="to" aria-label="Assign to a colleague"><option value="">Assign to a colleague…</option>'+INB.team.map(function(t){return '<option>'+t+'</option>';}).join('')+'</select>';}
+  else if(mine){prim='<button class="nb pri" data-ib="res">Resolve</button>';menu='<button data-ib="un">Return to the queue</button><button data-ib="bot">Hand back to the assistant</button>';}
+  else if(c.st==='other'){prim='<button class="nb pri" data-ib="me">Take over</button>';}
+  else if(c.st==='bot'){prim='<button class="nb pri" data-ib="me">Join this chat</button>';}
+  var w=c.w0?'<div class="ib-hw"><span class="ib-t big '+inbLvl(Date.now()-c.w0)+'" id="ib-hw" data-w="'+c.id+'">'+inbMs(Date.now()-c.w0)+'</span><small>waiting · target 5:00</small></div>':'';
+  var x=c.ctx;
+  return '<header class="ib-ch">'+inbAv(c,38)+'<div class="ib-who"><b>'+c.nm+'</b><span>'+x.ref+' · '+x.trip+(x.total!=='—'?' · '+x.total:'')+'</span></div>'+w+
+   '<div class="ib-act">'+prim+(menu?'<details class="ib-menu"><summary aria-label="More actions">&#8943;</summary><div>'+menu+'</div></details>':'')+'</div></header>';
 }
 function inbComposer(c){
   var mine=c.who===INB.me&&c.st!=='bot'&&c.st!=='wait';
-  var q=['Checking this now.','Could you send a photo of the passport page?','Thanks for waiting. Here is what I found:'];
-  return '<footer class="ib-cp'+(mine?'':' off')+'">'+(mine?'':'<div class="ib-lock">Take this chat to reply. The customer is told: "A Travel Shark has joined."</div>')+
-   (mine?'<div class="ib-md"><button class="'+(INB.mode==='reply'?'on':'')+'" data-ib="mode" data-m="reply">Reply to customer</button><button class="'+(INB.mode==='note'?'on':'')+'" data-ib="mode" data-m="note">Internal note</button></div>':'')+
-   '<textarea id="ib-draft" rows="'+(mine?2:1)+'" '+(mine?'':'disabled ')+'placeholder="'+(INB.mode==='note'?'Write a note for the team':'Write a reply')+'">'+INB.draft+'</textarea>'+
-   (mine?'':'<div hidden>')+'<div class="ib-qr">'+q.map(function(x){return '<button '+(mine?'':'disabled ')+'data-ib="q" data-t="'+x+'">'+x+'</button>';}).join('')+'<button class="nb pri ib-send" '+(mine?'':'disabled ')+'data-ib="send">Send</button></div>'+(mine?'':'</div>')+'</footer>';
-}
-function inbCtx(c){
-  var x=c.ctx;
-  return '<div class="ib-ctx"><h5>Customer</h5><div class="ib-cust">'+inbAv(c,34)+'<div><b>'+c.nm+'</b><small>'+x.phone+'</small></div></div><dl><dt>Came from</dt><dd>'+x.src+'</dd><dt>Consent</dt><dd>'+x.consent+'</dd></dl>'+
-   '<h5>Booking</h5><div class="ib-bk"><b>'+x.ref+'</b><span>'+x.trip+'</span><ul>'+x.lines.map(function(l){return '<li>'+l+'</li>';}).join('')+'</ul><div class="ib-tot"><span>Total</span><b>'+x.total+'</b></div><span class="ib-chip mute">'+x.status+'</span></div><button class="ib-link" data-ib="noop">Open in the booking system &rarr;</button>'+
-   '<h5>Activity</h5><ul class="ib-log">'+(c.log.length?c.log.slice().reverse().map(function(l){return '<li><span>'+l[1]+'</span>'+l[0]+'</li>';}).join(''):'<li>No activity yet</li>')+'</ul></div>';
+  var win='<small class="ib-win">24-hour window · '+inbWin(c.win)+' left</small>';
+  if(!mine) return '<footer class="ib-cp off"><span>Take this chat to reply. The customer is told a Travel Shark has joined.</span>'+win+'</footer>';
+  var q=['Checking this now.','Thanks for waiting.'];
+  return '<footer class="ib-cp"><textarea id="ib-draft" rows="2" placeholder="'+(INB.mode==='note'?'Write a note for the team':'Write a reply')+'">'+INB.draft+'</textarea>'+
+   '<div class="ib-qr"><span class="ib-md"><button class="'+(INB.mode==='reply'?'on':'')+'" data-ib="mode" data-m="reply">Reply</button><button class="'+(INB.mode==='note'?'on':'')+'" data-ib="mode" data-m="note">Note</button></span>'+
+   q.map(function(x){return '<button class="ib-qb" data-ib="q" data-t="'+x+'">'+x+'</button>';}).join('')+win+'<button class="nb pri ib-send" data-ib="send">Send</button></div></footer>';
 }
 function inbApp(){
   var c=inbChat(INB.sel)||INB.chats.filter(inbOpen)[0], k=inbCounts();
-  if(!c) return '<div class="ib-empty">All chats are resolved.</div>';
+  var top='<div class="ib-top"><b>Shark desk</b><div class="ib-ks" id="ib-kpis">'+inbKpis()+'</div><span class="ib-me"><i class="ib-dot"></i>'+INB.me+'</span></div>';
+  if(!c) return top+'<div class="ib-empty">All chats are resolved.</div>';
   INB.sel=c.id;
-  return '<div class="ib-kpis" id="ib-kpis">'+inbKpis()+'</div>'+
-   '<div class="ib-app"><aside class="ib-q"><div class="ib-f">'+[['all','All',k.all],['wait','Unassigned',k.wait],['mine','Mine',k.mine],['bot','Assistant',k.bot]].map(function(f){return '<button class="'+(INB.filter===f[0]?'on':'')+'" data-ib="flt" data-f="'+f[0]+'">'+f[1]+' <b>'+f[2]+'</b></button>';}).join('')+'</div><div class="ib-list" id="ib-list">'+inbRows()+'</div></aside>'+
-   '<section class="ib-main">'+inbHead(c)+'<div class="ib-body" id="ib-body">'+inbSummary(c)+inbMsgs(c)+'</div>'+inbComposer(c)+'</section>'+
-   '<aside class="ib-side">'+inbCtx(c)+'</aside></div>';
+  return top+'<div class="ib-app"><aside class="ib-q"><div class="ib-f">'+[['all','All',k.all],['mine','Mine',k.mine]].map(function(f){return '<button class="'+(INB.filter===f[0]?'on':'')+'" data-ib="flt" data-f="'+f[0]+'">'+f[1]+' <b>'+f[2]+'</b></button>';}).join('')+'</div><div class="ib-list" id="ib-list">'+inbRows()+'</div></aside>'+
+   '<section class="ib-main">'+inbHead(c)+'<div class="ib-body" id="ib-body">'+inbSummary(c)+inbMsgs(c)+inbDetails(c)+'</div>'+inbComposer(c)+'</section></div>';
 }
 function inboxHTML(){
   if(!INB) INB=inbData();
-  return '<div class="hero"><div class="kicker">For the TravelTank team</div><h1>The team inbox</h1><p>What a Travel Shark sees when the assistant hands a chat over. Try it: open the waiting chat, read the summary, and take it.</p></div>'+
-   '<div class="sec" style="margin-top:20px"><div class="ib" id="ib"><div class="ib-top"><div><b>Shark desk</b><span>Live demo with example chats</span></div><div class="ib-me"><span class="ib-dot"></span>'+INB.me+' · Online</div></div><div id="ib-in">'+inbApp()+'</div></div></div>'+
-   '<div class="sec"><div class="notes"><div class="card"><h3>For design</h3><ul><li>The queue is sorted by how long someone has waited. Colour appears only when the 5-minute target is missed, so the screen stays calm until it matters.</li><li>The summary comes before the transcript: what happened, what is needed, and a suggested next step. The full chat is one click away.</li><li>Taking a chat is one click and visible to everyone, so two colleagues never answer the same customer. The customer is told who has joined.</li><li>The 24-hour window sits on every chat. When it closes, only an approved template can be sent.</li><li>The composer stays locked until the chat is taken. An internal note is clearly different from a reply.</li></ul></div>'+
-   '<div class="card"><h3>For the business</h3><ul><li>Waiting time and chats underway show a team lead when to add people, and where the 5-minute target is missed.</li><li>A summary cuts the time to get up to speed when a chat is passed on or a shift ends.</li><li>Measure: first reply time, time to resolve, chats per Shark, share handled by the assistant alone, handover reasons, and bookings that follow a chat.</li><li>Decisions for the owner: hours and shifts, the reply target, who may see payment receipts, and languages.</li></ul></div>'+
-   '<div class="card"><h3>For the build</h3><ul><li>Buy or build: the provider\'s shared inbox, or an inbox built on the WhatsApp Cloud API webhooks. This screen is the requirement either way. [confirm]</li><li>Queue, assignment and wait time are TravelTank\'s own data. Sent, delivered and read states come from the webhooks.</li><li>The summary is generated from the chat and the booking, labelled as machine-written, shown with its time and message count, and never sent to the customer. It is never the only source for a refund or a payment. Sending chat text to a model needs a data protection review. [confirm]</li><li>Roles: agent, team lead, finance and admin. Payment receipts only for finance. Phone numbers masked. An audit log of who read and sent what.</li><li>Routing rules by topic, language and working hours, with out-of-hours wording. Receipts route to finance.</li><li>Outside the 24-hour window the composer offers approved templates only.</li></ul></div></div></div>';
+  return '<div class="hero"><div class="kicker">For the TravelTank team</div><h1>The team inbox</h1><p>What a Travel Shark sees when the assistant hands a chat over. Open the waiting chat, read the summary, and take it.</p></div>'+
+   '<div class="sec" style="margin-top:20px"><div class="ib" id="ib"><div id="ib-in">'+inbApp()+'</div></div></div>'+
+   '<div class="sec"><div class="notes"><div class="card"><h3>For design</h3><ul><li>One screen, one job: the queue on the left, the chat on the right. Anything occasional sits behind a small control.</li><li>The summary comes first, with a next step. The full chat and the booking are one click away.</li><li>Colour appears only when the 5-minute target is missed, so the screen stays calm until it matters.</li><li>Taking a chat is one click and visible to everyone, so two colleagues never answer the same customer.</li></ul></div>'+
+   '<div class="card"><h3>For the business</h3><ul><li>Waiting and underway counts tell a team lead when to add people.</li><li>A summary cuts the time to get up to speed when a chat is passed on or a shift ends.</li><li>Measure: first reply time, time to resolve, chats per Shark, share the assistant handles alone, and bookings that follow a chat.</li><li>For the owner: hours and shifts, the reply target, and who may see payment receipts.</li></ul></div>'+
+   '<div class="card"><h3>For the build</h3><ul><li>Buy or build: the provider\'s shared inbox, or an inbox on the WhatsApp Cloud API webhooks. This screen is the requirement either way. [confirm]</li><li>The summary is machine-written from the chat and booking, shown with its time and message count, never sent to the customer and never the only source for a refund or payment. Sending chat text to a model needs a data protection review. [confirm]</li><li>Roles: agent, team lead, finance, admin. Receipts for finance only, phone numbers masked, and an audit log.</li><li>Outside the 24-hour window the composer offers approved templates only.</li></ul></div></div></div>';
 }
 function inbRender(){
   var el=document.getElementById('ib-in'); if(!el) return;
