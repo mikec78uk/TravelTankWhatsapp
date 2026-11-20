@@ -567,6 +567,67 @@ body.solo .cap{order:-1}
   .ib-app{grid-template-columns:minmax(0,1fr);height:auto}.ib-q{border-right:0;border-bottom:1px solid var(--line)}.ib-list{max-height:300px}
   .ib-body{max-height:520px}.ib-two,.ib-three{grid-template-columns:minmax(0,1fr)}.ib-ch{flex-wrap:wrap}.ib-act{width:100%}
 }
+/* ===== Owner dashboard ===== */
+.pf{--c1:#00869C;--c2:#D9731A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pf{--c1:#1BA0B2;--c2:#D4711F}}
+:root[data-theme="dark"] .pf{--c1:#1BA0B2;--c2:#D4711F}
+.pf-top{display:flex;justify-content:space-between;align-items:center;gap:12px 24px;flex-wrap:wrap;margin-bottom:14px}
+.pf-seg{display:inline-flex;background:var(--surface-2);border-radius:999px;padding:3px}
+.pf-seg button{border:0;background:none;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600;color:var(--muted)}
+.pf-seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.pf-now{display:flex;gap:6px 16px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.pf-now b{color:var(--ink);font-weight:700}.pf-now strong{color:var(--ink);font-variant-numeric:tabular-nums}
+.pf-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.pf-t{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:5px}
+.pf-t small{font:700 11px var(--body);text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.pf-t b{font:800 36px/1.1 var(--display);font-variant-numeric:tabular-nums;margin:2px 0}
+.pf-t em{font-style:normal;font-size:12.5px;color:var(--muted)}
+.pf-over{color:var(--neg);font-weight:700}
+.pf-d{font-size:12.5px;font-weight:600;color:var(--muted)}.pf-d i{font-style:normal;font-size:10px;margin-right:2px}
+.pf-d.good{color:var(--pos)}.pf-d.bad{color:var(--neg)}
+.pf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.pf-c{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;min-width:0}
+.pf-c.full{grid-column:1/-1}
+.pf-ch{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
+.pf-ch h3{margin:0;font:700 15px var(--display)}.pf-ch small{font-size:12px;color:var(--muted)}
+.pf-sub{margin:0 0 10px;font-size:13px;color:var(--muted)}
+.pf-lg{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;margin-bottom:6px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}.sw.s1{background:var(--c1)}.sw.s2{background:var(--c2)}
+.pf-chart{position:relative;height:240px}
+.pf-chart svg{display:block;overflow:visible}
+.pf-chart text{font:11.5px var(--body);fill:var(--muted)}
+.pf-chart .g{stroke:var(--line);stroke-width:1}
+.pf-chart .tg{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:4 4}
+.pf-chart .ln{fill:none;stroke:var(--c1);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.pf-chart .mk{fill:var(--c1);stroke:var(--surface);stroke-width:2}
+.pf-chart .pf-cx{stroke:var(--muted);stroke-width:1;opacity:.5}
+.pf-chart .pf-hl{fill:var(--surface-2)}
+.pf-tip{position:absolute;top:4px;z-index:2;background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:0 6px 20px rgba(0,0,0,.14);border-radius:10px;padding:8px 11px;font-size:12.5px;pointer-events:none;white-space:nowrap;display:flex;flex-direction:column;gap:2px}
+.pf-tip[hidden]{display:none}.pf-tip b{font-weight:700}.pf-tip strong{font-variant-numeric:tabular-nums}.pf-tip .sw{margin-right:6px}
+.pf-sc{overflow-x:auto}.pf-tw{max-height:240px;overflow:auto}
+.pf-tb{width:100%;border-collapse:collapse;font-size:14px}
+.pf-tb th,.pf-tb td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);background:none;text-transform:none;letter-spacing:0;font-size:14px;font-weight:400;color:var(--ink);white-space:nowrap}
+.pf-tb thead th{font:700 11px var(--body);text-transform:uppercase;letter-spacing:.07em;color:var(--muted);padding-top:2px}
+.pf-tb tbody th{font-weight:600}
+.pf-tb tbody th>span:last-child{vertical-align:middle;margin-left:10px}.pf-tb tbody th .ib-av{vertical-align:middle}
+.pf-tb td{font-variant-numeric:tabular-nums}.pf-tb tr:last-child th,.pf-tb tr:last-child td{border-bottom:0}
+.pf-as th,.pf-as td{color:var(--muted)}.pf-aa{width:28px;height:28px;font-size:10px;background:var(--surface-2);color:var(--muted);vertical-align:middle}
+.pf-rp{font-weight:600;display:inline-block;min-width:44px}.pf-rp.over{color:var(--neg)}
+.pf-mt{display:inline-block;position:relative;width:84px;height:6px;border-radius:3px;background:var(--surface-2);vertical-align:middle;margin:0 10px 0 4px}
+.pf-mt i{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--c1)}.pf-mt i.over{background:var(--neg)}
+.pf-mt u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);opacity:.45}
+.pf-ov{font-size:12px;font-weight:600;color:var(--neg)}.pf-free{color:var(--muted)}
+.pf-tp{display:grid;grid-template-columns:minmax(0,auto) minmax(60px,1fr) auto;gap:9px 12px;align-items:center;font-size:13.5px}
+.pf-bw{display:block}.pf-bar{display:block;height:10px;border-radius:0 4px 4px 0;background:var(--c1)}.pf-tp b{font-variant-numeric:tabular-nums;font-weight:600}
+.pf-wl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;font-size:14px;line-height:1.45}
+.pf-wl li{display:flex;gap:12px;align-items:flex-start}
+.pf-tag{flex:0 0 auto;min-width:74px;text-align:center;font:700 10.5px var(--body);text-transform:uppercase;letter-spacing:.06em;border:1px solid var(--line);background:var(--surface-2);color:var(--muted);border-radius:6px;padding:3px 6px;margin-top:2px}
+@media (max-width:900px){.pf-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.pf-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.pf-t b{font-size:30px}.pf-t{padding:14px}}
+/* booking link and toast in the team inbox */
+.ib{position:relative}
+.ib-bk{color:var(--accent);font-weight:600;text-decoration:none;white-space:nowrap}.ib-bk:hover{text-decoration:underline}
+.ib-toast{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:5;max-width:min(520px,90%);background:var(--ink);color:var(--bg);border-radius:10px;padding:10px 14px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 </style>
 
 <div class="wrap">
@@ -1719,7 +1780,7 @@ function overview(){
   var lvl={l:'Low',m:'Medium',h:'Higher'};
   var rows=eff.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td><span class="lv '+r[3]+'">'+lvl[r[3]]+'</span></td><td>'+r[4]+'</td></tr>';}).join('');
   return '<div class="hero"><div class="kicker">Concept prototype</div><h1>WhatsApp, woven into the TravelTank booking journey</h1>'+
-   '<p>Eleven touchpoints, designed on the real site from homepage to refund. Each one pairs a TravelTank screen with the WhatsApp conversation it triggers, and can be stepped through. Use the toggles to see today\'s site, or the build tags.</p><p style="margin-top:12px"><button class="nb" data-go="inbox">See the team inbox the Sharks would use &rarr;</button></p>'+(SHOW_CASE?'<p style="margin-top:16px"><button class="nb pri" data-go="case">Open the business case &rarr;</button></p>':'')+'</div>'+
+   '<p>Eleven touchpoints, designed on the real site from homepage to refund. Each one pairs a TravelTank screen with the WhatsApp conversation it triggers, and can be stepped through. Use the toggles to see today\'s site, or the build tags.</p><p style="margin-top:12px"><button class="nb" data-go="inbox">See the team inbox the Sharks would use &rarr;</button> <button class="nb" data-go="perf">See the owner dashboard &rarr;</button></p>'+(SHOW_CASE?'<p style="margin-top:16px"><button class="nb pri" data-go="case">Open the business case &rarr;</button></p>':'')+'</div>'+
    '<div class="sec"><h2>What the current site tells us</h2><p class="sub">Each touchpoint starts from something the site already does or promises.</p><div class="obs">'+obs+'</div></div>'+
    '<div class="sec"><h2>The journey</h2><p class="sub">Numbers follow the customer\'s order. Select one to open it.</p><div class="jm"><div class="jm-grid">'+jm+'</div></div></div>'+
    '<div class="sec"><h2>At a glance</h2><p class="sub">Effort is indicative and needs to be confirmed with the tech partner.</p><div class="tbl"><table><thead><tr><th>Touchpoint</th><th>What it buys</th><th>What it needs</th><th>Effort</th><th>Measure</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>'+
@@ -1738,7 +1799,7 @@ function inbData(){
   function Mn(m){return n-m*60000;}
   var chats=[
    {id:'c1',nm:'Tunde Bakare',topic:'Wants a person: Ada\'s passport for Turkey',tag:'Handover',st:'wait',who:null,w0:S(252),win:1262,
-    ctx:{phone:'+234 80• ••• 4821',src:'Trip ideas on WhatsApp',consent:'Service updates: yes · Marketing: no',ref:'Basket TT-88213',trip:'Lagos ⇄ Istanbul · 21 to 31 Aug · 2 adults',lines:['Turkish Airlines, direct, Standard fare','Galata Courtyard, Classic Double, breakfast','Lounge access for 2'],total:'₦4,094,300',status:'On a 72-hour hold · 71h left · not paid'},
+    ctx:{phone:'+234 80• ••• 4821',src:'Trip ideas on WhatsApp',consent:'Service updates: yes · Marketing: no',ref:'Booking TT-88213',lk:['Booking','TT-88213'],trip:'Lagos ⇄ Istanbul · 21 to 31 Aug · 2 adults',lines:['Turkish Airlines, direct, Standard fare','Galata Courtyard, Classic Double, breakfast','Lounge access for 2'],total:'₦4,094,300',status:'On a 72-hour hold · 71h left · not paid'},
     sum:{head:'Tunde wants to check that Ada\'s passport, which expires in January, is fine for Turkey before he pays.',
      pts:['Planned the Istanbul trip with the assistant in 14 messages: flight, fare, hotel, room and board agreed.','Total ₦4,094,300 for two, on a 72-hour hold. Nothing paid yet.','Asked about passport validity. The assistant could not confirm it for one passport and offered a Shark. He said yes.'],
      need:['Check the entry rules for both passports from the maintained source, with its last-checked date.','Say clearly if it is a rule or only advice.'],
@@ -1746,7 +1807,7 @@ function inbData(){
     msgs:[['c','Somewhere with great food and culture for me and my wife. Late August for about a month, budget around ₦3,000,000 each.','13:52'],['a','Let me check I\'ve got this right: city and food, 2 adults, late August, ₦3,000,000 each. Shall I search?','13:52'],['c','Yes, show ideas','13:53'],['a','Three ideas within budget: Istanbul, Lisbon and Marrakech.','13:53'],['c','Istanbul looks great! A month is too long though. Can we do 10 days, and a hotel near the food streets with breakfast?','13:54'],['a','I found 4 flights on Fri 21 Aug, with returns on Mon 31 Aug.','13:55'],['c','Turkish Airlines · 23:30','13:56'],['a','Here\'s your trip: Galata Courtyard, Classic Double with breakfast. Total ₦4,094,300 on Standard, with lounge access.','13:58'],['c','Looks good','14:03'],['a','Next, add who is travelling. [Add traveller details]','14:03'],['c','Quick one. Ada\'s passport runs out in January. Will that be OK for Turkey?','14:07'],['a','I can\'t confirm entry rules for a specific passport. A Travel Shark can check for you. Shall I ask one to message you?','14:07'],['c','Yes please, a person','14:08'],['a','Done. I\'ve asked a Travel Shark to join. Replies usually come within 5 minutes. Your trip details are attached.','14:08']],
     log:[['Assistant handed over: customer asked for a person','14:08'],['Summary written from 14 messages','14:08']]},
    {id:'c2',nm:'Funmi Adeyemi',topic:'Refund RF-20481: 12 days and no money yet',tag:'Refund',st:'wait',who:null,w0:S(125),win:640,
-    ctx:{phone:'+234 81• ••• 0192',src:'Homepage help card',consent:'Service updates: yes · Marketing: yes',ref:'Refund RF-20481',trip:'Lagos ⇄ Dubai · cancelled',lines:['Airline approved the refund on 3 Nov','Payment to her bank is processing'],total:'₦1,120,000',status:'Refund in progress'},
+    ctx:{phone:'+234 81• ••• 0192',src:'Homepage help card',consent:'Service updates: yes · Marketing: yes',ref:'Refund RF-20481',lk:['Refund','RF-20481'],trip:'Lagos ⇄ Dubai · cancelled',lines:['Airline approved the refund on 3 Nov','Payment to her bank is processing'],total:'₦1,120,000',status:'Refund in progress'},
     sum:{head:'Funmi is chasing a refund that was approved 14 days ago and has not arrived.',
      pts:['Asked the assistant for the status of RF-20481. It showed: approved by the airline, bank payout processing.','She replied that it has been 12 days since she asked, and wants a person to check.'],
      need:['Finance to confirm the payout date and reference.'],
@@ -1754,7 +1815,7 @@ function inbData(){
     msgs:[['c','RF-20481','14:06'],['a','Refund RF-20481: approved by the airline on 3 Nov, ₦1,120,000. Payment to your bank is processing. This usually takes 7 to 10 working days.','14:06'],['c','It has been 12 days since I asked. Can someone check please?','14:09'],['a','I\'m sorry about the wait. I\'ve asked a Travel Shark to look at this.','14:10']],
     log:[['Assistant handed over: customer unhappy with status','14:10']]},
    {id:'c3',nm:'Chidi Okafor',topic:'Sent a bank transfer receipt, hold ends in 3 hours',tag:'Payment',st:'wait',who:null,w0:S(580),win:95,
-    ctx:{phone:'+234 70• ••• 7730',src:'Hold reminder',consent:'Service updates: yes · Marketing: no',ref:'TT7B91KD',trip:'Lagos ⇄ London · 2 adults',lines:['British Airways, direct','Bank transfer, held until 17:10'],total:'₦5,673,507',status:'Hold ends in 2h 58m · proof received'},
+    ctx:{phone:'+234 70• ••• 7730',src:'Hold reminder',consent:'Service updates: yes · Marketing: no',ref:'TT7B91KD',lk:['Booking','TT7B91KD'],trip:'Lagos ⇄ London · 2 adults',lines:['British Airways, direct','Bank transfer, held until 17:10'],total:'₦5,673,507',status:'Hold ends in 2h 58m · proof received'},
     sum:{head:'Chidi has sent a receipt for ₦5,673,507 and is worried the hold will lapse before it is checked.',
      pts:['Chose bank transfer and was sent the account details.','Sent a photo of the receipt at 14:02. The assistant said finance would confirm.','Asked twice for confirmation because the hold ends in 3 hours.'],
      need:['Finance to match the transfer to TT7B91KD.','The receipt shows the right amount: check the name and time.'],
@@ -1768,7 +1829,7 @@ function inbData(){
     msgs:[['c','What do I need for a Dubai visa?','14:09'],['a','Here is the checklist. Want a Travel Shark to look at your case?','14:09'],['c','Yes please','14:11'],['s','Hi Amaka, Kemi here. Could you send the photo page of your passport?','14:11'],['c','Sure, one moment','14:11']],
     log:[['Kemi A. took this chat','14:10']]},
    {id:'c5',nm:'Ibrahim Sani',topic:'Change flight date',tag:'Change',st:'other',who:'Seun O.',w0:S(95),win:300,
-    ctx:{phone:'+234 80• ••• 2290',src:'Tickets message',consent:'Service updates: yes · Marketing: no',ref:'TT3F82AP',trip:'Lagos ⇄ Abuja · 2 adults',lines:['Air Peace, Light fare'],total:'₦412,000',status:'Ticketed'},
+    ctx:{phone:'+234 80• ••• 2290',src:'Tickets message',consent:'Service updates: yes · Marketing: no',ref:'TT3F82AP',lk:['Booking','TT3F82AP'],trip:'Lagos ⇄ Abuja · 2 adults',lines:['Air Peace, Light fare'],total:'₦412,000',status:'Ticketed'},
     sum:{head:'Ibrahim wants to move his return to the next day.',pts:['Light fare: changes allowed for a fee.','Seun has asked the airline for the fee.'],need:['Airline fee and new fare.'],next:'Share the fee when it arrives and ask for a yes.',mood:'Neutral'},
     msgs:[['c','Can I move my return to Sunday?','14:04'],['s','Hi Ibrahim, Seun here. Let me check the fee with the airline.','14:06'],['c','OK, thanks','14:10']],
     log:[['Seun O. took this chat','14:05']]},
@@ -1777,7 +1838,7 @@ function inbData(){
     sum:{head:'Grace is asking about breakfast and cancellation. The assistant is answering from the rate details.',pts:['Two questions answered from the rate.'],need:['Nothing yet.'],next:'No action. It will come to the team if the assistant cannot answer.',mood:'Neutral'},
     msgs:[['c','Is breakfast included?','14:11'],['a','Yes, breakfast is included in this rate. It is non-refundable.','14:11']],log:[]},
    {id:'c7',nm:'Bola Adewale',topic:'Baggage on the Light fare',tag:'Baggage',st:'cust',who:'Kemi A.',w0:null,cw:Mn(26),win:70,
-    ctx:{phone:'+234 70• ••• 1054',src:'Trip ideas on WhatsApp',consent:'Service updates: yes · Marketing: no',ref:'TT5K19RM',trip:'Lagos ⇄ Accra · 1 adult',lines:['Light fare'],total:'₦386,000',status:'Held'},
+    ctx:{phone:'+234 70• ••• 1054',src:'Trip ideas on WhatsApp',consent:'Service updates: yes · Marketing: no',ref:'TT5K19RM',lk:['Booking','TT5K19RM'],trip:'Lagos ⇄ Accra · 1 adult',lines:['Light fare'],total:'₦386,000',status:'Held'},
     sum:{head:'Bola asked about adding a bag. Kemi sent the price and is waiting for an answer.',pts:['Bag added later: about ₦60,000.','Standard costs less than adding a bag.'],need:['Wait for her answer.'],next:'The window closes in about 1 hour. Send a short nudge, or send a template after it closes.',mood:'Neutral'},
     msgs:[['c','Can I add a 23kg bag?','13:40'],['s','Yes, about ₦60,000 return. Standard fare includes a bag and costs less. Want me to switch you?','13:46']],log:[['Kemi A. took this chat','13:41']]},
    {id:'c8',nm:'Emeka Obi',topic:'Price alert reply',tag:'Alert',st:'bot',who:null,w0:null,win:900,
@@ -1870,8 +1931,20 @@ function inbDetails(c){
   var x=c.ctx;
   return '<details class="ib-dt ib-all"><summary>Customer, booking and activity</summary><div class="ib-three">'+
    '<div><h5>Customer</h5><p><b>'+c.nm+'</b><br>'+x.phone+'</p><p>Came from: '+x.src+'<br>'+x.consent+'</p></div>'+
-   '<div><h5>Booking</h5><p><b>'+x.ref+'</b><br>'+x.trip+'</p><ul>'+x.lines.map(function(l){return '<li>'+l+'</li>';}).join('')+'</ul><p><b>'+x.total+'</b> · '+x.status+'</p></div>'+
+   '<div><h5>Booking</h5><p><b>'+x.ref+'</b><br>'+x.trip+'</p>'+(x.lk?'<p>'+inbLink(x,true)+'</p>':'')+'<ul>'+x.lines.map(function(l){return '<li>'+l+'</li>';}).join('')+'</ul><p><b>'+x.total+'</b> · '+x.status+'</p></div>'+
    '<div><h5>Activity</h5><ul class="ib-log">'+(c.log.length?c.log.slice().reverse().map(function(l){return '<li><span>'+l[1]+'</span>'+l[0]+'</li>';}).join(''):'<li>No activity yet</li>')+'</ul></div></div></details>';
+}
+/* Booking and refund numbers link out to the TravelTank booking system. The addresses are examples. [confirm] */
+var BK_URL={Booking:'https://www.traveltank.com/booking/',Refund:'https://www.traveltank.com/refund/'};
+function inbLink(x,full){
+  if(!x.lk) return x.ref;
+  return '<a class="ib-bk" href="'+BK_URL[x.lk[0]]+encodeURIComponent(x.lk[1])+'" target="_blank" rel="noopener" data-ib="bk" data-k="'+x.lk[0]+'" data-c="'+x.lk[1]+'" title="Open in the TravelTank booking system">'+(full?'Open '+x.lk[0].toLowerCase()+' '+x.lk[1]+' in the booking system':(x.lk[0]==='Refund'?'Refund ':'Booking ')+x.lk[1])+' &#8599;</a>';
+}
+function inbToast(msg){
+  var ib=document.getElementById('ib'); if(!ib) return;
+  var o=ib.querySelector('.ib-toast'); if(o) o.remove();
+  var t=document.createElement('div'); t.className='ib-toast'; t.setAttribute('role','status'); t.textContent=msg; ib.appendChild(t);
+  setTimeout(function(){if(t.parentNode) t.remove();},5000);
 }
 function inbHead(c){
   var mine=c.who===INB.me&&c.st!=='bot', menu='', prim='';
@@ -1881,7 +1954,7 @@ function inbHead(c){
   else if(c.st==='bot'){prim='<button class="nb pri" data-ib="me">Join this chat</button>';}
   var w=c.w0?'<div class="ib-hw"><span class="ib-t big '+inbLvl(Date.now()-c.w0)+'" id="ib-hw" data-w="'+c.id+'">'+inbMs(Date.now()-c.w0)+'</span><small>waiting · target 5:00</small></div>':'';
   var x=c.ctx;
-  return '<header class="ib-ch">'+inbAv(c,38)+'<div class="ib-who"><b>'+c.nm+'</b><span>'+x.ref+' · '+x.trip+(x.total!=='—'?' · '+x.total:'')+'</span></div>'+w+
+  return '<header class="ib-ch">'+inbAv(c,38)+'<div class="ib-who"><b>'+c.nm+'</b><span>'+inbLink(x)+' · '+x.trip+(x.total!=='—'?' · '+x.total:'')+'</span></div>'+w+
    '<div class="ib-act">'+prim+(menu?'<details class="ib-menu"><summary aria-label="More actions">&#8943;</summary><div>'+menu+'</div></details>':'')+'</div></header>';
 }
 function inbComposer(c){
@@ -1905,9 +1978,9 @@ function inboxHTML(){
   if(!INB) INB=inbData();
   return '<div class="hero"><div class="kicker">For the TravelTank team</div><h1>The team inbox</h1><p>What a Travel Shark sees when the assistant hands a chat over. Open the waiting chat, read the summary, and take it.</p></div>'+
    '<div class="sec" style="margin-top:20px"><div class="ib" id="ib"><div id="ib-in">'+inbApp()+'</div></div></div>'+
-   '<div class="sec"><div class="notes"><div class="card"><h3>For design</h3><ul><li>One screen, one job: the queue on the left, the chat on the right. Anything occasional sits behind a small control.</li><li>The summary comes first, with a next step. The full chat and the booking are one click away.</li><li>Colour appears only when the 5-minute target is missed, so the screen stays calm until it matters.</li><li>Taking a chat is one click and visible to everyone, so two colleagues never answer the same customer.</li></ul></div>'+
+   '<div class="sec"><div class="notes"><div class="card"><h3>For design</h3><ul><li>One screen, one job: the queue on the left, the chat on the right. Anything occasional sits behind a small control.</li><li>The summary comes first, with a next step. The full chat and the booking are one click away.</li><li>Colour appears only when the 5-minute target is missed, so the screen stays calm until it matters.</li><li>Booking and refund numbers are links, so a Shark can check the order without searching for it.</li><li>Taking a chat is one click and visible to everyone, so two colleagues never answer the same customer.</li></ul></div>'+
    '<div class="card"><h3>For the business</h3><ul><li>Waiting and underway counts tell a team lead when to add people.</li><li>A summary cuts the time to get up to speed when a chat is passed on or a shift ends.</li><li>Measure: first reply time, time to resolve, chats per Shark, share the assistant handles alone, and bookings that follow a chat.</li><li>For the owner: hours and shifts, the reply target, and who may see payment receipts.</li></ul></div>'+
-   '<div class="card"><h3>For the build</h3><ul><li>Buy or build: the provider\'s shared inbox, or an inbox on the WhatsApp Cloud API webhooks. This screen is the requirement either way. [confirm]</li><li>The summary is machine-written from the chat and booking, shown with its time and message count, never sent to the customer and never the only source for a refund or payment. Sending chat text to a model needs a data protection review. [confirm]</li><li>Roles: agent, team lead, finance, admin. Receipts for finance only, phone numbers masked, and an audit log.</li><li>Outside the 24-hour window the composer offers approved templates only.</li></ul></div></div></div>';
+   '<div class="card"><h3>For the build</h3><ul><li>Buy or build: the provider\'s shared inbox, or an inbox on the WhatsApp Cloud API webhooks. This screen is the requirement either way. [confirm]</li><li>The summary is machine-written from the chat and booking, shown with its time and message count, never sent to the customer and never the only source for a refund or payment. Sending chat text to a model needs a data protection review. [confirm]</li><li>Roles: agent, team lead, finance, admin. Receipts for finance only, phone numbers masked, and an audit log.</li><li>Outside the 24-hour window the composer offers approved templates only.</li><li>Each booking or refund number links to its page in the TravelTank booking system, in a new tab. This needs a stable address for each reference and the team signed in there. [confirm]</li></ul></div></div></div>';
 }
 function inbRender(){
   var el=document.getElementById('ib-in'); if(!el) return;
@@ -1923,6 +1996,7 @@ function inbAssign(c,who){
   c.msgs.push(['sys',who+' took this chat. The assistant is paused. The customer sees: "'+who.split(' ')[0]+' from TravelTank has joined the chat."',inbClock()]);
 }
 function inbTick(){
+  if(state.id==='perf'){var pn=document.getElementById('pf-now'); if(pn) pn.innerHTML=pfNow(); return;}
   if(state.id!=='inbox'||!INB) return;
   var n=Date.now();
   Array.prototype.forEach.call(document.querySelectorAll('[data-w]'),function(e){var c=inbChat(e.dataset.w); if(!c||!c.w0) return; var w=n-c.w0; e.textContent=inbMs(w); e.className='ib-t'+(e.id==='ib-hw'?' big':'')+' '+inbLvl(w);});
@@ -1948,6 +2022,7 @@ function inbClick(e){
     else{c.msgs.push(['s',v,inbClock()]);c.w0=null;c.st='mine';c.log.push(['First reply sent',inbClock()]);}
     INB.draft='';INB.full=true;keepBottom=true;
   }
+  else if(a==='bk'){e.preventDefault();inbToast('In the live system this opens '+t.dataset.k.toLowerCase()+' '+t.dataset.c+' in the TravelTank booking system, in a new tab.');return true;}
   else if(a==='noop'){return true;}
   else return false;
   inbRender(); if(keepBottom) inbToBottom();
@@ -1961,11 +2036,205 @@ document.addEventListener('change',function(e){
 document.addEventListener('input',function(e){ if(e.target.id==='ib-draft') INB.draft=e.target.value; });
 setInterval(inbTick,1000);
 
+/* ---------- Owner dashboard: how the team is doing (numbers only, no messages) ---------- */
+var PF={per:'today',tbl:{}}, PF_CH={};
+function pfRng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function pfSum(a){return a.reduce(function(s,x){return s+x;},0);}
+function pfTime(s){s=Math.round(s);return Math.floor(s/60)+':'+('0'+(s%60)).slice(-2);}
+function pfMoney(m){return NAIRA+m.toFixed(1)+'m';}
+function pfSet(per){
+  var c={per:per};
+  if(per==='today'){
+    c.labels=['08:00 to 09:00','09:00 to 10:00','10:00 to 11:00','11:00 to 12:00','12:00 to 13:00','13:00 to 14:00','14:00 to now'];
+    c.axis=['8','9','10','11','12','13','14'];
+    c.total=[8,14,21,25,22,17,9]; c.share=[.36,.35,.38,.4,.36,.35,.33]; c.reply=[150,185,240,330,315,215,190];
+    c.vs='yesterday at this time'; c.pv={chats:.94,reply:1.12,bot:.02,book:.9}; c.xt='Hour of the day';
+    c.topics=[27,18,16,12,10,9,8];
+    c.watch=[['Staffing','Replies went over the 5-minute target at 11:00 and 12:00, the busiest hours. A second Shark on that shift would cover it.'],
+             ['Money','One refund has waited 14 days for its bank payout, and one bank transfer is waiting to be checked with the hold ending in 3 hours.'],
+             ['Team','Chinedu E. is over the 5-minute target today. Pair them with Kemi A. on the next busy shift.']];
+  } else if(per==='7d'){
+    c.labels=['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Today so far'];
+    c.axis=['Sat','Sun','Mon','Tue','Wed','Thu','Fri'];
+    c.total=[118,92,74,126,131,124,116]; c.share=[.37,.33,.3,.38,.4,.36,.37]; c.reply=[255,205,180,240,285,230,255];
+    c.vs='the week before'; c.pv={chats:.97,reply:1.08,bot:.015,book:.95}; c.xt='Day';
+    c.topics=[24,19,17,13,11,9,7];
+    c.watch=[['Staffing','Wednesday was the busiest day and the slowest to reply, at 4:45. Plan the rota around it.'],
+             ['Money','Refund and payment chats are 43% of the week and most need finance. A named finance contact on each shift would shorten them.'],
+             ['Customers','The share of customers happy with the help is 93%. Chinedu E. is the only one under 90%.']];
+  } else {
+    var r=pfRng(7), wk=[1,1.05,1.1,1.08,1.12,.8,.66], i; c.labels=[];c.axis=[];c.total=[];c.share=[];c.reply=[];
+    for(i=0;i<30;i++){
+      c.labels.push(i===29?'Today so far':(29-i)+' days ago'); c.axis.push(i===0?'29 days ago':i===14?'15 days ago':i===29?'Today':'');
+      c.total.push(Math.round(118*wk[(i+2)%7]+(r()-.5)*16)); c.share.push(+(.4-i*.0017+(r()-.5)*.05).toFixed(3));
+      c.reply.push(Math.max(150,Math.round(318-i*2.5+(r()-.5)*70+(wk[(i+2)%7]>1.07?18:0))));
+    }
+    c.total[29]=116; c.share[29]=.37; c.reply[29]=255;
+    c.vs='the 30 days before'; c.pv={chats:.92,reply:1.22,bot:.04,book:.88}; c.xt='Day';
+    c.topics=[25,17,18,12,11,10,7];
+    c.watch=[['Speed','Replies have got faster across the month, from about 5 minutes to under 4.'],
+             ['Assistant','The assistant now handles about 6 in 10 chats on its own, up 4 points on the month before.'],
+             ['Staffing','The busiest weekdays still run close to the 5-minute target. Plan leave and shifts around them.']];
+  }
+  return c;
+}
+function pfCalc(per){
+  var c=pfSet(per), i, n=c.total.length; c.sh=[]; c.bot=[];
+  for(i=0;i<n;i++){var s=Math.round(c.total[i]*c.share[i]); c.sh.push(s); c.bot.push(c.total[i]-s);}
+  c.chats=pfSum(c.total); c.shT=pfSum(c.sh); c.botT=pfSum(c.bot);
+  c.rep=Math.round(pfSum(c.reply.map(function(v,j){return v*c.sh[j];}))/c.shT);
+  c.botPct=c.botT/c.chats; c.book=Math.round(c.chats*.12); c.val=c.book*1.38;
+  c.prev={chats:Math.round(c.chats/c.pv.chats),rep:Math.round(c.rep*c.pv.reply),botPct:c.botPct-c.pv.bot,book:Math.round(c.book/c.pv.book)};
+  /* per Shark */
+  var T=[{n:'Kemi A.',s:.31,rf:.8,hp:96,bf:1.15},{n:'Seun O.',s:.27,rf:1.06,hp:93,bf:1},{n:'Ife A.',s:.23,rf:.96,hp:94,bf:1.05},{n:'Chinedu E.',s:.19,rf:1.24,hp:88,bf:.8}];
+  var wm=pfSum(T.map(function(t){return t.s*t.rf;})), bw=pfSum(T.map(function(t){return t.s*t.bf;})), shBook=c.book-Math.round(c.book*.22), left=c.shT, bl=shBook;
+  T.forEach(function(t,j){
+    t.ch=j<3?Math.round(c.shT*t.s):left; left-=t.ch;
+    t.rp=Math.round(c.rep*t.rf/wm);
+    t.bk=j<3?Math.round(shBook*t.s*t.bf/bw):bl; bl-=t.bk;
+  });
+  c.team=T; c.botBook=c.book-shBook;
+  return c;
+}
+function pfDelta(cur,prev,mode,pts,vs,words){
+  var diff=pts?(cur-prev)*100:(cur-prev)/prev*100, up=diff>=0, mag=Math.round(Math.abs(diff));
+  var good=mode==='neutral'?'':((mode==='high')===up?'good':'bad');
+  if(!mag) return '<span class="pf-d">No change from '+vs+'</span>';
+  return '<span class="pf-d '+good+'"><i>'+(up?'&#9650;':'&#9660;')+'</i> '+mag+(pts?' pts ':'% ')+(up?words[0]:words[1])+' than '+vs+'</span>';
+}
+function pfNow(){
+  if(!INB) INB=inbData();
+  var k=inbCounts();
+  return '<b>Right now</b><span><strong>'+k.open+'</strong> underway</span><span><strong>'+k.wait+'</strong> waiting</span><span>longest wait <strong>'+(k.longest?inbMs(k.longest):'&mdash;')+'</strong></span><button class="ib-link" data-go="inbox">Open the team inbox &rarr;</button>';
+}
+function pfOpenOf(n){
+  if(!INB) INB=inbData();
+  var k=INB.chats.filter(function(c){return c.who===n&&(c.st==='mine'||c.st==='other'||c.st==='cust');}).length;
+  return k?k+(k>1?' chats':' chat'):'<span class="pf-free">Free</span>';
+}
+function pfTiles(d){
+  var p=d.prev;
+  function t(l,v,sub,dl){return '<div class="pf-t"><small>'+l+'</small><b>'+v+'</b>'+dl+'<em>'+sub+'</em></div>';}
+  return '<div class="pf-tiles">'+
+   t('Chats',d.chats,d.shT+' needed a Shark',pfDelta(d.chats,p.chats,'neutral',false,d.vs,['more','fewer']))+
+   t('First reply by a Shark',pfTime(d.rep),'Typical (median) · target 5:00'+(d.rep>300?' · <span class="pf-over">over target</span>':''),pfDelta(d.rep,p.rep,'low',false,d.vs,['slower','faster']))+
+   t('Handled by the assistant alone',Math.round(d.botPct*100)+'%','No person needed',pfDelta(d.botPct,p.botPct,'high',true,d.vs,['higher','lower']))+
+   t('Bookings after a chat',d.book,pfMoney(d.val)+' booked',pfDelta(d.book,p.book,'high',false,d.vs,['more','fewer']))+'</div>';
+}
+function pfTeam(d){
+  var rows=d.team.map(function(t){
+    var over=t.rp>300;
+    return '<tr><th scope="row">'+inbAvS(t.n)+'<span>'+t.n+'</span></th><td>'+t.ch+'</td><td><span class="pf-rp'+(over?' over':'')+'">'+pfTime(t.rp)+'</span><span class="pf-mt" aria-hidden="true"><i class="'+(over?'over':'')+'" style="width:'+Math.min(100,t.rp/480*100).toFixed(1)+'%"></i><u style="left:'+(300/480*100).toFixed(1)+'%"></u></span>'+(over?'<span class="pf-ov">&#9650; Over target</span>':'')+'</td><td>'+t.hp+'%</td><td>'+t.bk+'</td><td>'+pfOpenOf(t.n)+'</td></tr>';
+  }).join('');
+  rows+='<tr class="pf-as"><th scope="row"><span class="ib-av pf-aa">AI</span><span>Assistant, on its own</span></th><td>'+d.botT+'</td><td><span class="pf-rp">Instant</span></td><td>90%</td><td>'+d.botBook+'</td><td><span class="pf-free">Always on</span></td></tr>';
+  return '<div class="pf-c full"><div class="pf-ch"><h3>The team</h3><small>Chats a Shark handled, and what followed</small></div><div class="pf-sc"><table class="pf-tb"><thead><tr><th scope="col">Shark</th><th scope="col">Chats</th><th scope="col">First reply</th><th scope="col">Happy customers</th><th scope="col">Bookings after</th><th scope="col">Right now</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>';
+}
+function inbAvS(n){var cols=['#01747F','#7A5BB0','#B25E00','#2F6DB5'];var k=n.charCodeAt(0)%cols.length;return '<span class="ib-av" style="background:'+cols[k]+';width:28px;height:28px;font-size:11px">'+n.charAt(0)+'</span>';}
+function pfTopics(d){
+  var N=['Payments and receipts','Refunds','Changes and cancellations','Visas and entry rules','Baggage and extras','Hotels and rooms','Everything else'], mx=Math.max.apply(null,d.topics);
+  return '<div class="pf-c"><div class="pf-ch"><h3>Why customers write</h3><small>Share of chats</small></div><div class="pf-tp">'+d.topics.map(function(v,i){
+    return '<span>'+N[i]+'</span><span class="pf-bw"><span class="pf-bar" style="width:'+(v/mx*100).toFixed(1)+'%"></span></span><b>'+v+'%</b>';}).join('')+'</div></div>';
+}
+function pfWatch(d){
+  return '<div class="pf-c"><div class="pf-ch"><h3>Worth a look</h3><small>Written from the numbers</small></div><ul class="pf-wl">'+d.watch.map(function(w){return '<li><span class="pf-tag">'+w[0]+'</span><span>'+w[1]+'</span></li>';}).join('')+'</ul></div>';
+}
+function pfCard(k,title,sub,legend,d){
+  var tb=PF.tbl[k];
+  return '<div class="pf-c"><div class="pf-ch"><h3>'+title+'</h3><button class="ib-link" data-pf="tbl" data-k="'+k+'">'+(tb?'Show chart':'Show table')+'</button></div><p class="pf-sub">'+sub+'</p>'+(legend&&!tb?legend:'')+
+   (tb?pfTable(k,d):'<div class="pf-chart" id="pf-'+k+'"></div>')+'</div>';
+}
+function pfTable(k,d){
+  var rows='';
+  d.labels.forEach(function(l,i){
+    rows+=k==='ch1'?'<tr><th scope="row">'+l+'</th><td>'+pfTime(d.reply[i])+'</td><td>'+(d.reply[i]>300?'Over target':'Within target')+'</td></tr>':'<tr><th scope="row">'+l+'</th><td>'+d.sh[i]+'</td><td>'+d.bot[i]+'</td><td>'+d.total[i]+'</td></tr>';
+  });
+  return '<div class="pf-sc pf-tw"><table class="pf-tb"><thead><tr><th scope="col">'+d.xt+'</th>'+(k==='ch1'?'<th scope="col">First reply</th><th scope="col">Against target</th>':'<th scope="col">Handed to a Shark</th><th scope="col">Assistant alone</th><th scope="col">Total</th>')+'</tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+function pfApp(){
+  var d=pfCalc(PF.per), per=[['today','Today'],['7d','Last 7 days'],['30d','Last 30 days']];
+  var lg='<div class="pf-lg"><span><i class="sw s1"></i>Handed to a Shark</span><span><i class="sw s2"></i>Assistant alone</span></div>';
+  return '<div class="pf-top"><div class="pf-seg" role="group" aria-label="Period">'+per.map(function(x){return '<button data-pf="per" data-v="'+x[0]+'" aria-pressed="'+(PF.per===x[0])+'">'+x[1]+'</button>';}).join('')+'</div><div class="pf-now" id="pf-now">'+pfNow()+'</div></div>'+
+   pfTiles(d)+
+   '<div class="pf-grid">'+pfCard('ch1','How fast the team replies','Median time to a Shark\'s first reply, against the 5-minute target.','',d)+pfCard('ch2','When customers write','Chats started, and who handled them.',lg,d)+
+   pfTeam(d)+pfTopics(d)+pfWatch(d)+'</div>';
+}
+function perfHTML(){
+  return '<div class="hero"><div class="kicker">For the owner</div><h1>How the team is doing</h1><p>Numbers and trends, not messages. Nothing a customer wrote appears on this page.</p></div>'+
+   '<div class="sec pf" style="margin-top:20px"><div id="pf-in">'+pfApp()+'</div></div>'+
+   '<div class="sec"><div class="notes"><div class="card"><h3>For design</h3><ul><li>Four numbers at the top, each with a comparison and a plain word for it (faster, slower, more), so colour is never the only signal.</li><li>Two charts and one table. Hover for the detail, or switch any chart to a table.</li><li>No customer messages. The owner reads this in half a minute.</li></ul></div>'+
+   '<div class="card"><h3>For the business</h3><ul><li>First reply: time from handover to a Shark\'s first message, median. Agree the 5-minute target.</li><li>Handled alone: chats that never needed a person. A rising share frees the Sharks for work that earns.</li><li>Bookings after a chat: a booking by the same customer within 7 days of the chat. The window is a choice to agree. [confirm]</li><li>Happy customers: a one-tap thumbs up or down after a chat ends. [confirm]</li></ul></div>'+
+   '<div class="card"><h3>For the build</h3><ul><li>All figures come from the inbox events: handover, assigned, first reply, resolved. Bookings join on the booking number.</li><li>Owner and team lead roles only. Per-person figures are for coaching, and staff should know they are measured. [confirm with HR and legal]</li><li>Peak-hour figures need shift data to turn into a staffing suggestion.</li></ul></div></div></div>';
+}
+/* charts: drawn at the real width so text stays readable on a phone */
+function pfNice(mx){var st=[5,10,20,25,50,100,200],i;for(i=0;i<st.length;i++){if(Math.ceil(mx/st[i])<=5) return [st[i],Math.ceil(mx/st[i])*st[i]];}return [250,Math.ceil(mx/250)*250];}
+function pfTopR(x,y,w,h,r){r=Math.min(r,h,w/2);return 'M'+x+' '+(y+h)+'V'+(y+r)+'Q'+x+' '+y+' '+(x+r)+' '+y+'H'+(x+w-r)+'Q'+(x+w)+' '+y+' '+(x+w)+' '+(y+r)+'V'+(y+h)+'Z';}
+function pfFrame(el,d,ymax,step,fmt){
+  var w=el.clientWidth||520,h=240,L=46,R=12,T=12,B=28,n=d.total.length,iw=w-L-R,ih=h-T-B,o={w:w,h:h,L:L,R:R,T:T,B:B,n:n,iw:iw,ih:ih};
+  o.X=function(i){return L+iw*(i+.5)/n;}; o.Y=function(v){return T+ih-ih*v/ymax;};
+  var s='<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="'+el.getAttribute('aria-label')+'"><rect class="pf-hl" x="0" y="'+T+'" width="0" height="'+ih+'" rx="4" style="display:none"/>';
+  for(var t=0;t<=ymax;t+=step){s+='<line class="g" x1="'+L+'" x2="'+(w-R)+'" y1="'+o.Y(t)+'" y2="'+o.Y(t)+'"/><text x="'+(L-8)+'" y="'+(o.Y(t)+4)+'" text-anchor="end">'+fmt(t)+'</text>';}
+  d.axis.forEach(function(a,i){if(a) s+='<text x="'+o.X(i)+'" y="'+(h-8)+'" text-anchor="'+(i===0&&n>8?'start':i===n-1&&n>8?'end':'middle')+'">'+a+'</text>';});
+  o.s=s; return o;
+}
+function pfLine(el,d){
+  el.setAttribute('aria-label','Line chart of the typical first reply time, against a 5 minute target');
+  var mx=Math.max(Math.max.apply(null,d.reply),300), ymax=Math.ceil(mx*1.1/120)*120, o=pfFrame(el,d,ymax,120,function(t){return t?t/60+' min':'0';}), s=o.s, i, pts=[];
+  s+='<line class="pf-cx" y1="'+o.T+'" y2="'+(o.T+o.ih)+'" style="display:none"/>';
+  s+='<line class="tg" x1="'+o.L+'" x2="'+(o.w-o.R)+'" y1="'+o.Y(300)+'" y2="'+o.Y(300)+'"/><text x="'+(o.w-o.R)+'" y="'+(o.Y(300)-6)+'" text-anchor="end">Target 5:00</text>';
+  for(i=0;i<o.n;i++) pts.push((i?'L':'M')+o.X(i).toFixed(1)+' '+o.Y(d.reply[i]).toFixed(1));
+  s+='<path class="ln" d="'+pts.join('')+'"/><circle class="mk" cx="'+o.X(o.n-1)+'" cy="'+o.Y(d.reply[o.n-1])+'" r="4.5"/><circle class="mk pf-mk" r="5" style="display:none"/></svg><div class="pf-tip" hidden></div>';
+  el.innerHTML=s;
+  PF_CH[el.id]={type:'line',xs:d.reply.map(function(v,j){return o.X(j);}),ys:d.reply.map(function(v){return o.Y(v);}),slot:o.iw/o.n,tip:function(j){return '<b>'+d.labels[j]+'</b><span>First reply <strong>'+pfTime(d.reply[j])+'</strong></span><span>'+(d.reply[j]>300?'&#9650; Over the 5:00 target':'&#10003; Within the 5:00 target')+'</span>';}};
+}
+function pfBars(el,d){
+  el.setAttribute('aria-label','Stacked column chart of chats started, split between those handed to a Shark and those the assistant handled alone');
+  var nn=pfNice(Math.max.apply(null,d.total)), ymax=nn[1], o=pfFrame(el,d,ymax,nn[0],function(t){return t;}), s=o.s, i, slot=o.iw/o.n, bw=Math.max(4,Math.min(30,slot*.66)), r=Math.min(3,bw/2);
+  for(i=0;i<o.n;i++){
+    var x=o.X(i)-bw/2, hs=o.ih*d.sh[i]/ymax, hb=o.ih*d.bot[i]/ymax, y0=o.T+o.ih;
+    if(hb<=0.5) s+='<path d="'+pfTopR(x,y0-hs,bw,hs,r)+'" fill="var(--c1)"/>';
+    else{ s+='<rect x="'+x+'" y="'+(y0-hs)+'" width="'+bw+'" height="'+hs+'" fill="var(--c1)"/>'; s+='<path d="'+pfTopR(x,y0-hs-hb,bw,Math.max(1,hb-2),r)+'" fill="var(--c2)"/>'; }
+  }
+  s+='</svg><div class="pf-tip" hidden></div>'; el.innerHTML=s;
+  PF_CH[el.id]={type:'bar',xs:d.total.map(function(v,j){return o.X(j);}),slot:slot,T:o.T,tip:function(j){return '<b>'+d.labels[j]+'</b><span><i class="sw s1"></i>Handed to a Shark <strong>'+d.sh[j]+'</strong></span><span><i class="sw s2"></i>Assistant alone <strong>'+d.bot[j]+'</strong></span><span>Total <strong>'+d.total[j]+'</strong></span>';}};
+}
+function pfDraw(){
+  var d=pfCalc(PF.per), a=document.getElementById('pf-ch1'), b=document.getElementById('pf-ch2'); PF_CH={};
+  if(a) pfLine(a,d); if(b) pfBars(b,d);
+}
+function pfRender(){var el=document.getElementById('pf-in'); if(!el) return; el.innerHTML=pfApp(); pfDraw();}
+function pfHover(e){
+  if(state.id!=='perf') return;
+  var el=e.target.closest&&e.target.closest('.pf-chart'), tips=document.querySelectorAll('.pf-tip');
+  if(!el||!PF_CH[el.id]){Array.prototype.forEach.call(document.querySelectorAll('.pf-chart'),pfClear);return;}
+  var ch=PF_CH[el.id], r=el.getBoundingClientRect(), mx=e.clientX-r.left, best=0, bd=1e9;
+  ch.xs.forEach(function(x,i){var dd=Math.abs(x-mx); if(dd<bd){bd=dd;best=i;}});
+  var tip=el.querySelector('.pf-tip'), x=ch.xs[best];
+  tip.innerHTML=ch.tip(best); tip.hidden=false;
+  var tw=tip.offsetWidth; tip.style.left=Math.max(4,(x+14+tw>el.clientWidth?x-tw-14:x+14))+'px';
+  var cx=el.querySelector('.pf-cx'), mk=el.querySelector('.pf-mk'), hl=el.querySelector('.pf-hl');
+  if(ch.type==='line'){cx.style.display='';cx.setAttribute('x1',x);cx.setAttribute('x2',x);mk.style.display='';mk.setAttribute('cx',x);mk.setAttribute('cy',ch.ys[best]);}
+  else{hl.style.display='';hl.setAttribute('x',x-ch.slot/2);hl.setAttribute('width',ch.slot);}
+}
+function pfClear(el){
+  var t=el.querySelector('.pf-tip'); if(t) t.hidden=true;
+  ['.pf-cx','.pf-mk','.pf-hl'].forEach(function(q){var n=el.querySelector(q); if(n) n.style.display='none';});
+}
+document.addEventListener('pointermove',pfHover);
+document.addEventListener('pointerdown',pfHover);
+document.addEventListener('click',function(e){
+  if(state.id!=='perf') return;
+  var t=e.target.closest('[data-pf]'); if(!t) return;
+  if(t.dataset.pf==='per') PF.per=t.dataset.v; else if(t.dataset.pf==='tbl') PF.tbl[t.dataset.k]=!PF.tbl[t.dataset.k];
+  pfRender();
+});
+window.addEventListener('resize',function(){if(state.id==='perf'){clearTimeout(PF.rt);PF.rt=setTimeout(pfDraw,120);}});
+
 function render(){
   var s=SCN.filter(function(x){return x.id===state.id;})[0];
   Array.prototype.forEach.call(tabs.children,function(b){b.setAttribute('aria-current',String(b.dataset.go===state.id));});
   if(state.id==='case'){ view.innerHTML=caseHTML(); caseInit(); return; }
   if(state.id==='inbox'){ view.innerHTML=inboxHTML(); return; }
+  if(state.id==='perf'){ view.innerHTML=perfHTML(); pfDraw(); return; }
   if(!s){ view.innerHTML=overview(); return; }
   view.innerHTML=scenarioHTML(s);
   document.getElementById('tg-tags').checked=state.tags; document.getElementById('tg-today').checked=state.today;
@@ -1978,7 +2247,7 @@ function go(id,step){
 }
 tabs.innerHTML='<button class="tab" data-go="overview">Overview</button>'+SCN.map(function(s){
   var short={'home':'Homepage','ideas':'Trip ideas','hotel':'Ask a Shark','track':'Track and share','opt-in':'Opt in','travellers':'Traveller details','hold':'Hold reminders','bank':'Bank transfer','confirm':'Tickets and a Shark','pretrip':'Pre-trip care','refund':'Cancel and refund'}[s.id];
-  return '<button class="tab" data-go="'+s.id+'"><b>'+s.n+'</b>'+short+'</button>';}).join('')+(SHOW_CASE?'<button class="tab" data-go="case"><b>&#8358;</b>Business case</button>':'')+'<button class="tab" data-go="inbox"><b>&#9742;</b>Team inbox</button>';
+  return '<button class="tab" data-go="'+s.id+'"><b>'+s.n+'</b>'+short+'</button>';}).join('')+(SHOW_CASE?'<button class="tab" data-go="case"><b>&#8358;</b>Business case</button>':'')+'<button class="tab" data-go="inbox"><b>&#9742;</b>Team inbox</button><button class="tab" data-go="perf"><b>&#9650;</b>Owner dashboard</button>';
 document.addEventListener('click',function(e){
   var g=e.target.closest('[data-go]'); if(g){go(g.dataset.go);return;}
   var pb=e.target.closest('[data-path]'); if(pb){state.path=pb.dataset.path;state.step=0;render();return;}
@@ -2000,7 +2269,7 @@ window.addEventListener('resize',fit);
 if(window.ResizeObserver){ new ResizeObserver(fit).observe(document.body); }
 if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);}
 var h=(location.hash||'').replace('#','');
-if(h&&(h==='overview'||h==='case'||h==='inbox'||SCN.some(function(x){return x.id===h;}))) state.id=h;
+if(h&&(h==='overview'||h==='case'||h==='inbox'||h==='perf'||SCN.some(function(x){return x.id===h;}))) state.id=h;
 if(SOLO){ document.body.classList.add('solo'); state.id='ideas'; state.path='talk'; }
 render();
 })();

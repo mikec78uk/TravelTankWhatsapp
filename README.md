@@ -30,7 +30,9 @@ then visit `http://localhost:8000/TravelTank-WhatsApp-Prototype.html`.
 
 ## Team inbox
 
-The **Team inbox** tab mocks the admin screen TravelTank's Travel Sharks would use to manage chats: waiting time, chats underway, an assistant-written summary of each chat, and assigning a chat to yourself or a colleague. It runs on example chats.
+The **Team inbox** tab mocks the admin screen TravelTank's Travel Sharks would use to manage chats: waiting time, chats underway, an assistant-written summary of each chat, and assigning a chat to yourself or a colleague. It runs on example chats. Each booking or refund number links out to the TravelTank booking system (example addresses).
+
+The **Owner dashboard** tab is a view for the owner: first reply time against the 5-minute target, chats handled by the assistant alone, bookings after a chat, busy hours, why customers write, and how each Shark is doing. It shows numbers only, never message text, and runs on example figures for today, the last 7 days and the last 30 days.
 
 ## Developer specs
 
