@@ -2241,7 +2241,7 @@ function render(){
   draw();
 }
 function go(id,step){
-  state.id=id; state.step=step||0; state.path='tap';
+  state.id=id; state.step=step||0; state.path=id==='ideas'?'talk':'tap'; /* Trip ideas opens on the typed conversation, as in the stand-alone page */
   try{ history.replaceState(null,'','#'+id); }catch(e){ try{location.hash=id;}catch(_){} }
   render(); window.scrollTo(0,0);
 }
@@ -2270,6 +2270,7 @@ if(window.ResizeObserver){ new ResizeObserver(fit).observe(document.body); }
 if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);}
 var h=(location.hash||'').replace('#','');
 if(h&&(h==='overview'||h==='case'||h==='inbox'||h==='perf'||SCN.some(function(x){return x.id===h;}))) state.id=h;
+if(state.id==='ideas') state.path='talk';
 if(SOLO){ document.body.classList.add('solo'); state.id='ideas'; state.path='talk'; }
 render();
 })();
