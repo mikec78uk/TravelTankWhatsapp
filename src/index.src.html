@@ -645,6 +645,21 @@ body.ex .scr{height:auto;overflow:visible}
 body.ex .wbody,body.ex .wpage{flex:none;overflow:visible}
 body.ex .ex-fix .scr{height:700px;overflow:hidden}
 body.ex .ex-fix .wbody{flex:1;overflow:hidden}
+
+/* whole-prototype export */
+.ex-b.wide{width:1900px}
+body.ex .ex-b.wide .ex-row{max-width:none;width:100%;margin:0}
+.ex-l{font:800 22px var(--display);margin:36px 0 16px;color:var(--ink)}
+.ex-row.wrap{flex-wrap:wrap;gap:40px 40px}
+.ex-s{margin:0;width:900px;flex:0 0 auto}
+.ex-s figcaption{margin-bottom:12px;font:700 16px var(--display);color:var(--ink)}
+body.ex .ex-br .viewport{position:static;height:auto;overflow:visible}
+body.ex .ex-br .tt{position:static;transform:none}
+.ex-i{margin:0 0 56px;width:1180px}
+.ex-i figcaption{margin-bottom:12px;font:700 16px var(--display);color:var(--ink)}
+body.ex .ex-i .ib-app{height:auto}
+body.ex .ex-i .ib-body,body.ex .ex-i .ib-list{overflow:visible}
+body.ex .ex-i.pf{padding:0}
 </style>
 
 <div class="wrap">
@@ -670,6 +685,7 @@ var TICK='<svg viewBox="0 0 24 24"><path fill="#fff" d="M12 1l2.4 1.7 2.9-.2 1.2
 
 var NAIRA="₦";
 var SOLO=false; /* build.py sets this true for the stand-alone typed-conversation page */
+var EXPORT_ALL=false; /* build.py sets this true, with EXPORT, for the page that lays out every touchpoint, the team inbox and the owner dashboard */
 var EXPORT=false; /* build.py sets this true for the Figma export page: each typed path as one long conversation with its flyouts */
 var SHOW_CASE=false; /* set true to show the Business case tab and its overview button */
 var LOGO_W="__LOGO_WHITE__", HOTEL="__HOTEL__", HOTELT="__HOTELT__";
@@ -2257,7 +2273,88 @@ function exBoard(s,path,kicker,title,intro,flys){
   flys.forEach(function(f){var i=exStep(C,f.t); if(i>=0) row+=exFig(f.label,f.note,phoneHTML(s,i),!!f.fixed);});
   return '<section class="ex-b"><div class="ex-h"><div class="k">'+kicker+'</div><h1>'+title+'</h1><p>'+intro+'</p></div><div class="ex-row">'+row+'</div></section>';
 }
+
+/* ---------- Figma export of the whole prototype: every touchpoint, the team inbox and the owner dashboard ---------- */
+function exSiteFig(s,C,i){
+  var st=C.steps[i];
+  return '<figure class="ex-s"><figcaption><b>'+st.cap+'</b></figcaption><div class="browser ex-br"><div class="b-bar"><i></i><i></i><i></i><div class="url">'+((i>0&&st.url)||s.url)+'</div></div><div class="viewport"><div class="tt">'+scrFor(s,i)+'</div></div></div></figure>';
+}
+function exSiteRow(s,C){
+  var seen={}, out='';
+  C.steps.forEach(function(st,i){
+    var fn=st.scr||s.screen; if(!fn) return;
+    var k=JSON.stringify([st.site||{},st.scr||'']); if(seen[k]) return; seen[k]=1;
+    out+=exSiteFig(s,C,i);
+  });
+  return out;
+}
+function exPhoneRow(s,C){
+  var last={}, fly=[], seen={}, out='', FL={flow:'Traveller details form',callback:'Call-back form',list:'Flights list',picker:'Share sheet',channel:'Channel: weekly fares',web:'Web page'};
+  C.steps.forEach(function(st,i){
+    var v=st.ph.view, sc=st.ph.scene||'';
+    if(v==='chat'||v==='flow'||v==='callback'||v==='list'||v==='picker'){
+      if(v==='chat'||!last[sc]||last[sc].v!=='chat') last[sc]={i:i,v:v,sc:sc};
+    }
+    if(FL[v]){var k=v+(st.ph.page||'')+(sc||''); if(!seen[k]){seen[k]=1; fly.push({i:i,v:v,pg:st.ph.page,cap:st.cap});}}
+  });
+  Object.keys(last).forEach(function(sc){
+    var c=(sc&&s.chats&&s.chats[sc])||s.chat;
+    out+=exFig('Conversation'+(c&&c.name&&sc?' · '+c.name:''),'The whole chat, start to finish',phoneHTML(s,last[sc].i),false);
+  });
+  fly.forEach(function(f){
+    var name=f.v==='web'?(f.pg==='dest'?'Destination details':f.pg==='room'?'Room details':'Hotel details'):FL[f.v];
+    out+=exFig(name,f.cap,phoneHTML(s,f.i),f.v!=='web');
+  });
+  return out;
+}
+function exTouch(s,path){
+  state.path=path; state.today=false;
+  var C=cur(s), id='x-'+s.id+(s.id==='ideas'?'-'+path:''), title=s.id==='ideas'?'Trip ideas, by tapping the questions':s.title;
+  var sites=exSiteRow(s,C);
+  return '<section class="ex-b wide" id="'+id+'"><div class="ex-h"><div class="k">Touchpoint '+s.n+' of '+SCN.length+' · '+s.kicker+'</div><h1>'+title+'</h1><p>'+s.lede+'</p></div>'+
+   (sites?'<h2 class="ex-l">On the TravelTank site</h2><div class="ex-row wrap">'+sites+'</div>':'')+
+   '<h2 class="ex-l">On WhatsApp</h2><div class="ex-row">'+exPhoneRow(s,C)+'</div></section>';
+}
+function exInboxBoard(){
+  INB=inbData(); INB.full=true; var out='';
+  [['c1','A chat waiting for a person: read the summary, then assign it'],['c4','A chat the Shark has taken: the reply box is open']].forEach(function(x){
+    INB.sel=x[0]; out+='<figure class="ex-i"><figcaption><b>'+x[1]+'</b></figcaption><div class="ib"><div>'+inbApp()+'</div></div></figure>';
+  });
+  return '<section class="ex-b" id="x-inbox"><div class="ex-h"><div class="k">For the TravelTank team</div><h1>The team inbox</h1><p>What a Travel Shark sees when the assistant hands a chat over. It shows time waiting, chats underway, an assistant-written summary of each chat, and lets a Shark take a chat or assign it to a colleague. It runs on example chats.</p></div>'+out+'</section>';
+}
+function exOwnerBoard(){
+  var host=document.createElement('section'); host.className='ex-b'; host.id='x-owner';
+  host.innerHTML='<div class="ex-h"><div class="k">For the owner</div><h1>How the team is doing</h1><p>Numbers and trends, not messages. Nothing a customer wrote appears here. Shown for today, the last 7 days and the last 30 days, on example figures.</p></div>';
+  view.appendChild(host);
+  [['today','Today'],['7d','Last 7 days'],['30d','Last 30 days']].forEach(function(p,n){
+    PF.per=p[0]; PF.tbl={};
+    var f=document.createElement('figure'); f.className='ex-i pf'; f.innerHTML='<figcaption><b>'+p[1]+'</b></figcaption><div id="pf-in">'+pfApp()+'</div>';
+    host.appendChild(f); pfDraw();
+    ['pf-in','pf-ch1','pf-ch2','pf-now'].forEach(function(id){var e=f.querySelector('#'+id); if(e) e.id=id+'-'+n;});
+  });
+}
+function exportAll(){
+  document.body.classList.add('ex'); view.innerHTML='';
+  var html='';
+  SCN.forEach(function(s){ html+=exTouch(s,'tap'); });
+  view.innerHTML=html+exInboxBoard();
+  exOwnerBoard();
+  Array.prototype.forEach.call(document.querySelectorAll('.ex-fix .wbody'),function(b){b.scrollTop=b.scrollHeight;});
+  Array.prototype.forEach.call(document.querySelectorAll('.ib-all'),function(d){d.open=true;});
+  exFinish();
+}
+
+function exFinish(){
+  /* Figma does not take SVG pictures or the phone glyph as they are, so turn the pictures into PNGs and draw the phone icon */
+  var ph='<svg viewBox="0 0 24 24" width="17" height="17" fill="#fff" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.6a1 1 0 01-.25 1z"/></svg>';
+  Array.prototype.forEach.call(document.querySelectorAll('.wh .ic span:first-child'),function(e){e.innerHTML=ph;});
+  var imgs=Array.prototype.slice.call(document.querySelectorAll('img[src^="data:image/svg"]')), left=imgs.length;
+  function done(){ if(--left<=0) document.body.setAttribute('data-ready','1'); }
+  if(!left) document.body.setAttribute('data-ready','1');
+  imgs.forEach(function(im){var i=new Image(); i.onload=function(){var c=document.createElement('canvas'),k=2; c.width=(i.naturalWidth||300)*k; c.height=(i.naturalHeight||172)*k; c.getContext('2d').drawImage(i,0,0,c.width,c.height); im.src=c.toDataURL('image/png'); done();}; i.onerror=done; i.src=im.src;});
+}
 function exportPage(){
+  if(EXPORT_ALL){ exportAll(); return; }
   var s=SCN.filter(function(x){return x.id==='ideas';})[0];
   document.body.classList.add('ex');
   view.innerHTML=
@@ -2269,13 +2366,7 @@ function exportPage(){
    exBoard(s,'help','Concept for review · WhatsApp trip ideas','When the assistant is not sure','The assistant does not guess. If it cannot read a message it says so and asks once. If it is still unsure it brings in a Travel Shark, by chat or by a call back, and the Shark sees the whole conversation so the customer does not repeat anything.',[
     {label:'Call-back form',note:'Opens from Call me back',t:function(p){return p.view==='callback';},fixed:true}]);
   Array.prototype.forEach.call(document.querySelectorAll('.ex-fix .wbody'),function(b){b.scrollTop=b.scrollHeight;});
-  /* Figma does not take SVG pictures or the phone glyph as they are, so turn the pictures into PNGs and draw the phone icon */
-  var ph='<svg viewBox="0 0 24 24" width="17" height="17" fill="#fff" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.6a1 1 0 01-.25 1z"/></svg>';
-  Array.prototype.forEach.call(document.querySelectorAll('.wh .ic span:first-child'),function(e){e.innerHTML=ph;});
-  var imgs=Array.prototype.slice.call(document.querySelectorAll('img[src^="data:image/svg"]')), left=imgs.length;
-  function done(){ if(--left<=0) document.body.setAttribute('data-ready','1'); }
-  if(!left) document.body.setAttribute('data-ready','1');
-  imgs.forEach(function(im){var i=new Image(); i.onload=function(){var c=document.createElement('canvas'),k=2; c.width=(i.naturalWidth||300)*k; c.height=(i.naturalHeight||172)*k; c.getContext('2d').drawImage(i,0,0,c.width,c.height); im.src=c.toDataURL('image/png'); done();}; i.onerror=done; i.src=im.src;});
+  exFinish();
 }
 
 function render(){

@@ -34,3 +34,10 @@ ex = ex.replace("<title>TravelTank on WhatsApp</title>", "<title>TravelTank What
 out3 = root / "TravelTank-WhatsApp-Figma-Export.html"
 out3.write_text('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' + ex, encoding="utf-8")
 print(out3, round(out3.stat().st_size / 1024), "kB")
+
+# Figma export of the whole prototype: every touchpoint, the team inbox and the owner dashboard.
+ex2 = ex.replace("var EXPORT_ALL=false;", "var EXPORT_ALL=true;", 1)
+ex2 = ex2.replace("<title>TravelTank WhatsApp - Figma export</title>", "<title>TravelTank WhatsApp - Figma export, all screens</title>", 1)
+out4 = root / "TravelTank-WhatsApp-Figma-Export-All.html"
+out4.write_text('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' + ex2, encoding="utf-8")
+print(out4, round(out4.stat().st_size / 1024), "kB")

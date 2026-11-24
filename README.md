@@ -38,6 +38,8 @@ The **Owner dashboard** tab is a view for the owner: first reply time against th
 
 `TravelTank-WhatsApp-Figma-Export.html` lays out each typed conversation as one long chat, with its flyouts beside it (destination, flights list, hotel and room pages, and the call-back form). It is built by `src/build.py` and was captured into the TravelTank Figma file, on the WhatsApp page.
 
+`TravelTank-WhatsApp-Figma-Export-All.html` does the same for every touchpoint (the TravelTank site screens beside the full conversation and its flyouts), the team inbox and the owner dashboard.
+
 ## Developer specs
 
 The `docs/` folder holds draft interaction specs for developers, starting with one fully written flow (hold reminders), a template catalogue, an event map and example payloads. Start at [docs/README.md](docs/README.md).
