@@ -628,6 +628,23 @@ body.solo .cap{order:-1}
 .ib{position:relative}
 .ib-bk{color:var(--accent);font-weight:600;text-decoration:none;white-space:nowrap}.ib-bk:hover{text-decoration:underline}
 .ib-toast{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:5;max-width:min(520px,90%);background:var(--ink);color:var(--bg);border-radius:10px;padding:10px 14px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+/* ===== Figma export page ===== */
+body.ex{background:#F2F6F6}
+body.ex .top,body.ex .tabs{display:none}
+body.ex main{max-width:none;margin:0;padding:56px}
+.ex-b{margin:0 0 120px}
+.ex-h{max-width:780px;margin-bottom:36px}
+.ex-h .k{font:700 12px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.ex-h h1{font:800 40px/1.1 var(--display);margin:8px 0 14px}
+.ex-h p{font-size:17px;line-height:1.5;color:var(--muted);margin:0}
+.ex-row{display:flex;gap:56px;align-items:flex-start}
+.ex-f{margin:0;width:340px;flex:0 0 auto}
+.ex-f figcaption{display:flex;flex-direction:column;gap:2px;margin-bottom:14px;font-size:13px;color:var(--muted)}
+.ex-f figcaption b{font:700 16px var(--display);color:var(--ink)}
+body.ex .scr{height:auto;overflow:visible}
+body.ex .wbody,body.ex .wpage{flex:none;overflow:visible}
+body.ex .ex-fix .scr{height:700px;overflow:hidden}
+body.ex .ex-fix .wbody{flex:1;overflow:hidden}
 </style>
 
 <div class="wrap">
@@ -653,6 +670,7 @@ var TICK='<svg viewBox="0 0 24 24"><path fill="#fff" d="M12 1l2.4 1.7 2.9-.2 1.2
 
 var NAIRA="₦";
 var SOLO=false; /* build.py sets this true for the stand-alone typed-conversation page */
+var EXPORT=false; /* build.py sets this true for the Figma export page: each typed path as one long conversation with its flyouts */
 var SHOW_CASE=false; /* set true to show the Business case tab and its overview button */
 var LOGO_W="__LOGO_WHITE__", HOTEL="__HOTEL__", HOTELT="__HOTELT__";
 
@@ -963,12 +981,12 @@ function destPage(){
 }
 function hotelPage(){
   return '<div class="w-hero"><img src="'+scene('hotel')+'" alt=""><div class="w-ov"><h1>Galata Courtyard</h1><p>4&#9733; &middot; Karaköy and Galata, Istanbul</p></div></div>'+
-   '<div class="w-b"><div class="w-price"><div><small>Your package for 2, from</small><b>'+NAIRA+'3,514,300</b></div><span>Flights and 9 nights<br>21 to 31 Aug</span></div>'+
+   '<div class="w-b"><div class="w-price"><div><small>Your package for 2, from</small><b>'+NAIRA+'3,244,300</b></div><span>Flights and 9 nights<br>21 to 31 Aug</span></div>'+
    '<div class="w-strip"><img src="'+scene('room')+'" alt=""><img src="'+scene('terrace')+'" alt=""><img src="'+scene('food')+'" alt=""></div>'+
    '<h3>About</h3><p>A quiet courtyard hotel a short walk from the Karaköy food streets. Breakfast is served on the terrace.</p>'+
    '<div class="w-chips"><span>Breakfast available</span><span>Wi-Fi</span><span>Air conditioning</span><span>4 min walk to Karaköy</span></div>'+
    '<h3>Location</h3><img class="w-map" src="'+scene('map')+'" alt=""><p style="margin-top:6px">About 50 minutes by taxi from Istanbul Airport.</p>'+
-   '<h3>Cancellation</h3><div class="w-note">Each room shows its own terms. Most rooms are free to cancel until 14 Aug; the saver room is non-refundable. Flights are non-refundable once booked. You can hold the trip for 72 hours without paying.</div>'+
+   '<h3>Cancellation</h3><div class="w-note">Each room shows its own terms. Two of the three rooms are free to cancel until 14 Aug. The saver room is non-refundable. Flights are non-refundable once booked. You can hold the trip for 72 hours without paying.</div>'+
    '<h3>In your package</h3><p>Return flights, Turkish Airlines, direct, and 9 nights for 2 adults. You choose the room and the board next, in the chat.</p></div>';
 }
 function roomPage(){
@@ -1331,8 +1349,8 @@ var SCN=[
    {cap:'Plan this trip returns him to the chat.',site:{},ph:{view:'chat'}}
   ];
   var DET_MSGS=[
-   B(5,'text',{from:'me',text:'Plan this trip · Istanbul',time:'14:02',tag:'Sent by the page button · a wa.me link with prefilled text and the trip token · returns the customer to this chat'}),
-   B(5,'text',{text:T('Istanbul it is. 🙂 Anything you would like to change before I look for flights and hotels? The dates, how long, or the kind of hotel.'),time:'14:02',tag:'Session message · free text invited'})
+   B(5,'text',{from:'me',text:'Plan this trip · Istanbul',time:'14:01',tag:'Sent by the page button · a wa.me link with prefilled text and the trip token · returns the customer to this chat'}),
+   B(5,'text',{text:T('Istanbul it is. 🙂 Anything you would like to change before I look for flights and hotels? The dates, how long, or the kind of hotel.'),time:'14:01',tag:'Session message · free text invited'})
   ];
   var FLIGHT_STEPS=[
    {cap:'Several flights fit the date. The assistant compares them.',site:{},ph:{view:'chat'}},
@@ -1382,14 +1400,14 @@ var SCN=[
     {cap:'Extras: lounge access is already selected.',site:{holiday:true,fare:true,lounge:true},scr:'extras',showSite:true,url:'traveltank.com/booking/extras',ph:{view:'chat'}}
    ]),
    msgs:H.msgs.filter(function(m){return m.at<=2;}).concat([
-    B(3,'text',{from:'me',text:'Istanbul looks great! A month is too long though. Can we do 10 days, and a hotel near the food streets with breakfast?',time:'14:01',tag:'Free text · picks a place and changes two details'}),
-    B(3,'text',{text:T('Istanbul it is. Let me look for:\n\n• *Istanbul*, 2 adults\n• *21 to 31 Aug* (10 days)\n• A hotel near the *Karaköy and Galata* food streets, with *breakfast*\n\nFlights first, then hotels. Searching…'),time:'14:01',tag:'Changes read from free text and said back · the search starts at once, because nothing is held or paid yet'}),
+    B(3,'text',{from:'me',text:'Istanbul looks great! A month is too long though. Can we do 10 days, and a hotel near the food streets with breakfast?',time:'14:02',tag:'Free text · picks a place and changes two details'}),
+    B(3,'text',{text:T('Got it. Let me look for:\n\n• *Istanbul*, 2 adults\n• *21 to 31 Aug* (10 days)\n• A hotel near the *Karaköy and Galata* food streets, with *breakfast*\n\nFlights first, then hotels. Searching…'),time:'14:02',tag:'Changes read from free text and said back · the search starts at once, because nothing is held or paid yet'}),
     B(4,'text',{text:T('Two hotels for *two people*, 21 to 31 Aug, with that flight and 9 nights. Prices are the lowest total for both of you on the Light fare, and both fit your budget. You choose the room next. ✈️'),time:'14:04',tag:'Session message · flights and hotel priced together from one live search'}),
     B(4,'carousel',{cards:[
-     {img:scene('hotel'),title:'Galata Courtyard · 4★',desc:'Flights and 9 nights. Breakfast on the terrace.',price:'From '+NAIRA+'3,514,300 total',btns:['↗ See hotel','Choose this one']},
-     {img:scene('room'),title:'Karaköy Loft · 3★',desc:'Flights and 9 nights. Room only.',price:'From '+NAIRA+'3,210,000 total',btns:['↗ See hotel','Choose this one']}
+     {img:scene('hotel'),title:'Galata Courtyard · 4★',desc:'Flights and 9 nights. Breakfast available.',price:'From '+NAIRA+'3,244,300 total',btns:['↗ See hotel','Choose this hotel']},
+     {img:scene('room'),title:'Karaköy Loft · 3★',desc:'Flights and 9 nights. Room only.',price:'From '+NAIRA+'3,210,000 total',btns:['↗ See hotel','Choose this hotel']}
     ],tag:'Image cards · fares not guaranteed until booked'}),
-    B(6,'text',{from:'me',text:'Choose this one · Galata Courtyard',time:'14:05',tag:'Sent by the hotel page button · a wa.me link with prefilled text and the trip token'}),
+    B(6,'text',{from:'me',text:'Choose this hotel · Galata Courtyard',time:'14:05',tag:'Sent by the hotel page button · a wa.me link with prefilled text and the trip token'}),
     B(7,'text',{from:'me',text:'Does that include checked bags?',time:'14:08',tag:'Free text question · answered from the fare data'}),
     B(7,'text',{text:T('On the *Light* fare each of you has *1 x 7kg hand bag*. A *23kg checked bag* added later is about *'+NAIRA+'150,000* per person, return: '+NAIRA+'300,000 for two.\n\n*Standard* is '+NAIRA+'240,000 more for two and already includes that bag, plus seat choice. So it costs less than adding bags to Light.\n\nWould you like to switch to Standard?'),btns:['↩ Switch to Standard','↩ Keep Light','↩ Talk to a Shark'],time:'14:08',tag:'Prices from the airline fare data · the saving is worked out, not claimed'}),
     B(8,'text',{from:'me',text:'Switch to Standard',time:'14:08',tag:'Button reply · the fare is saved against the basket'}),
@@ -1623,7 +1641,7 @@ function scrFor(s,i){
 
 function msgHTML(m,fresh,chat){
   if(m.kind==='chip') return '<div class="chip'+(fresh?' fresh':'')+'">'+m.text+'</div>';
-  if(m.kind==='carousel') return '<div class="mg in'+(fresh?' fresh':'')+'" style="max-width:100%;width:100%"><div class="car">'+m.cards.map(function(c){return '<div class="cc"><img src="'+c.img+'" alt=""><div class="ct"><b>'+c.title+'</b><span>'+c.desc+'</span>'+(c.ref?'<i class="rf'+(c.refNo?' no':'')+'">'+c.ref+'</i>':'')+'<em>'+c.price+'</em></div>'+(c.btns||[c.btn]).map(function(b){return '<div class="cb">'+b+'</div>';}).join('')+'</div>';}).join('')+'</div>'+(m.tag?'<div class="tag">'+m.tag+'</div>':'')+'</div>';
+  if(m.kind==='carousel') return '<div class="mg in'+(fresh?' fresh':'')+'" style="max-width:100%;width:100%"><div class="car">'+m.cards.map(function(c){return '<div class="cc"><img src="'+c.img+'" alt=""><div class="ct"><b>'+c.title+'</b><span>'+c.desc+'</span>'+(c.ref?'<i class="rf'+(c.refNo?' no':'')+'">'+c.ref+'</i>':'')+'<em>'+c.price+'</em></div>'+(c.btns||[c.btn]).map(function(b){return '<div class="cb">'+(/^[\u2197\u21A9\u2630]/.test(b)?b:'\u21A9 '+b)+'</div>';}).join('')+'</div>';}).join('')+'</div>'+(m.tag?'<div class="tag">'+m.tag+'</div>':'')+'</div>';
   if(m.kind==='sys') return '<div class="sysmsg'+(fresh?' fresh':'')+'">'+m.text+'</div>';
   var out=m.from==='me', inner='';
   if(m.sender) inner+='<div class="snd" style="color:'+m.color+'">'+m.sender+'</div>';
@@ -2229,6 +2247,37 @@ document.addEventListener('click',function(e){
 });
 window.addEventListener('resize',function(){if(state.id==='perf'){clearTimeout(PF.rt);PF.rt=setTimeout(pfDraw,120);}});
 
+
+/* ---------- Figma export: each typed path as one long conversation, with its flyouts beside it ---------- */
+function exFig(label,note,html,fixed){return '<figure class="ex-f'+(fixed?' ex-fix':'')+'"><figcaption><b>'+label+'</b><span>'+note+'</span></figcaption>'+html+'</figure>';}
+function exStep(C,test){for(var i=0;i<C.steps.length;i++){if(test(C.steps[i].ph)) return i;}return -1;}
+function exBoard(s,path,kicker,title,intro,flys){
+  state.path=path; var C=cur(s), last=C.steps.length-1;
+  var row=exFig('Conversation','The whole chat, start to finish',phoneHTML(s,last),false);
+  flys.forEach(function(f){var i=exStep(C,f.t); if(i>=0) row+=exFig(f.label,f.note,phoneHTML(s,i),!!f.fixed);});
+  return '<section class="ex-b"><div class="ex-h"><div class="k">'+kicker+'</div><h1>'+title+'</h1><p>'+intro+'</p></div><div class="ex-row">'+row+'</div></section>';
+}
+function exportPage(){
+  var s=SCN.filter(function(x){return x.id==='ideas';})[0];
+  document.body.classList.add('ex');
+  view.innerHTML=
+   exBoard(s,'talk','Concept for review · WhatsApp trip ideas','Plan a holiday on WhatsApp, in your own words','The customer types what they have in mind. The assistant says it back, then helps agree a flight, fare, hotel, room and board, with what can be cancelled stated at every step. One link then opens traveller details with the trip already in. Names, prices and times are examples, and prices are not guaranteed until booked.',[
+    {label:'Destination details',note:'Opens from See details on an idea card',t:function(p){return p.view==='web'&&p.page==='dest';}},
+    {label:'Flights list',note:'Opens from See all 4 flights',t:function(p){return p.view==='list';},fixed:true},
+    {label:'Hotel details',note:'Opens from See hotel on a hotel card',t:function(p){return p.view==='web'&&p.page==='hotel';}},
+    {label:'Room details',note:'Opens from See room on a room card',t:function(p){return p.view==='web'&&p.page==='room';}}])+
+   exBoard(s,'help','Concept for review · WhatsApp trip ideas','When the assistant is not sure','The assistant does not guess. If it cannot read a message it says so and asks once. If it is still unsure it brings in a Travel Shark, by chat or by a call back, and the Shark sees the whole conversation so the customer does not repeat anything.',[
+    {label:'Call-back form',note:'Opens from Call me back',t:function(p){return p.view==='callback';},fixed:true}]);
+  Array.prototype.forEach.call(document.querySelectorAll('.ex-fix .wbody'),function(b){b.scrollTop=b.scrollHeight;});
+  /* Figma does not take SVG pictures or the phone glyph as they are, so turn the pictures into PNGs and draw the phone icon */
+  var ph='<svg viewBox="0 0 24 24" width="17" height="17" fill="#fff" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.6a1 1 0 01-.25 1z"/></svg>';
+  Array.prototype.forEach.call(document.querySelectorAll('.wh .ic span:first-child'),function(e){e.innerHTML=ph;});
+  var imgs=Array.prototype.slice.call(document.querySelectorAll('img[src^="data:image/svg"]')), left=imgs.length;
+  function done(){ if(--left<=0) document.body.setAttribute('data-ready','1'); }
+  if(!left) document.body.setAttribute('data-ready','1');
+  imgs.forEach(function(im){var i=new Image(); i.onload=function(){var c=document.createElement('canvas'),k=2; c.width=(i.naturalWidth||300)*k; c.height=(i.naturalHeight||172)*k; c.getContext('2d').drawImage(i,0,0,c.width,c.height); im.src=c.toDataURL('image/png'); done();}; i.onerror=done; i.src=im.src;});
+}
+
 function render(){
   var s=SCN.filter(function(x){return x.id===state.id;})[0];
   Array.prototype.forEach.call(tabs.children,function(b){b.setAttribute('aria-current',String(b.dataset.go===state.id));});
@@ -2272,6 +2321,6 @@ var h=(location.hash||'').replace('#','');
 if(h&&(h==='overview'||h==='case'||h==='inbox'||h==='perf'||SCN.some(function(x){return x.id===h;}))) state.id=h;
 if(state.id==='ideas') state.path='talk';
 if(SOLO){ document.body.classList.add('solo'); state.id='ideas'; state.path='talk'; }
-render();
+if(EXPORT){ exportPage(); } else { render(); }
 })();
 </script>

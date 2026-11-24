@@ -27,3 +27,10 @@ solo = solo.replace("<title>TravelTank on WhatsApp</title>", "<title>WhatsApp Tr
 out2 = root / "TravelTank-WhatsApp-Typed-Conversation.html"
 out2.write_text(solo, encoding="utf-8")
 print(out2, round(out2.stat().st_size / 1024), "kB")
+
+# Figma export page: each typed path as one long conversation with its flyouts, for capture into Figma.
+ex = src.replace("var EXPORT=false;", "var EXPORT=true;", 1)
+ex = ex.replace("<title>TravelTank on WhatsApp</title>", "<title>TravelTank WhatsApp - Figma export</title>", 1)
+out3 = root / "TravelTank-WhatsApp-Figma-Export.html"
+out3.write_text('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' + ex, encoding="utf-8")
+print(out3, round(out3.stat().st_size / 1024), "kB")

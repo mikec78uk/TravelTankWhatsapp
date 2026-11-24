@@ -34,6 +34,10 @@ The **Team inbox** tab mocks the admin screen TravelTank's Travel Sharks would u
 
 The **Owner dashboard** tab is a view for the owner: first reply time against the 5-minute target, chats handled by the assistant alone, bookings after a chat, busy hours, why customers write, and how each Shark is doing. It shows numbers only, never message text, and runs on example figures for today, the last 7 days and the last 30 days.
 
+## Figma export
+
+`TravelTank-WhatsApp-Figma-Export.html` lays out each typed conversation as one long chat, with its flyouts beside it (destination, flights list, hotel and room pages, and the call-back form). It is built by `src/build.py` and was captured into the TravelTank Figma file, on the WhatsApp page.
+
 ## Developer specs
 
 The `docs/` folder holds draft interaction specs for developers, starting with one fully written flow (hold reminders), a template catalogue, an event map and example payloads. Start at [docs/README.md](docs/README.md).
